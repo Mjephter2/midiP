@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Implemented ChordWindow Selection panel UI&#10;ChordWindow home button armed set to return to welcome page" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="added patch file">
+      <change afterPath="$PROJECT_DIR$/src/sample/keyboardReferences.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ChordWindow$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ChordWindow.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoDisplay/sample/Main$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/ChordWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/ScaleWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -89,10 +97,12 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="OverrideImplement.combined" value="false" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
@@ -123,27 +133,13 @@
       <Host>localhost</Host>
       <Port>5050</Port>
     </configuration>
-    <configuration name="ChordWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="sample.ChordWindow" />
-      <module name="PianoDisplay" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="sample.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="sample.Main" />
       <module name="PianoDisplay" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="sample.*" />
+          <option name="PATTERN" value="sample.ScaleWindow" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -174,6 +170,21 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="sample.DataClasses.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ScaleWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="Amazon-corretto-11" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="sample.ScaleWindow" />
+      <module name="PianoDisplay" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="sample.ScaleWindow" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -222,15 +233,27 @@
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.MajorScale" />
       <item itemvalue="Application.MinorScale" />
-      <item itemvalue="Application.ChordWindow" />
+      <item itemvalue="Application.ScaleWindow" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ChordWindow" />
+        <item itemvalue="Application.ScaleWindow" />
         <item itemvalue="Application.MinorScale" />
         <item itemvalue="Application.MajorScale" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -251,7 +274,21 @@
       <option name="project" value="LOCAL" />
       <updated>1580140607344</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Implemented ChordWindow Selection panel UI&#10;ChordWindow home button armed set to return to welcome page">
+      <created>1580140629402</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1580140629402</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added patch file">
+      <created>1580140756490</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1580140756490</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -273,7 +310,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -283,36 +322,67 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="Implemented ChordWindow Selection panel UI&#10;ChordWindow home button armed set to return to welcome page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented ChordWindow Selection panel UI&#10;ChordWindow home button armed set to return to welcome page" />
+    <MESSAGE value="added patch file" />
+    <option name="LAST_COMMIT_MESSAGE" value="added patch file" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="-1687" y="10" key="#Project_Structure" timestamp="1580109820015">
+    <state x="-1687" y="10" width="811" height="669" key="#Project_Structure" timestamp="1580217912598">
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
-    <state x="-1687" y="10" key="#Project_Structure/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580109820015" />
-    <state x="-1663" y="5" key="CommitChangelistDialog2" timestamp="1580140629408">
+    <state x="-1687" y="10" key="#Project_Structure/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580217912598" />
+    <state x="326" y="31" width="811" height="669" key="#Project_Structure/0.23.1792.1046@0.23.1792.1046" timestamp="1580169067898" />
+    <state x="-1824" y="6" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580217856881">
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
-    <state x="-1663" y="5" key="CommitChangelistDialog2/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580140629408" />
-    <state width="618" height="414" key="GridCell.Tab.0.bottom" timestamp="1580140257771">
+    <state x="-1824" y="6" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580217856881" />
+    <state x="-1549" y="135" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1580217838921">
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
-    <state width="618" height="414" key="GridCell.Tab.0.bottom/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580140257771" />
-    <state width="618" height="414" key="GridCell.Tab.0.center" timestamp="1580140257771">
+    <state x="-1549" y="135" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580217838921" />
+    <state x="-1388" y="281" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1580169414123">
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
-    <state width="618" height="414" key="GridCell.Tab.0.center/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580140257771" />
-    <state width="618" height="414" key="GridCell.Tab.0.left" timestamp="1580140257771">
+    <state x="-1388" y="281" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580169414123" />
+    <state x="745" y="442" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.23.1792.1046@0.23.1792.1046" timestamp="1580169090050" />
+    <state x="-1744" y="5" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1580218056226">
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
-    <state width="618" height="414" key="GridCell.Tab.0.left/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580140257771" />
-    <state width="618" height="414" key="GridCell.Tab.0.right" timestamp="1580140257771">
+    <state x="-1744" y="5" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580218056226" />
+    <state x="-1663" y="5" key="CommitChangelistDialog2" timestamp="1580140755826">
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
-    <state width="618" height="414" key="GridCell.Tab.0.right/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580140257771" />
+    <state x="-1663" y="5" key="CommitChangelistDialog2/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580140755826" />
+    <state x="-1572" y="93" key="FileChooserDialogImpl" timestamp="1580217881121">
+      <screen x="-1920" y="5" width="1280" height="689" />
+    </state>
+    <state x="-1572" y="93" key="FileChooserDialogImpl/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580217881121" />
+    <state width="1237" height="104" key="GridCell.Tab.0.bottom" timestamp="1580218275854">
+      <screen x="-1920" y="5" width="1280" height="689" />
+    </state>
+    <state width="1237" height="104" key="GridCell.Tab.0.bottom/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580218275854" />
+    <state width="1750" height="286" key="GridCell.Tab.0.bottom/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
+    <state width="1237" height="104" key="GridCell.Tab.0.center" timestamp="1580218275854">
+      <screen x="-1920" y="5" width="1280" height="689" />
+    </state>
+    <state width="1237" height="104" key="GridCell.Tab.0.center/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580218275854" />
+    <state width="1750" height="286" key="GridCell.Tab.0.center/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
+    <state width="1237" height="104" key="GridCell.Tab.0.left" timestamp="1580218275854">
+      <screen x="-1920" y="5" width="1280" height="689" />
+    </state>
+    <state width="1237" height="104" key="GridCell.Tab.0.left/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580218275854" />
+    <state width="1750" height="286" key="GridCell.Tab.0.left/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
+    <state width="1237" height="104" key="GridCell.Tab.0.right" timestamp="1580218275854">
+      <screen x="-1920" y="5" width="1280" height="689" />
+    </state>
+    <state width="1237" height="104" key="GridCell.Tab.0.right/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580218275854" />
+    <state width="1750" height="286" key="GridCell.Tab.0.right/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
     <state x="-1778" y="5" key="SettingsEditor" timestamp="1580110583456">
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
     <state x="-1778" y="5" key="SettingsEditor/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580110583456" />
+    <state x="-1583" y="176" key="com.intellij.ide.util.TipDialog" timestamp="1580169410881">
+      <screen x="-1920" y="5" width="1280" height="689" />
+    </state>
+    <state x="-1583" y="176" key="com.intellij.ide.util.TipDialog/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580169410881" />
   </component>
 </project>

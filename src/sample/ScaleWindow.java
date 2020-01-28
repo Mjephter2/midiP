@@ -11,9 +11,13 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class ChordWindow extends Application {
+import java.util.LinkedList;
+
+public class ScaleWindow extends Application {
+    private static final int NUMBER_OF_KEYS = 24;
 
     @Override
     public void start(Stage primaryStage2) throws Exception{
@@ -60,14 +64,84 @@ public class ChordWindow extends Application {
         bottom.add(fillerLabel6,6,0);
         bottom.add(fillerLabel7,8,0);
 
+        //keyboard display
+        Button[] keyBoard = new Button[NUMBER_OF_KEYS];   //array containing the piano keys
+        for(int i = 0; i < NUMBER_OF_KEYS; i++){ // refer to keyboardReferences.txt
+            keyBoard[i] = new Button("");
+            keyBoard[i].setTooltip(new Tooltip("KeyBoard[" + i + "]"));
+        }
+        LinkedList<Button> whiteKeys = new LinkedList<>();
+        LinkedList<Button> blackKeys = new LinkedList<>();
+        for(int i = 0; i < NUMBER_OF_KEYS; i++){
+            if(i==1 || i==3 || i==6 || i==8 || i==10 || i==13 || i==15 || i==18 || i==20 || i==22) {
+                blackKeys.add(keyBoard[i]);
+                continue;
+            }
+            whiteKeys.add(keyBoard[i]);
+        }
+
+        HBox white_keyPane = new HBox();
+        white_keyPane.setPickOnBounds(false);
+        HBox black_keyPane = new HBox();
+        black_keyPane.setPickOnBounds(false);
+
+        // fix size of white keys and add to white_keyPane
+        for(Button button: whiteKeys){
+            button.setPrefSize(40,120);
+            button.setStyle("-fx-background_color:black");
+            white_keyPane.getChildren().add(button);
+        }
+        // fix size of black keys and add to black_keyPane
+        for(Button button: blackKeys){
+            button.setPrefSize(30,80);
+            button.setStyle("-fx-background-color: black");
+        }
+        black_keyPane.getChildren().add(keyBoard[1]);
+        black_keyPane.getChildren().add(keyBoard[3]);
+        Button filler1 = new Button();
+        filler1.setPrefSize(30,50);
+        black_keyPane.getChildren().add(filler1);
+        filler1.setVisible(false);
+        for(int i = 6; i<=10;i=i+2){
+            black_keyPane.getChildren().add(keyBoard[i]);
+        }
+        Button filler2 = new Button();
+        filler2.setPrefSize(30,50);
+        black_keyPane.getChildren().add(filler2);
+        filler2.setVisible(false);
+        black_keyPane.getChildren().add(keyBoard[13]);
+        black_keyPane.getChildren().add(keyBoard[15]);
+        Button filler3 = new Button();
+        filler3.setPrefSize(30,50);
+        black_keyPane.getChildren().add(filler3);
+        filler3.setVisible(false);
+        for(int i = 18; i<=22;i=i+2){
+            black_keyPane.getChildren().add(keyBoard[i]);
+        }
+
+        black_keyPane.setPadding(new Insets(0,0,0,25));
+        black_keyPane.setSpacing(10);
+        GridPane keyPane = new GridPane();
+        keyPane.setPadding(new Insets(55,20,20,20));
+        keyPane.add(white_keyPane,0,0,2,1);
+        keyPane.add(black_keyPane,0,0,2,1);
+        root.setCenter(keyPane);
+
+        // 1st octave
+        // C note
+
+
+
+
+        keyPane.setAlignment(Pos.BASELINE_CENTER);
+        BorderPane.setAlignment(keyPane,Pos.CENTER);
+
         bottom.add(keyBox,1,0);
         bottom.add(majorScaleButton,2,0,2,1);
         bottom.add(minorScaleButton,4,0,2,1);
         root.setBottom(bottom);
         BorderPane.setAlignment(bottom,Pos.BOTTOM_CENTER);
         BorderPane.setAlignment(homeButton, Pos.BOTTOM_RIGHT);
-
-
 
         homeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

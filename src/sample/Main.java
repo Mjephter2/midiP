@@ -56,10 +56,10 @@ public class Main extends Application {
         mainWindowScaleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                ChordWindow chordWindowRoot = new ChordWindow();
+                ScaleWindow scaleWindowRoot = new ScaleWindow();
                 Stage chordStage = new Stage();
                 try {
-                    chordWindowRoot.start(chordStage);
+                    scaleWindowRoot.start(chordStage);
                     primaryStage.close();
                     chordStage.show();
                 } catch (Exception ex) {
