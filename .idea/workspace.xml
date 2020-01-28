@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="PianoDisplay" />
+      <artifact name="PianoDisplay:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="added patch file">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/PianoDisplay_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/ScaleWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/ScaleWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -343,10 +341,11 @@
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
     <state x="-1824" y="6" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580217856881" />
-    <state x="-1549" y="135" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1580226747049">
-      <screen x="-1920" y="5" width="1280" height="689" />
+    <state x="371" y="130" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1580247019147">
+      <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="-1549" y="135" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580226747049" />
+    <state x="371" y="130" key="#com.intellij.ide.util.TreeClassChooserDialog/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580247019147" />
     <state x="-1388" y="281" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1580169414123">
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
@@ -369,41 +368,43 @@
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
     <state x="-1572" y="93" key="FileChooserDialogImpl/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580226743483" />
-    <state width="1237" height="2" key="GridCell.Tab.0.bottom" timestamp="1580244409825">
+    <state width="1237" height="280" key="GridCell.Tab.0.bottom" timestamp="1580248282651">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.bottom/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1750" height="286" key="GridCell.Tab.0.bottom/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
-    <state width="1237" height="2" key="GridCell.Tab.0.bottom/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580244409825" />
-    <state width="1237" height="2" key="GridCell.Tab.0.center" timestamp="1580244409825">
+    <state width="1237" height="280" key="GridCell.Tab.0.bottom/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580248282651" />
+    <state width="1237" height="280" key="GridCell.Tab.0.center" timestamp="1580248282651">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.center/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1750" height="286" key="GridCell.Tab.0.center/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
-    <state width="1237" height="2" key="GridCell.Tab.0.center/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580244409825" />
-    <state width="1237" height="2" key="GridCell.Tab.0.left" timestamp="1580244409825">
+    <state width="1237" height="280" key="GridCell.Tab.0.center/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580248282651" />
+    <state width="1237" height="280" key="GridCell.Tab.0.left" timestamp="1580248282651">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.left/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1750" height="286" key="GridCell.Tab.0.left/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
-    <state width="1237" height="2" key="GridCell.Tab.0.left/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580244409825" />
-    <state width="1237" height="2" key="GridCell.Tab.0.right" timestamp="1580244409825">
+    <state width="1237" height="280" key="GridCell.Tab.0.left/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580248282651" />
+    <state width="1237" height="280" key="GridCell.Tab.0.right" timestamp="1580248282651">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.right/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1750" height="286" key="GridCell.Tab.0.right/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
-    <state width="1237" height="2" key="GridCell.Tab.0.right/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580244409825" />
-    <state x="-1764" y="5" key="SettingsEditor" timestamp="1580227468324">
-      <screen x="-1920" y="5" width="1280" height="689" />
+    <state width="1237" height="280" key="GridCell.Tab.0.right/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580248282651" />
+    <state x="156" y="0" key="SettingsEditor" timestamp="1580247101020">
+      <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="-1764" y="5" key="SettingsEditor/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580227468324" />
+    <state x="156" y="0" key="SettingsEditor/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580247101020" />
     <state x="-1454" y="220" key="classpath-attribute-editor" timestamp="1580222599719">
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
     <state x="-1454" y="220" key="classpath-attribute-editor/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580222599719" />
-    <state x="-1583" y="176" key="com.intellij.ide.util.TipDialog" timestamp="1580229011070">
-      <screen x="-1920" y="5" width="1280" height="689" />
+    <state x="337" y="171" key="com.intellij.ide.util.TipDialog" timestamp="1580249161856">
+      <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="-1583" y="176" key="com.intellij.ide.util.TipDialog/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580229011070" />
+    <state x="337" y="171" key="com.intellij.ide.util.TipDialog/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580249161856" />
   </component>
 </project>
