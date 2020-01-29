@@ -74,8 +74,8 @@ public class ScaleWindow extends Application {
             keyBoard[i] = new Button("");
             keyBoard[i].setTooltip(new Tooltip("KeyBoard[" + i + "]"));
         }
-        for(int i = 0; i < NUMBER_OF_KEYS; i++){
-            if(i==1 || i==3 || i==6 || i==8 || i==10 || i==13 || i==15 || i==18 || i==20 || i==22) {
+        for(int i = 0; i < NUMBER_OF_KEYS; i++) {
+            if (i == 1 || i == 3 || i == 6 || i == 8 || i == 10 || i == 13 || i == 15 || i == 18 || i == 20 || i == 22) {
                 blackKeys.add(keyBoard[i]);
                 continue;
             }
@@ -88,17 +88,17 @@ public class ScaleWindow extends Application {
         black_keyPane.setPickOnBounds(false);
 
         // fix size of white keys and add to white_keyPane
+        String buttonOriginalStyle = keyBoard[0].getStyle();
         for(Button button: whiteKeys){
             button.setPrefSize(40,120);
-            button.setStyle("-fx-base: # f4f162");
             white_keyPane.getChildren().add(button);
             button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if(button.getStyle().contains("-fx-base: # f4f162")) {
-                        button.setStyle("-fx-background-color: blue");
+                    if(button.getStyle().contains("-fx-background-color: blue")) {
+                        button.setStyle(buttonOriginalStyle);
                     }
-                    else button.setStyle("-fx-base: # f4f162");
+                    else button.setStyle("-fx-background-color: blue");
                 }
             });
         }
@@ -202,7 +202,7 @@ public class ScaleWindow extends Application {
     }
     private void reset(){
         for(Button button: whiteKeys){
-            button.setStyle("-fx-base: # f4f162");
+            button.setStyle(null);
         }
         for(Button button: blackKeys){
             button.setStyle("-fx-background-color: black");

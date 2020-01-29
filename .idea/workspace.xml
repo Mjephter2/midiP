@@ -6,10 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="added patch file">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/PianoDisplay_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="WARNING detected at runtime: CSS Error parsing '*{-fx-base: # f4f162}: Unexpected token '#' at [1,12]">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/ScaleWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/ScaleWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +76,11 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Jephter &lt;51377282+mjephter2@users.noreply.github.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
@@ -293,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580140756490</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="WARNING detected at runtime: CSS Error parsing '*{-fx-base: # f4f162}: Unexpected token '#' at [1,12]">
+      <created>1580251459904</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1580251459904</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -329,7 +340,8 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="Implemented ChordWindow Selection panel UI&#10;ChordWindow home button armed set to return to welcome page" />
     <MESSAGE value="added patch file" />
-    <option name="LAST_COMMIT_MESSAGE" value="added patch file" />
+    <MESSAGE value="WARNING detected at runtime: CSS Error parsing '*{-fx-base: # f4f162}: Unexpected token '#' at [1,12]" />
+    <option name="LAST_COMMIT_MESSAGE" value="WARNING detected at runtime: CSS Error parsing '*{-fx-base: # f4f162}: Unexpected token '#' at [1,12]" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1687" y="10" width="811" height="669" key="#Project_Structure" timestamp="1580233833960">
@@ -355,11 +367,11 @@
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
     <state x="-1744" y="5" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580218056226" />
-    <state x="257" y="0" key="CommitChangelistDialog2" timestamp="1580244167485">
+    <state x="0" y="0" key="CommitChangelistDialog2" timestamp="1580251459204">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="-1663" y="5" key="CommitChangelistDialog2/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580140755826" />
-    <state x="257" y="0" key="CommitChangelistDialog2/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580244167485" />
+    <state x="0" y="0" key="CommitChangelistDialog2/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580251459204" />
     <state x="-1504" y="66" key="DetectedRootsChooserDialog" timestamp="1580219791783">
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
@@ -368,30 +380,30 @@
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
     <state x="-1572" y="93" key="FileChooserDialogImpl/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580226743483" />
-    <state width="1237" height="164" key="GridCell.Tab.0.bottom" timestamp="1580251359899">
+    <state width="1237" height="164" key="GridCell.Tab.0.bottom" timestamp="1580266164330">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.bottom/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1750" height="286" key="GridCell.Tab.0.bottom/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
-    <state width="1237" height="164" key="GridCell.Tab.0.bottom/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580251359899" />
-    <state width="1237" height="164" key="GridCell.Tab.0.center" timestamp="1580251359898">
+    <state width="1237" height="164" key="GridCell.Tab.0.bottom/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580266164330" />
+    <state width="1237" height="164" key="GridCell.Tab.0.center" timestamp="1580266164330">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.center/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1750" height="286" key="GridCell.Tab.0.center/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
-    <state width="1237" height="164" key="GridCell.Tab.0.center/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580251359898" />
-    <state width="1237" height="164" key="GridCell.Tab.0.left" timestamp="1580251359898">
+    <state width="1237" height="164" key="GridCell.Tab.0.center/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580266164330" />
+    <state width="1237" height="164" key="GridCell.Tab.0.left" timestamp="1580266164330">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.left/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1750" height="286" key="GridCell.Tab.0.left/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
-    <state width="1237" height="164" key="GridCell.Tab.0.left/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580251359898" />
-    <state width="1237" height="164" key="GridCell.Tab.0.right" timestamp="1580251359898">
+    <state width="1237" height="164" key="GridCell.Tab.0.left/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580266164330" />
+    <state width="1237" height="164" key="GridCell.Tab.0.right" timestamp="1580266164330">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.right/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1750" height="286" key="GridCell.Tab.0.right/0.23.1792.1046@0.23.1792.1046" timestamp="1580169351171" />
-    <state width="1237" height="164" key="GridCell.Tab.0.right/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580251359898" />
+    <state width="1237" height="164" key="GridCell.Tab.0.right/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580266164330" />
     <state x="156" y="0" key="SettingsEditor" timestamp="1580247101020">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
