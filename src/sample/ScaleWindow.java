@@ -21,6 +21,8 @@ public class ScaleWindow extends Application {
     private Button[] keyBoard = new Button[NUMBER_OF_KEYS];   //array containing the piano keys
     private LinkedList<Button> whiteKeys = new LinkedList<>();
     private LinkedList<Button> blackKeys = new LinkedList<>();
+    private ToggleButton majorScaleButton = new ToggleButton("Major Scale");
+    private ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
 
     @Override
     public void start(Stage primaryStage2) throws Exception{
@@ -43,15 +45,83 @@ public class ScaleWindow extends Application {
         keyLabel.setPrefWidth(70);
         ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList("C", "Db","D", "Eb", "E",
                 "F", "Gb","G", "Ab", "A", "Bb", "B"));
-        keyBox.setValue("C");
+        keyBox.setValue("Ab");
         ToggleGroup scaleType = new ToggleGroup();
-        ToggleButton majorScaleButton = new ToggleButton("Major Scale");
 
         majorScaleButton.setToggleGroup(scaleType);
-        ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
         minorScaleButton.setToggleGroup(scaleType);
         majorScaleButton.setPrefSize(100,50);
         minorScaleButton.setPrefSize(100,50);
+
+        majorScaleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(!majorScaleButton.isSelected()) {
+                    return;
+                }
+                reset();
+                String key = keyBox.getValue();
+                int index = 0;
+                System.out.println(key + " Major Scale");
+
+                switch (key) {
+                    case "C":   index = 0;  break;
+                    case "Db":  index = 1;  break;
+                    case "D":   index = 2;  break;
+                    case "Eb":  index = 3;  break;
+                    case "E":   index = 4;  break;
+                    case "F":   index = 5;  break;
+                    case "Gb":  index = 6;  break;
+                    case "G":   index = 7;  break;
+                    case "Ab":  index = 8;  break;
+                    case "A":   index = 9;  break;
+                    case "Bb":  index = 10; break;
+                    case "B":   index = 11; break;
+                }
+                for (int i = 0; i <= 12; i++){
+                    if(i==1 || i==3 || i==6 || i==8 || i==10) continue;
+                    else{
+                        if(blackKeys.contains(keyBoard[index + i])){
+                            keyBoard[index + i].setStyle("-fx-background-color: red");
+                        }
+                        else keyBoard[index + i].setStyle("-fx-background-color: blue");
+                    }
+                }
+            }
+        });
+        minorScaleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                reset();
+                String key = keyBox.getValue();
+                int index = 0;
+                System.out.println(key + " Minor Scale");
+
+                switch (key) {
+                    case "C":   index = 0;  break;
+                    case "Db":  index = 1;  break;
+                    case "D":   index = 2;  break;
+                    case "Eb":  index = 3;  break;
+                    case "E":   index = 4;  break;
+                    case "F":   index = 5;  break;
+                    case "Gb":  index = 6;  break;
+                    case "G":   index = 7;  break;
+                    case "Ab":  index = 8;  break;
+                    case "A":   index = 9;  break;
+                    case "Bb":  index = 10; break;
+                    case "B":   index = 11; break;
+                }
+                for (int i = 0; i <= 12; i++){
+                    if(i==1 || i==4 || i==6 || i==9 || i==11) continue;
+                    else{
+                        if(blackKeys.contains(keyBoard[index + i])){
+                            keyBoard[index + i].setStyle("-fx-background-color: red");
+                        }
+                        else keyBoard[index + i].setStyle("-fx-background-color: blue");
+                    }
+                }
+            }
+        });
 
         bottom.add(keyLabel, 0, 0);
         Label fillerLabel1 = new Label("filler label"); fillerLabel1.setVisible(false);
@@ -207,6 +277,8 @@ public class ScaleWindow extends Application {
         for(Button button: blackKeys){
             button.setStyle("-fx-background-color: black");
         }
+        majorScaleButton.setSelected(false);
+        minorScaleButton.setSelected(false);
     }
 
 }
