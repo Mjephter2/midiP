@@ -62,7 +62,7 @@ public class ScaleWindow extends Application {
                 reset();
                 String key = keyBox.getValue();
                 int index = 0;
-                System.out.println(key + " Major Scale");
+                //System.out.println(key + " Major Scale");
 
                 switch (key) {
                     case "C":   index = 0;  break;
@@ -92,10 +92,11 @@ public class ScaleWindow extends Application {
         minorScaleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+
                 reset();
                 String key = keyBox.getValue();
                 int index = 0;
-                System.out.println(key + " Minor Scale");
+                //System.out.println(key + " Minor Scale");
 
                 switch (key) {
                     case "C":   index = 0;  break;
@@ -277,8 +278,8 @@ public class ScaleWindow extends Application {
         for(Button button: blackKeys){
             button.setStyle("-fx-background-color: black");
         }
-        majorScaleButton.setSelected(false);
-        minorScaleButton.setSelected(false);
+//        majorScaleButton.setSelected(false);
+//        minorScaleButton.setSelected(false);
     }
 
 }
