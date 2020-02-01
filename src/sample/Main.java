@@ -68,6 +68,21 @@ public class Main extends Application {
                 }
             }
         });
+        mainWindowChordButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                ChordWindow chordWindowRoot = new ChordWindow();
+                Stage chordStage = new Stage();
+                try {
+                    chordWindowRoot.start(chordStage);
+                    primaryStage.close();
+                    chordStage.show();
+                } catch (Exception ex) {
+                    System.out.println("Error opening chord Window!!!");
+                    ex.printStackTrace();
+                }
+            }
+        });
         //chord button
         mainWindowChordButton.setStyle("-fx-text-fill: blue;-fx-background-radius: 30px; -fx-background-color: darkgray;");
         mainWindowChordButton.setPrefSize(200,200);
