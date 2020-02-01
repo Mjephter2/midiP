@@ -6,19 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Fixed error: CSS Error parsing '*{-fx-base: # f4f162}: Unexpected token '#' at [1,12]">
-      <change afterPath="$PROJECT_DIR$/src/sample/ChordWindow.java" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Built chordWindow as a response to clicking the chordButton in main&#10;Piano keys are drawn&#10;Chord selection panel: need to add major and minor 7th, major and minor 9th, dominant 7th and dominant 11th buttons">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoDisplay/module-info.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoDisplay/sample/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PianoDisplay/sample/ScaleWindow.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/ScaleWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/ScaleWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sample/ChordWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/ChordWindow.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -328,7 +318,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580533556137</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Built chordWindow as a response to clicking the chordButton in main&#10;Piano keys are drawn&#10;Chord selection panel: need to add major and minor 7th, major and minor 9th, dominant 7th and dominant 11th buttons">
+      <created>1580555342191</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1580555342191</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -396,7 +393,8 @@
     <MESSAGE value="added patch file" />
     <MESSAGE value="WARNING detected at runtime: CSS Error parsing '*{-fx-base: # f4f162}: Unexpected token '#' at [1,12]" />
     <MESSAGE value="Fixed error: CSS Error parsing '*{-fx-base: # f4f162}: Unexpected token '#' at [1,12]" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed error: CSS Error parsing '*{-fx-base: # f4f162}: Unexpected token '#' at [1,12]" />
+    <MESSAGE value="Built chordWindow as a response to clicking the chordButton in main&#10;Piano keys are drawn&#10;Chord selection panel: need to add major and minor 7th, major and minor 9th, dominant 7th and dominant 11th buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Built chordWindow as a response to clicking the chordButton in main&#10;Piano keys are drawn&#10;Chord selection panel: need to add major and minor 7th, major and minor 9th, dominant 7th and dominant 11th buttons" />
   </component>
   <component name="WindowStateProjectService">
     <state x="403" y="179" key="#Notifications" timestamp="1580424066404">
@@ -428,11 +426,11 @@
       <screen x="-1920" y="5" width="1280" height="689" />
     </state>
     <state x="-1744" y="5" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580218056226" />
-    <state x="0" y="23" key="CommitChangelistDialog2" timestamp="1580533553315">
+    <state x="0" y="23" key="CommitChangelistDialog2" timestamp="1580555340690">
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
     <state x="-1663" y="5" key="CommitChangelistDialog2/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580140755826" />
-    <state x="0" y="23" key="CommitChangelistDialog2/0.23.1792.1046@0.23.1792.1046" timestamp="1580533553315" />
+    <state x="0" y="23" key="CommitChangelistDialog2/0.23.1792.1046@0.23.1792.1046" timestamp="1580555340690" />
     <state x="0" y="0" key="CommitChangelistDialog2/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580267375587" />
     <state x="-1504" y="66" key="DetectedRootsChooserDialog" timestamp="1580219791783">
       <screen x="-1920" y="5" width="1280" height="689" />
@@ -443,33 +441,33 @@
     </state>
     <state x="-1572" y="93" key="FileChooserDialogImpl/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580226743483" />
     <state x="440" y="133" key="FileChooserDialogImpl/0.0.1620.1040@0.0.1620.1040" timestamp="1580424241037" />
-    <state width="1750" height="286" key="GridCell.Tab.0.bottom" timestamp="1580555057477">
+    <state width="1750" height="286" key="GridCell.Tab.0.bottom" timestamp="1580556919763">
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.bottom/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1578" height="282" key="GridCell.Tab.0.bottom/0.0.1620.1040@0.0.1620.1040" timestamp="1580475675092" />
-    <state width="1750" height="286" key="GridCell.Tab.0.bottom/0.23.1792.1046@0.23.1792.1046" timestamp="1580555057477" />
+    <state width="1750" height="286" key="GridCell.Tab.0.bottom/0.23.1792.1046@0.23.1792.1046" timestamp="1580556919763" />
     <state width="178" height="562" key="GridCell.Tab.0.bottom/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580346767828" />
-    <state width="1750" height="286" key="GridCell.Tab.0.center" timestamp="1580555057477">
+    <state width="1750" height="286" key="GridCell.Tab.0.center" timestamp="1580556919763">
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.center/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1578" height="282" key="GridCell.Tab.0.center/0.0.1620.1040@0.0.1620.1040" timestamp="1580475675092" />
-    <state width="1750" height="286" key="GridCell.Tab.0.center/0.23.1792.1046@0.23.1792.1046" timestamp="1580555057477" />
+    <state width="1750" height="286" key="GridCell.Tab.0.center/0.23.1792.1046@0.23.1792.1046" timestamp="1580556919763" />
     <state width="178" height="562" key="GridCell.Tab.0.center/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580346767828" />
-    <state width="1750" height="286" key="GridCell.Tab.0.left" timestamp="1580555057477">
+    <state width="1750" height="286" key="GridCell.Tab.0.left" timestamp="1580556919762">
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.left/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1578" height="282" key="GridCell.Tab.0.left/0.0.1620.1040@0.0.1620.1040" timestamp="1580475675091" />
-    <state width="1750" height="286" key="GridCell.Tab.0.left/0.23.1792.1046@0.23.1792.1046" timestamp="1580555057477" />
+    <state width="1750" height="286" key="GridCell.Tab.0.left/0.23.1792.1046@0.23.1792.1046" timestamp="1580556919762" />
     <state width="178" height="562" key="GridCell.Tab.0.left/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580346767828" />
-    <state width="1750" height="286" key="GridCell.Tab.0.right" timestamp="1580555057477">
+    <state width="1750" height="286" key="GridCell.Tab.0.right" timestamp="1580556919763">
       <screen x="0" y="23" width="1792" height="1046" />
     </state>
     <state width="1237" height="9" key="GridCell.Tab.0.right/0.0.1280.689/-1920.5.1280.689@-1920.5.1280.689" timestamp="1580234302766" />
     <state width="1578" height="282" key="GridCell.Tab.0.right/0.0.1620.1040@0.0.1620.1040" timestamp="1580475675092" />
-    <state width="1750" height="286" key="GridCell.Tab.0.right/0.23.1792.1046@0.23.1792.1046" timestamp="1580555057477" />
+    <state width="1750" height="286" key="GridCell.Tab.0.right/0.23.1792.1046@0.23.1792.1046" timestamp="1580556919763" />
     <state width="178" height="562" key="GridCell.Tab.0.right/1920.-5.1280.689/0.0.1280.689@0.0.1280.689" timestamp="1580346767828" />
     <state x="620" y="264" key="RollbackChangesDialog" timestamp="1580533397538">
       <screen x="0" y="23" width="1792" height="1046" />

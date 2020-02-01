@@ -23,6 +23,13 @@ public class ChordWindow extends Application {
     private LinkedList<Button> blackKeys = new LinkedList<>();
     private ToggleButton majorTriadButton = new ToggleButton("Major Triad");
     private ToggleButton minorTriadButton = new ToggleButton("Minor Triad");
+    private ToggleButton major7thButton = new ToggleButton("Major 7th");
+    private ToggleButton minor7thButton = new ToggleButton(("Minor 7th"));
+    private ToggleButton major9thButton = new ToggleButton("Major 9th");
+    private ToggleButton minor9thButton = new ToggleButton("Minor 9th");
+    private ToggleButton dominant7thButton = new ToggleButton("Dominant 7th");
+    private ToggleButton dominant9thButton = new ToggleButton("Dominant 9th");
+
 
     @Override
     public void start(Stage primaryStage2) throws Exception{
@@ -40,6 +47,20 @@ public class ChordWindow extends Application {
         bottom.setHgap(10);
         bottom.setVgap(10);
         //bottom.setGridLinesVisible(true);
+        majorTriadButton.setPrefSize(100,50);
+        minorTriadButton.setPrefSize(100,50);
+        bottom.add(major7thButton,4,0);
+        bottom.add(minor7thButton,2,1);
+        bottom.add(major9thButton,5,0);
+        bottom.add(minor9thButton,3,1);
+        bottom.add(dominant7thButton,4,1);
+        bottom.add(dominant9thButton,5,1);
+        major7thButton.setPrefSize(100,50);
+        minor7thButton.setPrefSize(100,50);
+        major9thButton.setPrefSize(100,50);
+        minor9thButton.setPrefSize(100,50);
+        dominant7thButton.setPrefSize(100,50);
+        dominant9thButton.setPrefSize(100,50);
         bottom.add(homeButton,10,1);
         bottom.add(resetButton,10,0);
         Label keyLabel = new Label("Select Scale ");
@@ -51,9 +72,14 @@ public class ChordWindow extends Application {
 
         majorTriadButton.setToggleGroup(chordType);
         minorTriadButton.setToggleGroup(chordType);
-        majorTriadButton.setPrefSize(100,50);
-        minorTriadButton.setPrefSize(100,50);
-
+        majorTriadButton.setToggleGroup(chordType);
+        minorTriadButton.setToggleGroup(chordType);
+        major7thButton.setToggleGroup(chordType);
+        minor7thButton.setToggleGroup(chordType);
+        major9thButton.setToggleGroup(chordType);
+        minor9thButton.setToggleGroup(chordType);
+        dominant7thButton.setToggleGroup(chordType);
+        dominant9thButton.setToggleGroup(chordType);
 
 
 
@@ -163,8 +189,8 @@ public class ChordWindow extends Application {
         BorderPane.setAlignment(keyPane,Pos.CENTER);
 
         bottom.add(keyBox,1,0);
-        bottom.add(majorTriadButton,2,0,2,1);
-        bottom.add(minorTriadButton,4,0,2,1);
+        bottom.add(majorTriadButton,2,0);
+        bottom.add(minorTriadButton,3,0);
         root.setBottom(bottom);
         BorderPane.setAlignment(bottom,Pos.BOTTOM_CENTER);
         BorderPane.setAlignment(homeButton, Pos.BOTTOM_RIGHT);
