@@ -1,3 +1,8 @@
+/*
+*author: Maurice Jephter
+ */
+
+
 package sample;
 
 import javafx.application.Application;
@@ -46,7 +51,8 @@ public class ChordWindow extends Application {
         GridPane.setHalignment(bottom, HPos.CENTER);
         bottom.setHgap(10);
         bottom.setVgap(10);
-        //bottom.setGridLinesVisible(true);
+
+        // chord type buttons
         majorTriadButton.setPrefSize(100,50);
         minorTriadButton.setPrefSize(100,50);
         bottom.add(major7thButton,4,0);
@@ -68,8 +74,304 @@ public class ChordWindow extends Application {
         ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList("C", "Db","D", "Eb", "E",
                 "F", "Gb","G", "Ab", "A", "Bb", "B"));
         keyBox.setValue("Ab");
-        ToggleGroup chordType = new ToggleGroup();
 
+        majorTriadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(!majorTriadButton.isSelected()) {
+                    return;
+                }
+                reset();
+                String key = keyBox.getValue();
+                int index = 0;
+                //System.out.println(key + " Minor Scale");
+
+                switch (key) {
+                    case "C":   index = 0;  break;
+                    case "Db":  index = 1;  break;
+                    case "D":   index = 2;  break;
+                    case "Eb":  index = 3;  break;
+                    case "E":   index = 4;  break;
+                    case "F":   index = 5;  break;
+                    case "Gb":  index = 6;  break;
+                    case "G":   index = 7;  break;
+                    case "Ab":  index = 8;  break;
+                    case "A":   index = 9;  break;
+                    case "Bb":  index = 10; break;
+                    case "B":   index = 11; break;
+                }
+                for (int i = 0; i <= 12; i++){
+                    if(i==0 || i==4 || i==7) {
+                        if (blackKeys.contains(keyBoard[index + i])) {
+                            keyBoard[index + i].setStyle("-fx-background-color: red");
+                        } else keyBoard[index + i].setStyle("-fx-background-color: blue");
+                    }
+                    else{
+                        continue;
+                    }
+                }
+            }
+        });
+        minorTriadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(!minorTriadButton.isSelected()) {
+                    return;
+                }
+                reset();
+                String key = keyBox.getValue();
+                int index = 0;
+                //System.out.println(key + " Minor Scale");
+
+                switch (key) {
+                    case "C":   index = 0;  break;
+                    case "Db":  index = 1;  break;
+                    case "D":   index = 2;  break;
+                    case "Eb":  index = 3;  break;
+                    case "E":   index = 4;  break;
+                    case "F":   index = 5;  break;
+                    case "Gb":  index = 6;  break;
+                    case "G":   index = 7;  break;
+                    case "Ab":  index = 8;  break;
+                    case "A":   index = 9;  break;
+                    case "Bb":  index = 10; break;
+                    case "B":   index = 11; break;
+                }
+                for (int i = 0; i <= 12; i++){
+                    if(i==0 || i==3 || i==7) {
+                        if (blackKeys.contains(keyBoard[index + i])) {
+                            keyBoard[index + i].setStyle("-fx-background-color: red");
+                        } else keyBoard[index + i].setStyle("-fx-background-color: blue");
+                    }
+                    else{
+                        continue;
+                    }
+                }
+            }
+        });
+        major7thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(!major7thButton.isSelected()) {
+                    return;
+                }
+                reset();
+                String key = keyBox.getValue();
+                int index = 0;
+                //System.out.println(key + " Minor Scale");
+
+                switch (key) {
+                    case "C":   index = 0;  break;
+                    case "Db":  index = 1;  break;
+                    case "D":   index = 2;  break;
+                    case "Eb":  index = 3;  break;
+                    case "E":   index = 4;  break;
+                    case "F":   index = 5;  break;
+                    case "Gb":  index = 6;  break;
+                    case "G":   index = 7;  break;
+                    case "Ab":  index = 8;  break;
+                    case "A":   index = 9;  break;
+                    case "Bb":  index = 10; break;
+                    case "B":   index = 11; break;
+                }
+                for (int i = 0; i <= 12; i++){
+                    if(i==0 || i==4 || i==7 || i==11) {
+                        if (blackKeys.contains(keyBoard[index + i])) {
+                            keyBoard[index + i].setStyle("-fx-background-color: red");
+                        } else keyBoard[index + i].setStyle("-fx-background-color: blue");
+                    }
+                    else{
+                        continue;
+                    }
+                }
+            }
+        });
+        minor7thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(!minor7thButton.isSelected()) {
+                    return;
+                }
+                reset();
+                String key = keyBox.getValue();
+                int index = 0;
+                //System.out.println(key + " Minor Scale");
+
+                switch (key) {
+                    case "C":   index = 0;  break;
+                    case "Db":  index = 1;  break;
+                    case "D":   index = 2;  break;
+                    case "Eb":  index = 3;  break;
+                    case "E":   index = 4;  break;
+                    case "F":   index = 5;  break;
+                    case "Gb":  index = 6;  break;
+                    case "G":   index = 7;  break;
+                    case "Ab":  index = 8;  break;
+                    case "A":   index = 9;  break;
+                    case "Bb":  index = 10; break;
+                    case "B":   index = 11; break;
+                }
+                for (int i = 0; i <= 12; i++){
+                    if(i==0 || i==3 || i==7 || i==10) {
+                        if (blackKeys.contains(keyBoard[index + i])) {
+                            keyBoard[index + i].setStyle("-fx-background-color: red");
+                        } else keyBoard[index + i].setStyle("-fx-background-color: blue");
+                    }
+                    else{
+                        continue;
+                    }
+                }
+            }
+        });
+        major9thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(!major9thButton.isSelected()) {
+                    return;
+                }
+                reset();
+                String key = keyBox.getValue();
+                int index = 0;
+                //System.out.println(key + " Minor Scale");
+
+                switch (key) {
+                    case "C":   index = 0;  break;
+                    case "Db":  index = 1;  break;
+                    case "D":   index = 2;  break;
+                    case "Eb":  index = 3;  break;
+                    case "E":   index = 4;  break;
+                    case "F":   index = 5;  break;
+                    case "Gb":  index = 6;  break;
+                    case "G":   index = 7;  break;
+                    case "Ab":  index = 8;  break;
+                    case "A":   index = 9;  break;
+                    case "Bb":  index = 10; break;
+                    case "B":   index = 11; break;
+                }
+                for (int i = 0; i <= 14; i++){
+                    if(i==0 || i==4 || i==7 || i==11 || i==14) {
+                        if (blackKeys.contains(keyBoard[index + i])) {
+                            keyBoard[index + i].setStyle("-fx-background-color: red");
+                        } else keyBoard[index + i].setStyle("-fx-background-color: blue");
+                    }
+                    else{
+                        continue;
+                    }
+                }
+            }
+        });
+        minor9thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(!minor9thButton.isSelected()) {
+                    return;
+                }
+                reset();
+                String key = keyBox.getValue();
+                int index = 0;
+                //System.out.println(key + " Minor Scale");
+
+                switch (key) {
+                    case "C":   index = 0;  break;
+                    case "Db":  index = 1;  break;
+                    case "D":   index = 2;  break;
+                    case "Eb":  index = 3;  break;
+                    case "E":   index = 4;  break;
+                    case "F":   index = 5;  break;
+                    case "Gb":  index = 6;  break;
+                    case "G":   index = 7;  break;
+                    case "Ab":  index = 8;  break;
+                    case "A":   index = 9;  break;
+                    case "Bb":  index = 10; break;
+                    case "B":   index = 11; break;
+                }
+                for (int i = 0; i <= 14; i++){
+                    if(i==0 || i==3 || i==7 || i==10 || i==14) {
+                        if (blackKeys.contains(keyBoard[index + i])) {
+                            keyBoard[index + i].setStyle("-fx-background-color: red");
+                        } else keyBoard[index + i].setStyle("-fx-background-color: blue");
+                    }
+                    else{
+                        continue;
+                    }
+                }
+            }
+        });
+        dominant7thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(!dominant7thButton.isSelected()) {
+                    return;
+                }
+                reset();
+                String key = keyBox.getValue();
+                int index = 0;
+                //System.out.println(key + " Minor Scale");
+
+                switch (key) {
+                    case "C":   index = 0;  break;
+                    case "Db":  index = 1;  break;
+                    case "D":   index = 2;  break;
+                    case "Eb":  index = 3;  break;
+                    case "E":   index = 4;  break;
+                    case "F":   index = 5;  break;
+                    case "Gb":  index = 6;  break;
+                    case "G":   index = 7;  break;
+                    case "Ab":  index = 8;  break;
+                    case "A":   index = 9;  break;
+                    case "Bb":  index = 10; break;
+                    case "B":   index = 11; break;
+                }
+                for (int i = 0; i <= 12; i++){
+                    if(i==0 || i==4 || i==7 || i==10) {
+                        if (blackKeys.contains(keyBoard[index + i])) {
+                            keyBoard[index + i].setStyle("-fx-background-color: red");
+                        } else keyBoard[index + i].setStyle("-fx-background-color: blue");
+                    }
+                    else{
+                        continue;
+                    }
+                }
+            }
+        });
+        dominant9thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(!dominant9thButton.isSelected()) {
+                    return;
+                }
+                reset();
+                String key = keyBox.getValue();
+                int index = 0;
+                //System.out.println(key + " Minor Scale");
+
+                switch (key) {
+                    case "C":   index = 0;  break;
+                    case "Db":  index = 1;  break;
+                    case "D":   index = 2;  break;
+                    case "Eb":  index = 3;  break;
+                    case "E":   index = 4;  break;
+                    case "F":   index = 5;  break;
+                    case "Gb":  index = 6;  break;
+                    case "G":   index = 7;  break;
+                    case "Ab":  index = 8;  break;
+                    case "A":   index = 9;  break;
+                    case "Bb":  index = 10; break;
+                    case "B":   index = 11; break;
+                }
+                for (int i = 0; i <= 14; i++){
+                    if(i==0 || i==4 || i==7 || i==10 || i==14) {
+                        if (blackKeys.contains(keyBoard[index + i])) {
+                            keyBoard[index + i].setStyle("-fx-background-color: red");
+                        } else keyBoard[index + i].setStyle("-fx-background-color: blue");
+                    }
+                    else{
+                        continue;
+                    }
+                }
+            }
+        });
+        ToggleGroup chordType = new ToggleGroup();
         majorTriadButton.setToggleGroup(chordType);
         minorTriadButton.setToggleGroup(chordType);
         majorTriadButton.setToggleGroup(chordType);
