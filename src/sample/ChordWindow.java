@@ -63,7 +63,7 @@ public class ChordWindow extends Application {
         dominant9thButton.setPrefSize(100,50);
         bottom.add(homeButton,10,1);
         bottom.add(resetButton,10,0);
-        Label keyLabel = new Label("Select Scale ");
+        Label keyLabel = new Label("Select Chord ");
         keyLabel.setPrefWidth(70);
         ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList("C", "Db","D", "Eb", "E",
                 "F", "Gb","G", "Ab", "A", "Bb", "B"));
@@ -211,7 +211,7 @@ public class ChordWindow extends Application {
                     primaryStage2.close();
                     primaryStage.show();
                 } catch (Exception ex) {
-                    System.out.println("Error opening chord Window!!!");
+                    System.out.println("Error opening Main Window!!!");
                     ex.printStackTrace();
                 }
             }
