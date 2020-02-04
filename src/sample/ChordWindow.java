@@ -45,7 +45,7 @@ public class ChordWindow extends Application {
         Button resetButton = new Button("RESET");
         homeButton.setPrefSize(160,30);
         GridPane bottom = new GridPane();
-        bottom.setGridLinesVisible(true);
+        //bottom.setGridLinesVisible(true);
         bottom.setStyle("-fx-background-color: darkgray;");
         bottom.setPadding(new Insets(10,10,10,10));
         GridPane.setHalignment(bottom, HPos.CENTER);
@@ -371,6 +371,7 @@ public class ChordWindow extends Application {
                 }
             }
         });
+
         ToggleGroup chordType = new ToggleGroup();
         majorTriadButton.setToggleGroup(chordType);
         minorTriadButton.setToggleGroup(chordType);
@@ -522,7 +523,7 @@ public class ChordWindow extends Application {
         Scene scene = new Scene(root,1000,400);
         primaryStage2.setFullScreen(false);
         primaryStage2.setResizable(false);
-        primaryStage2.setTitle("Scale Display");
+        primaryStage2.setTitle("Chord Display");
         primaryStage2.setScene(scene);
         primaryStage2.show();
 
@@ -539,8 +540,15 @@ public class ChordWindow extends Application {
         for(Button button: blackKeys){
             button.setStyle("-fx-background-color: black");
         }
+        
         majorTriadButton.setSelected(false);
         minorTriadButton.setSelected(false);
+        major7thButton.setSelected(false);
+        minor7thButton.setSelected(false);
+        major9thButton.setSelected(false);
+        minor9thButton.setSelected(false);
+        dominant7thButton.setSelected(false);
+        dominant9thButton.setSelected(false);
     }
 
 }

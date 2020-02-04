@@ -23,6 +23,8 @@ public class ScaleWindow extends Application {
     private LinkedList<Button> blackKeys = new LinkedList<>();
     private ToggleButton majorScaleButton = new ToggleButton("Major Scale");
     private ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
+    //for testing/learning purpose
+    private AudioPlayer player = new AudioPlayer();
 
     @Override
     public void start(Stage primaryStage2) throws Exception{
@@ -242,6 +244,7 @@ public class ScaleWindow extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 reset();
+                player.play("src/Sample sounds/StarWars3.wav");
             }
         });
         homeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
