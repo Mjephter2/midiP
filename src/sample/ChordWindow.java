@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import java.util.LinkedList;
 
 public class ChordWindow extends Application {
-    private static final int NUMBER_OF_KEYS = 24;
+    private static final int NUMBER_OF_KEYS = 27;
     private Button[] keyBoard = new Button[NUMBER_OF_KEYS];   //array containing the piano keys
     private LinkedList<Button> whiteKeys = new LinkedList<>();
     private LinkedList<Button> blackKeys = new LinkedList<>();
@@ -408,7 +408,7 @@ public class ChordWindow extends Application {
             keyBoard[i].setTooltip(new Tooltip("KeyBoard[" + i + "]"));
         }
         for(int i = 0; i < NUMBER_OF_KEYS; i++) {
-            if (i == 1 || i == 3 || i == 6 || i == 8 || i == 10 || i == 13 || i == 15 || i == 18 || i == 20 || i == 22) {
+            if (i == 1 || i == 3 || i == 6 || i == 8 || i == 10 || i == 13 || i == 15 || i == 18 || i == 20 || i == 22 || i ==25) {
                 blackKeys.add(keyBoard[i]);
                 continue;
             }
@@ -472,6 +472,11 @@ public class ChordWindow extends Application {
         for(int i = 18; i<=22;i=i+2){
             black_keyPane.getChildren().add(keyBoard[i]);
         }
+        Button filler4 = new Button();
+        filler4.setPrefSize(33,50);
+        black_keyPane.getChildren().add(filler4);
+        filler4.setVisible(false);
+        black_keyPane.getChildren().add(keyBoard[25]);
 
         black_keyPane.setPadding(new Insets(0,0,0,25));
         black_keyPane.setSpacing(10);
