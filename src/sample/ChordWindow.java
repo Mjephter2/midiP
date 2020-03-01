@@ -18,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.LinkedList;
 
@@ -38,6 +39,21 @@ public class ChordWindow extends Application {
 
     @Override
     public void start(Stage primaryStage2) throws Exception{
+        primaryStage2.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                Main mainWindow = new Main();
+                Stage mainStage = new Stage();
+                try {
+                    mainWindow.start(mainStage);
+                    primaryStage2.close();
+                    mainStage.show();
+                } catch (Exception ex) {
+                    System.out.println("Error opening chord Window!!!");
+                    ex.printStackTrace();
+                }
+            }
+        });
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: lightgray");
         root.setPadding(new Insets(10,10,10,10));
