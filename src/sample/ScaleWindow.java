@@ -243,8 +243,18 @@ public class ScaleWindow extends Application {
         resetButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                reset();
-                player.play("src/Sample sounds/StarWars3.wav");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        reset();
+                    }
+                }).start();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        player.play("src/Sample sounds/StarWars3.wav");
+                    }
+                }).start();
             }
         });
         homeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
