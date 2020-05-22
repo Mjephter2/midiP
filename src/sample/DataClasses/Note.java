@@ -9,18 +9,7 @@ public class Note {
     private String audioFilePath;
 
     public static void main(String[] args) {
-    new Thread(new Runnable() {
-        @Override
-        public void run() {
-            new Note().play();
-        }
-    }).run();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                new Note("B5").play();
-            }
-        }).run();
+        new Note("B5").play();
  }
 
     //default constructor
