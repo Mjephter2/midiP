@@ -1,82 +1,95 @@
 package sample.DataClasses;
 
-import java.util.LinkedList;
-import java.util.List;
+import sample.AudioPlayer;
 
 public class Note {
+    // variable to store the full name of a Note. e.g Db1
     private String name;
-    public LinkedList<String> noteNames = new LinkedList(List.of("C", "Db","D", "Eb", "E",
-                                                                "F", "Gb","G", "Ab", "A", "Bb", "B"));
-
+    // audio file of the Note's sound
+    private String audioFilePath;
 
     public static void main(String[] args) {
-        Note note1 = new Note("G");
-        System.out.println(note1);
-        note1=note1.sharp();
-        System.out.println(note1);
-        note1=note1.sharp(4);
-        System.out.println(note1);
-        note1=note1.sharp(7);
-        System.out.println(note1);
-        note1=note1.flat();
-        System.out.println(note1);
-        note1=note1.flat(5);
-        System.out.println(note1);
-        note1=note1.flat(6);
-        System.out.println(note1);
-        note1=note1.sharp(12);
-        System.out.println(note1);
-        note1=note1.flat(12);
-        System.out.println(note1);
-    }
+    new Thread(new Runnable() {
+        @Override
+        public void run() {
+            new Note().play();
+        }
+    }).run();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                new Note("B5").play();
+            }
+        }).run();
+ }
 
+    //default constructor
+    //Assigns Note name to "C1"
     public Note(){
-        name = "C";
+        this.name = "C1";
+        this.audioFilePath = this.getSoundFilePath(this.name);
     }
 
     public Note(String name){
-        if(!noteNames.contains(name)){
-            System.out.println("Wrong Note Name!!!");
+        if(!isValidNote(name)){
+            System.out.println("Invalid Note Name!!!");
             System.exit(0);
         }
         this.name = name;
+        this.audioFilePath = getSoundFilePath(name);
     }
+    //may not be needed
     public Note(Note otherNote){
-        name = otherNote.getName();
+        this.name = otherNote.name;
+        this.audioFilePath = getSoundFilePath(otherNote.getName());
+    }
+
+    private boolean isValidNote(String name){
+        if(!Utilities.NOTE_NAMES.contains(name)) return false;
+        return true;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String newName){
-        name = newName;
+        return this.name;
     }
 
     public String toString(){
         return name;
     }
 
-    private Note sharp(){
-        int index = noteNames.indexOf(name);
-        Note result = new Note(noteNames.get((index + 1) % 12));
-        return result;
-    }
+//    private Note sharp(){
+//        int index = Utilities.NOTE_NAMES.indexOf(this.name);
+//        if(index == 87) return null;
+//        Note result = new Note(Utilities.NOTE_NAMES.get(index + 1));
+//        return result;
+//    }
     public Note sharp(int n){
-        if(n >= 12) n = n % 12;
-        Note result = this;
-        for(int i =1; i<=n; i++) result = result.sharp();
+        int index = Utilities.NOTE_NAMES.indexOf(this.name);
+        if(index + n > 87) return null;
+        Note result = new Note(Utilities.NOTE_NAMES.get(index + n));
         return result;
     }
-    private Note flat(){
-        int index = noteNames.indexOf(name);
-        Note result = new Note(noteNames.get((index - 1 + 12) % 12));
-        return result;
-    }
+//    private Note flat(){
+//        int index = Utilities.NOTE_NAMES.indexOf(this.name);
+//        if(index == 0) return null;
+//        Note result = new Note(Utilities.NOTE_NAMES.get(index - 1));
+//        return result;
+//    }
     public Note flat(int n){
-        if(n >= 12) n = n % 12;
-        Note result = this;
-        for(int i = 1; i <= n; i++) result = result.flat();
+        int index = Utilities.NOTE_NAMES.indexOf(this.name);
+        if(index - n < 0) return null;
+        Note result = new Note(Utilities.NOTE_NAMES.get(index - n));
         return result;
+    }
+
+    public void play(){
+        System.out.println("Playing " + this.name);
+        new AudioPlayer().play(this.audioFilePath);
+    }
+
+    // retrieve the filePath of the Note's corresponding sound
+    private String getSoundFilePath(String noteName){
+        // to do
+        return "src/Sample sounds/Piano.mf." + noteName + ".aiff";
     }
 }
