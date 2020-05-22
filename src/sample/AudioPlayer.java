@@ -19,7 +19,7 @@ public class AudioPlayer {
      * Play a given audio file.
      * @param audioFilePath Path of the audio file.
      */
-    void play(String audioFilePath) {
+    public void play(String audioFilePath) {
         File audioFile = new File(audioFilePath);
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
@@ -30,7 +30,7 @@ public class AudioPlayer {
 
             audioLine.start();
 
-            System.out.println("Playback started.");
+            //System.out.println("Playback started.");
 
             byte[] bytesBuffer = new byte[BUFFER_SIZE];
             int bytesRead = -1;
@@ -43,7 +43,7 @@ public class AudioPlayer {
             audioLine.close();
             audioStream.close();
 
-            System.out.println("Playback completed.");
+            //System.out.println("Playback completed.");
 
         } catch (UnsupportedAudioFileException ex) {
             System.out.println("The specified audio file is not supported.");
