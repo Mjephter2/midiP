@@ -57,24 +57,12 @@ public class Note {
         return name;
     }
 
-//    private Note sharp(){
-//        int index = Utilities.NOTE_NAMES.indexOf(this.name);
-//        if(index == 87) return null;
-//        Note result = new Note(Utilities.NOTE_NAMES.get(index + 1));
-//        return result;
-//    }
     public Note sharp(int n){
         int index = Utilities.NOTE_NAMES.indexOf(this.name);
         if(index + n > 87) return null;
         Note result = new Note(Utilities.NOTE_NAMES.get(index + n));
         return result;
     }
-//    private Note flat(){
-//        int index = Utilities.NOTE_NAMES.indexOf(this.name);
-//        if(index == 0) return null;
-//        Note result = new Note(Utilities.NOTE_NAMES.get(index - 1));
-//        return result;
-//    }
     public Note flat(int n){
         int index = Utilities.NOTE_NAMES.indexOf(this.name);
         if(index - n < 0) return null;
