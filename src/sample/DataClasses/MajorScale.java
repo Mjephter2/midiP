@@ -86,9 +86,8 @@ public class MajorScale {
         degree_7 = degree_6.sharp(2);
     }
     public MajorScale(String root){
-        Note test = new Note();
-        if(!test.noteNames.contains(root)) {
-            System.out.println("Wrong root Note name!!!");
+        if(!Utilities.NOTE_NAMES.contains(root)) {
+            System.out.println("Invalid Note name!!!");
             System.exit(0);
         }
         this.root = new Note(root);
