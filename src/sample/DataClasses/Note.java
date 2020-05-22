@@ -92,4 +92,8 @@ public class Note {
         // to do
         return "src/Sample sounds/Piano.mf." + noteName + ".aiff";
     }
+
+    public String noteQuality(){
+        return this.getName().substring(0,this.getName().length() - 1);
+    }
 }
