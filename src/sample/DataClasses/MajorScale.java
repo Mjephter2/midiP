@@ -1,7 +1,38 @@
 package sample.DataClasses;
 
-public class MajorScale {
+public class MajorScale implements Scale{
     private Note[] scale_Notes;
+
+    @Override
+    public Scale transposeUp(int n) {
+        return this.sharp(n);
+    }
+    @Override
+    public Scale transposeDown(int n) {
+        return this.flat(n);
+    }
+    @Override
+    public Note[] notes() {
+        return scale_Notes;
+    }
+    @Override
+    public String root() {
+        return this.scale_Notes[0].getName();
+    }
+
+    public MajorScale(Note scaleRoot){
+        this(scaleRoot.getName());
+    }
+    public MajorScale(){
+        this("C3");
+    }
+    public MajorScale(MajorScale scale){
+        this(scale.scale_Notes[0].getName());
+    }
+    public MajorScale(String root){
+        Note newRoot = new Note(root);
+        generateScale(newRoot);
+    }
 
     public Note getRoot() {
         return scale_Notes[0];
@@ -25,43 +56,16 @@ public class MajorScale {
         return scale_Notes[6];
     }
 
-    public MajorScale(Note scaleRoot){
-        this(scaleRoot.getName());
-    }
-    public MajorScale(){
-        this("C3");
-    }
-    public MajorScale(MajorScale scale){
-        this(scale.scale_Notes[0].getName());
-    }
-    public MajorScale(String root){
-        Note newRoot = new Note(root);
-        generateScale(newRoot);
-    }
-
-    public MajorScale sharp(int n){
+    private MajorScale sharp(int n){
         if(Utilities.NOTE_NAMES.indexOf(this.scale_Notes[0].getName()) + n + 12 > 87) return this;
         String newRoot = this.scale_Notes[0].sharp(n).getName();
         return new MajorScale(newRoot);
     }
-    public MajorScale flat(int n){
+    private MajorScale flat(int n){
         if(Utilities.NOTE_NAMES.indexOf(this.scale_Notes[0].getName()) - n < 0) return this;
         String newRoot = this.scale_Notes[0].flat(n).getName();
         return new MajorScale(newRoot);
     }
-
-    @Override
-    public String toString() {
-        return  "root:\t" + getRoot().noteQuality() +
-                "\nii:\t\t" + getDegree_2().noteQuality() +
-                "\niii:\t" + getDegree_3().noteQuality() +
-                "\nIV:\t\t" + getDegree_4().noteQuality() +
-                "\nV:\t\t" + getDegree_5().noteQuality() +
-                "\nVI:\t\t" + getDegree_6().noteQuality() +
-                "\nvii:\t" + getDegree_7().noteQuality() +
-                "\nroot:\t" + getRoot().noteQuality() + "\n";
-    }
-
     private void generateScale(Note root){
         scale_Notes = new Note[8];
         this.scale_Notes[0] = root;
@@ -73,9 +77,26 @@ public class MajorScale {
         this.scale_Notes[6]= root.sharp(11);
     }
 
+    @Override
+    public String toString() {
+        return  getRoot().noteQuality() + "\tMajor Scale:"
+                + " " + getRoot().noteQuality()
+                + "\t" + getDegree_2().noteQuality()
+                + "\t" + getDegree_3().noteQuality()
+                + "\t" + getDegree_4().noteQuality()
+                + "\t" + getDegree_5().noteQuality()
+                + "\t" + getDegree_6().noteQuality()
+                + "\t" + getDegree_7().noteQuality()
+                + "\t" + getRoot().noteQuality();
+    }
+
     public static void main(String[] args) {
-        MajorScale scale = new MajorScale(new Note("C1"));
-        System.out.println(scale.flat(4));
+        Scale scale = new MajorScale(new Note("C1"));
+        for(int i = 0; i < 11; i++){
+            System.out.println(scale.transposeUp(i));
+        }
 
     }
+
+
 }
