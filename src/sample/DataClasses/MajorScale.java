@@ -1,7 +1,7 @@
 package sample.DataClasses;
 
 public class MajorScale implements Scale{
-    private Note[] scale_Notes;
+    private Note[] scale_Notes = new Note[8];
 
     @Override
     public Scale transposeUp(int n) {
@@ -67,7 +67,6 @@ public class MajorScale implements Scale{
         return new MajorScale(newRoot);
     }
     private void generateScale(Note root){
-        scale_Notes = new Note[8];
         this.scale_Notes[0] = root;
         this.scale_Notes[1]= root.sharp(2);
         this.scale_Notes[2]= root.sharp(4);
