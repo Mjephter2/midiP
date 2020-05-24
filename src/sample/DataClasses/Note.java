@@ -61,7 +61,13 @@ public class Note {
 
     public void play(){
         System.out.println("Playing " + this.name);
-        new AudioPlayer().play(this.audioFilePath);
+        String path = this.audioFilePath;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                new AudioPlayer().play(path);
+            }
+        }).start();
     }
 
     // retrieve the filePath of the Note's corresponding sound
