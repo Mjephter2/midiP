@@ -41,7 +41,7 @@ public class MinorTriad implements Chord {
 
 
     private MinorTriad sharp(int n){
-        if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) + n + 12 > 87) return this;
+        if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) + n + 7 > 87) return this;
         String newRoot = this.chord_Notes[0].sharp(n).getName();
         return new MinorTriad(newRoot);
     }
