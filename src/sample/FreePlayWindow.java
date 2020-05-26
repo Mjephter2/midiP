@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,7 +9,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import sample.DataClasses.Utilities;
 
 import java.util.ArrayList;
@@ -53,21 +51,21 @@ public class FreePlayWindow extends Application {
     @Override
     public void start(Stage freePlay) {
         BorderPane root = new BorderPane();
-        freePlay.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                Main mainWindow = new Main();
-                Stage mainStage = new Stage();
-                try {
-                    mainWindow.start(mainStage);
-                    freePlay.close();
-                    mainStage.show();
-                } catch (Exception ex) {
-                    System.out.println("Error opening Main Window!!!");
-                    ex.printStackTrace();
-                }
-            }
-        });
+//        freePlay.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//            @Override
+//            public void handle(WindowEvent windowEvent) {
+//                Main mainWindow = new Main();
+//                Stage mainStage = new Stage();
+//                try {
+//                    mainWindow.start(mainStage);
+//                    freePlay.close();
+//                    mainStage.show();
+//                } catch (Exception ex) {
+//                    System.out.println("Error opening Main Window!!!");
+//                    ex.printStackTrace();
+//                }
+//            }
+//        });
 
         HBox white_keyPane = new HBox();
         white_keyPane.setPickOnBounds(false);
