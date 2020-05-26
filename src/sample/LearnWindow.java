@@ -10,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -49,9 +48,9 @@ public class LearnWindow extends Application {
 
     //draw selection buttons
     {
-        bottom.setGridLinesVisible(true);
+        //bottom.setGridLinesVisible(true);
         bottom.setStyle("-fx-background-color: darkgray;");
-        bottom.setPadding(new Insets(10,10,10,10));
+        //bottom.setPadding(new Insets(10,10,10,10));
         bottom.setHgap(10);
         bottom.setVgap(10);
 
@@ -131,10 +130,8 @@ public class LearnWindow extends Application {
         for(int i = start; i < start + NUMBER_OF_KEYS; i++){
             if(blackIndex.contains(i % 12)){
                 blackKeys.add(new Button(Utilities.NOTE_NAMES.get(i)));
-                System.out.println("Added " + Utilities.NOTE_NAMES.get(i) + " to the black keys");
             }else{
                 whiteKeys.add(new Button(Utilities.NOTE_NAMES.get(i)));
-                System.out.println("Added " + Utilities.NOTE_NAMES.get(i) + " to the white keys");
             }
         }
         white_keyPane.setPickOnBounds(false);
@@ -146,33 +143,14 @@ public class LearnWindow extends Application {
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
             white_keyPane.getChildren().add(button);
-            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-//                    if(button.getStyle().contains("-fx-background-color: blue")) {
-//                        button.setStyle(buttonOriginalStyle);
-//                    }
-//                    else button.setStyle("-fx-background-color: blue");
-                }
-            });
         }
 
-        // fix size of black keys and add to black_keyPane
         for(Button button: blackKeys){
             button.setPrefSize(30,80);
             button.setStyle("-fx-background-color: black");
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
             black_keyPane.getChildren().add(button);
-            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-//                    if(button.getStyle().contains("-fx-background-color: black")) {
-//                        button.setStyle("-fx-background-color: red");
-//                    }
-//                    else button.setStyle("-fx-background-color: black");
-                }
-            });
         }
         black_keyPane.setSpacing(10);
         black_keyPane.getChildren().add(2, new FillerButton(30,80));
@@ -182,7 +160,7 @@ public class LearnWindow extends Application {
 
         keyPane.setAlignment(Pos.BASELINE_CENTER);
         BorderPane.setAlignment(keyPane,Pos.CENTER);
-        keyPane.setPadding(new Insets(55,20,20,20));
+        //keyPane.setPadding(new Insets(55,20,20,20));
         keyPane.add(white_keyPane,0,0,2,1);
         keyPane.add(black_keyPane,0,0,2,1);
     }
@@ -208,13 +186,11 @@ public class LearnWindow extends Application {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: slategrey");
         root.setPadding(new Insets(10,10,10,10));
-
         root.setBottom(bottom);
         GridPane.setHalignment(bottom, HPos.CENTER);
-
         root.setCenter(keyPane);
 
-        Scene scene = new Scene(root,1000,400);
+        Scene scene = new Scene(root,1000,210);
         learn.setFullScreen(false);
         learn.setResizable(false);
         learn.setTitle("Learn Chords and Scales");
