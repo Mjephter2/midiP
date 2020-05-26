@@ -44,13 +44,14 @@ public class LearnWindow extends Application {
     private ToggleGroup chordType = new ToggleGroup();
     private HBox white_keyPane = new HBox();
     private HBox black_keyPane = new HBox();
-    GridPane keyPane = new GridPane();
+    private GridPane keyPane = new GridPane();
+    private Button resetButton = new Button("Reset");
 
     //draw selection buttons
     {
         //bottom.setGridLinesVisible(true);
         bottom.setStyle("-fx-background-color: darkgray;");
-        //bottom.setPadding(new Insets(10,10,10,10));
+        bottom.setPadding(new Insets(10,0,10,0));
         bottom.setHgap(10);
         bottom.setVgap(10);
 
@@ -117,6 +118,10 @@ public class LearnWindow extends Application {
             }
         });
 
+        bottom.add(new FillerButton(60,10), 7 , 0);
+        bottom.add(new FillerButton(60,10), 8 , 0);
+        bottom.add(new FillerButton(60,10), 9 , 0);
+        bottom.add(resetButton,10,0);
     }
     //draw the on-display keyboard
     {
@@ -160,7 +165,7 @@ public class LearnWindow extends Application {
 
         keyPane.setAlignment(Pos.BASELINE_CENTER);
         BorderPane.setAlignment(keyPane,Pos.CENTER);
-        //keyPane.setPadding(new Insets(55,20,20,20));
+        keyPane.setPadding(new Insets(0,0,10,0));
         keyPane.add(white_keyPane,0,0,2,1);
         keyPane.add(black_keyPane,0,0,2,1);
     }
@@ -190,7 +195,7 @@ public class LearnWindow extends Application {
         GridPane.setHalignment(bottom, HPos.CENTER);
         root.setCenter(keyPane);
 
-        Scene scene = new Scene(root,1000,210);
+        Scene scene = new Scene(root,1000,220);
         learn.setFullScreen(false);
         learn.setResizable(false);
         learn.setTitle("Learn Chords and Scales");
