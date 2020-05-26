@@ -58,14 +58,14 @@ public class Main extends Application {
         mainWindowLearnButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                LearnWindow scaleWindowRoot = new LearnWindow();
+                ScaleWindow scaleWindowRoot = new ScaleWindow();
                 Stage chordStage = new Stage();
                 try {
                     scaleWindowRoot.start(chordStage);
                     primaryStage.close();
                     chordStage.show();
                 } catch (Exception ex) {
-                    System.out.println("Error opening Learn Window!!!");
+                    System.out.println("Error opening chord Window!!!");
                     ex.printStackTrace();
                 }
             }
@@ -91,14 +91,14 @@ public class Main extends Application {
         mainWindowFreePlayButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                FreePlayWindow chordWindowRoot = new FreePlayWindow();
+                ChordWindow chordWindowRoot = new ChordWindow();
                 Stage chordStage = new Stage();
                 try {
                     chordWindowRoot.start(chordStage);
                     primaryStage.close();
                     chordStage.show();
                 } catch (Exception ex) {
-                    System.out.println("Error opening FreePlay Window!!!");
+                    System.out.println("Error opening chord Window!!!");
                     ex.printStackTrace();
                 }
             }

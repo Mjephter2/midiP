@@ -161,7 +161,7 @@ public class ScaleWindow extends Application {
         bottom.add(fillerLabel7,8,0);
 
         //keyboard display
-        for(int i = 0; i < NUMBER_OF_KEYS; i++){
+        for(int i = 0; i < NUMBER_OF_KEYS; i++){ // refer to keyboardReferences.txt
             keyBoard[i] = new Button("");
             keyBoard[i].setTooltip(new Tooltip("KeyBoard[" + i + "]"));
         }
