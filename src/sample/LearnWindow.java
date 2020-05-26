@@ -176,18 +176,7 @@ public class LearnWindow extends Application {
 
     @Override
     public void start(Stage learn) {
-        learn.setOnCloseRequest(windowEvent -> {
-            Main mainWindow = new Main();
-            Stage mainStage = new Stage();
-            try {
-                mainWindow.start(mainStage);
-                learn.close();
-                mainStage.show();
-            } catch (Exception ex) {
-                System.out.println("Error opening Main Window!!!");
-                ex.printStackTrace();
-            }
-        });
+
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: slategrey");
         root.setPadding(new Insets(10,10,10,10));
