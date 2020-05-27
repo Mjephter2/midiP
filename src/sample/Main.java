@@ -58,10 +58,10 @@ public class Main extends Application {
         mainWindowLearnButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent e) {
-                LearnWindow scaleWindowRoot = new LearnWindow();
+                LearnWindow learnWindow = new LearnWindow();
                 Stage chordStage = new Stage();
                 try {
-                    scaleWindowRoot.start(chordStage);
+                    learnWindow.start(chordStage);
                     primaryStage.close();
                     chordStage.show();
                 } catch (Exception ex) {
