@@ -30,6 +30,8 @@ public class FreePlayWindow extends Application {
     private String buttonOriginalStyle;
     private String black_buttonOriginalStyle;
     private MidiInputReceiver midiInputReceiver = new MidiInputReceiver("Receiver");
+    private int lastKeyPressedIndex = 0;
+
     {
         int i = 0;
         while(i < 88){
@@ -181,10 +183,14 @@ public class FreePlayWindow extends Application {
         }
         public void send(MidiMessage msg, long timeStamp) {
             byte[] aMsg = msg.getMessage();
-            System.out.println("Message: " + msg.getStatus());
+            if((lastKeyPressedIndex == 127 && aMsg[2] == 0) || aMsg[2] == 127) {
+                lastKeyPressedIndex = aMsg[2];
+                return;
+            }
+            System.out.println("Message: " + aMsg[0] + ", " + aMsg[1] + ", " + aMsg[2]);
             if(aMsg[1] - 21 < 0) return;
             keyPressed_Released(aMsg[1] - 21);
-
+            lastKeyPressedIndex = aMsg[2];
         }
         @Override
         public void close() {
