@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -57,6 +58,24 @@ public class FreePlayWindow extends Application {
         //System.out.println("black keys: " + blackKeys.size());
         buttonOriginalStyle = keyBoard[0].getStyle();
         black_buttonOriginalStyle = keyBoard[1].getStyle();
+        for(Button button: keyBoard){
+            button.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    button.setStyle("-fx-background-color: gray");
+                }
+            });
+            button.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if(blackKeys.contains(button)){
+                        button.setStyle("-fx-background-color: black");
+                    }else if(whiteKeys.contains(button)){
+                        button.setStyle(buttonOriginalStyle);
+                    }
+                }
+            });
+        }
     }
 
     public void openAllTransmitters(){
