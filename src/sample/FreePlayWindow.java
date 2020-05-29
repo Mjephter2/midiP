@@ -52,6 +52,7 @@ public class FreePlayWindow extends Application {
             keyBoard[i] = button;
             i++;
         }
+
         //System.out.println("white keys: " + whiteKeys.size());
         //System.out.println("black keys: " + blackKeys.size());
         buttonOriginalStyle = keyBoard[0].getStyle();
@@ -124,8 +125,9 @@ public class FreePlayWindow extends Application {
         white_keyPane.setPickOnBounds(false);
         HBox black_keyPane = new HBox();
         black_keyPane.setPickOnBounds(false);
-        black_keyPane.setPadding(new Insets(0,0,0,15));
+        black_keyPane.setPadding(new Insets(0,0,0,13));
         black_keyPane.setSpacing(4);
+        white_keyPane.setSpacing(0.4);
 
         //System.out.println(screenSize.width);
         for(Button button: whiteKeys){
@@ -164,14 +166,18 @@ public class FreePlayWindow extends Application {
     }
     private void keyPressed_Released(int key){
         Button button = keyBoard[key];
-        if(button.getStyle().contains("blue")){
+        if(button.getStyle().contains("blue") || button.getStyle().contains("red")){
             if(whiteKeys.contains(button)){
                 button.setStyle(buttonOriginalStyle);
             }else if(blackKeys.contains(button)){
                 button.setStyle("-fx-background-color: black");
             }
         }else {
-            button.setStyle("-fx-background-color: blue");
+            if(whiteKeys.contains(button)){
+                button.setStyle("-fx-background-color: blue");
+            }else if(blackKeys.contains(button)){
+                button.setStyle("-fx-background-color: red");
+            }
         }
     }
 
