@@ -46,7 +46,7 @@ public class LearnWindow extends Application {
     private HBox white_keyPane = new HBox();
     private HBox black_keyPane = new HBox();
     private GridPane keyPane = new GridPane();
-    private Button resetButton = new Button("Reset");
+    private Button resetButton = new Button("RESET");
 
     //draw selection buttons
     {
@@ -169,6 +169,14 @@ public class LearnWindow extends Application {
         keyPane.setPadding(new Insets(0,0,10,0));
         keyPane.add(white_keyPane,0,0,2,1);
         keyPane.add(black_keyPane,0,0,2,1);
+        resetButton.setOnMouseClicked(mouseEvent -> {
+            for(Button button: whiteKeys){
+                setToDefault(button);
+            }
+            for(Button button: blackKeys){
+                setToDefault(button);
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -202,5 +210,12 @@ public class LearnWindow extends Application {
         learn.setTitle("Learn Chords and Scales");
         learn.setScene(scene);
         learn.show();
+    }
+    private void setToDefault(Button button){
+        if(blackKeys.contains(button)){
+            button.setStyle("-fx-background-color: black");
+        }else{
+            button.setStyle(new Button().getStyle());
+        }
     }
 }
