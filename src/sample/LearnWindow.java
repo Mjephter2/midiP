@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -142,13 +143,22 @@ public class LearnWindow extends Application {
         }
         white_keyPane.setPickOnBounds(false);
         black_keyPane.setPickOnBounds(false);
+        white_keyPane.setSpacing(1);
+        black_keyPane.setSpacing(11);
         black_keyPane.setPadding(new Insets(0,0,0,25));
-        String buttonOriginalStyle = new Button().getStyle();
         for(Button button: whiteKeys){
             button.setPrefSize(40,120);
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
             white_keyPane.getChildren().add(button);
+            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if(button.getStyle().contains("blue")){
+                        setToDefault(button);
+                    }else button.setStyle("-fx-background-color: blue");
+                }
+            });
         }
 
         for(Button button: blackKeys){
@@ -157,8 +167,15 @@ public class LearnWindow extends Application {
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
             black_keyPane.getChildren().add(button);
+            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if(button.getStyle().contains("red")){
+                        setToDefault(button);
+                    }else button.setStyle("-fx-background-color: darkred");
+                }
+            });
         }
-        black_keyPane.setSpacing(10);
         black_keyPane.getChildren().add(2, new FillerButton(30,80));
         black_keyPane.getChildren().add(6, new FillerButton(30,80));
         black_keyPane.getChildren().add(9, new FillerButton(30,80));
