@@ -13,7 +13,7 @@ public class Utilities {
             int note1Num = note1.getName().charAt(note1.getName().length() - 1);
             int note2Num = note2.getName().charAt(note2.getName().length() - 1);
             if(note1Num != note2Num) return note1Num - note2Num;
-            return note1.getName().substring(0,note1.getName().length() - 1).compareTo(note2.getName().substring(0,note2.getName().length() - 1));
+            return NOTE_QUALITIES.indexOf(note1.noteQuality()) - NOTE_QUALITIES.indexOf(note2.noteQuality());
         }
     };
 
@@ -36,10 +36,6 @@ public class Utilities {
         list.add("B8");
         list.add("C8");
         return list;
-    }
-
-    public static void main(String[] args) {
-        System.out.print(NOTE_NAMES.size());
     }
 
     public static AudioPlayer AUDIOPLAYER = new AudioPlayer();
