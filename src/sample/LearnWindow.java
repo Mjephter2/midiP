@@ -10,19 +10,19 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import sample.DataClasses.FillerButton;
-import sample.DataClasses.Utilities;
+import sample.DataClasses.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class LearnWindow extends Application {
     private static final int NUMBER_OF_KEYS = 27;
-    private Button[] keyBoard = new Button[NUMBER_OF_KEYS];   //array containing the piano keys
+    private LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
     private LinkedList<Button> whiteKeys = new LinkedList<>();
     private LinkedList<Button> blackKeys = new LinkedList<>();
     private ToggleButton majorTriadButton = new ToggleButton("Major Triad");
@@ -46,7 +46,7 @@ public class LearnWindow extends Application {
     private HBox white_keyPane = new HBox();
     private HBox black_keyPane = new HBox();
     private GridPane keyPane = new GridPane();
-    private Button resetButton = new Button("Reset");
+    private Button resetButton = new Button("RESET");
 
     //draw selection buttons
     {
@@ -142,13 +142,15 @@ public class LearnWindow extends Application {
         }
         white_keyPane.setPickOnBounds(false);
         black_keyPane.setPickOnBounds(false);
+        white_keyPane.setSpacing(1);
+        black_keyPane.setSpacing(11);
         black_keyPane.setPadding(new Insets(0,0,0,25));
-        String buttonOriginalStyle = new Button().getStyle();
         for(Button button: whiteKeys){
             button.setPrefSize(40,120);
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
             white_keyPane.getChildren().add(button);
+            keyBoard.add(button);
         }
 
         for(Button button: blackKeys){
@@ -157,8 +159,17 @@ public class LearnWindow extends Application {
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
             black_keyPane.getChildren().add(button);
+            keyBoard.add(button);
         }
-        black_keyPane.setSpacing(10);
+        for(Button button: keyBoard){
+            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    colorButton(button);
+                }
+            });
+        }
+        keyBoard.sort((o1, o2) -> Utilities.NOTE_COMPARATOR.compare(new Note(o1.getTooltip().getText()), new Note(o2.getTooltip().getText())));
         black_keyPane.getChildren().add(2, new FillerButton(30,80));
         black_keyPane.getChildren().add(6, new FillerButton(30,80));
         black_keyPane.getChildren().add(9, new FillerButton(30,80));
@@ -169,6 +180,254 @@ public class LearnWindow extends Application {
         keyPane.setPadding(new Insets(0,0,10,0));
         keyPane.add(white_keyPane,0,0,2,1);
         keyPane.add(black_keyPane,0,0,2,1);
+        resetButton.setOnMouseClicked(mouseEvent -> {
+            for(Button button: keyBoard){
+                setToDefault(button);
+            }
+        });
+    }
+    //selection buttons actions
+    {
+        majorTriadButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = new Note("C3");
+            while(!root.noteQuality().equals(keyBox.getValue())){
+                root = root.sharp(1);
+            }
+            Chord chord = new MajorTriad(root);
+            Note[] chordNotes = chord.notes();
+            ArrayList<String> chordNotesNames = new ArrayList<>();
+            for(int i = 0; i < chordNotes.length; i++){
+                chordNotesNames.add(chordNotes[i].getName());
+            }
+            System.out.println(chordNotesNames);
+            for(Button button: keyBoard){
+                if(chordNotesNames.contains(button.getTooltip().getText())){
+                    colorButton(button);
+                }
+            }
+        });
+
+        minorTriadButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = new Note("C3");
+            while(!root.noteQuality().equals(keyBox.getValue())){
+                root = root.sharp(1);
+            }
+            Chord chord = new MinorTriad(root);
+            Note[] chordNotes = chord.notes();
+            ArrayList<String> chordNotesNames = new ArrayList<>();
+            for(int i = 0; i < chordNotes.length; i++){
+                chordNotesNames.add(chordNotes[i].getName());
+            }
+            System.out.println(chordNotesNames);
+            for(Button button: keyBoard){
+                if(chordNotesNames.contains(button.getTooltip().getText())){
+                    colorButton(button);
+                }
+            }
+        });
+
+        major7thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetButtons();
+                Note root = new Note("C3");
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    root = root.sharp(1);
+                }
+                Chord chord = new Major7th(root);
+                Note[] chordNotes = chord.notes();
+                ArrayList<String> chordNotesNames = new ArrayList<>();
+                for(int i = 0; i < chordNotes.length; i++){
+                    chordNotesNames.add(chordNotes[i].getName());
+                }
+                System.out.println(chordNotesNames);
+                for(Button button: keyBoard){
+                    if(chordNotesNames.contains(button.getTooltip().getText())){
+                        colorButton(button);
+                    }
+                }
+            }
+        });
+
+        minor7thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetButtons();
+                Note root = new Note("C3");
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    root = root.sharp(1);
+                }
+                Chord chord = new Minor7th(root);
+                Note[] chordNotes = chord.notes();
+                ArrayList<String> chordNotesNames = new ArrayList<>();
+                for(int i = 0; i < chordNotes.length; i++){
+                    chordNotesNames.add(chordNotes[i].getName());
+                }
+                System.out.println(chordNotesNames);
+                for(Button button: keyBoard){
+                    if(chordNotesNames.contains(button.getTooltip().getText())){
+                        colorButton(button);
+                    }
+                }
+            }
+        });
+
+        major9thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetButtons();
+                Note root = new Note("C3");
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    root = root.sharp(1);
+                }
+                Chord chord = new Major9th(root);
+                Note[] chordNotes = chord.notes();
+                ArrayList<String> chordNotesNames = new ArrayList<>();
+                for(int i = 0; i < chordNotes.length; i++){
+                    chordNotesNames.add(chordNotes[i].getName());
+                }
+                System.out.println(chordNotesNames);
+                for(Button button: keyBoard){
+                    if(chordNotesNames.contains(button.getTooltip().getText())){
+                        colorButton(button);
+                    }
+                }
+            }
+        });
+
+        minor9thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetButtons();
+                Note root = new Note("C3");
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    root = root.sharp(1);
+                }
+                Chord chord = new Minor9th(root);
+                Note[] chordNotes = chord.notes();
+                ArrayList<String> chordNotesNames = new ArrayList<>();
+                for(int i = 0; i < chordNotes.length; i++){
+                    chordNotesNames.add(chordNotes[i].getName());
+                }
+                System.out.println(chordNotesNames);
+                for(Button button: keyBoard){
+                    if(chordNotesNames.contains(button.getTooltip().getText())){
+                        colorButton(button);
+                    }
+                }
+            }
+        });
+
+        dominant7thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetButtons();
+                Note root = new Note("C3");
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    root = root.sharp(1);
+                }
+                Chord chord = new Dominant7th(root);
+                Note[] chordNotes = chord.notes();
+                ArrayList<String> chordNotesNames = new ArrayList<>();
+                for(int i = 0; i < chordNotes.length; i++){
+                    chordNotesNames.add(chordNotes[i].getName());
+                }
+                System.out.println(chordNotesNames);
+                for(Button button: keyBoard){
+                    if(chordNotesNames.contains(button.getTooltip().getText())){
+                        colorButton(button);
+                    }
+                }
+            }
+        });
+        dominant9thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetButtons();
+                Note root = new Note("C3");
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    root = root.sharp(1);
+                }
+                Chord chord = new Dominant9th(root);
+                Note[] chordNotes = chord.notes();
+                ArrayList<String> chordNotesNames = new ArrayList<>();
+                for(int i = 0; i < chordNotes.length; i++){
+                    chordNotesNames.add(chordNotes[i].getName());
+                }
+                System.out.println(chordNotesNames);
+                for(Button button: keyBoard){
+                    if(chordNotesNames.contains(button.getTooltip().getText())){
+                        colorButton(button);
+                    }
+                }
+            }
+        });
+
+        majorScaleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetButtons();
+                Note root = new Note("C3");
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    root = root.sharp(1);
+                }
+                Button start = null;
+                for(int i = 0; i < keyBoard.size(); i++){
+                    if(keyBoard.get(i).getTooltip().getText().equals(root.getName())){
+                        start = keyBoard.get(i);
+                        break;
+                    }
+                }
+                if(start != null){
+                    int index = keyBoard.indexOf(start);
+                    colorButton(keyBoard.get(index));
+                    colorButton(keyBoard.get(index + 2));
+                    colorButton(keyBoard.get(index + 4));
+                    colorButton(keyBoard.get(index + 5));
+                    colorButton(keyBoard.get(index + 7));
+                    colorButton(keyBoard.get(index + 9));
+                    colorButton(keyBoard.get(index + 11));
+                    colorButton(keyBoard.get(index + 12));
+                }
+            }
+        });
+
+        minorScaleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetButtons();
+                Note root = new Note("C3");
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    root = root.sharp(1);
+                }
+                Button start = null;
+                for(int i = 0; i < keyBoard.size(); i++){
+                    if(keyBoard.get(i).getTooltip().getText().equals(root.getName())){
+                        start = keyBoard.get(i);
+                        break;
+                    }
+                }
+                if(start != null){
+                    int index = keyBoard.indexOf(start);
+                    colorButton(keyBoard.get(index));
+                    colorButton(keyBoard.get(index + 2));
+                    colorButton(keyBoard.get(index + 3));
+                    colorButton(keyBoard.get(index + 5));
+                    colorButton(keyBoard.get(index + 7));
+                    colorButton(keyBoard.get(index + 8));
+                    colorButton(keyBoard.get(index + 10));
+                    colorButton(keyBoard.get(index + 12));
+                }
+            }
+        });
+    }
+    private void colorButton(Button button){
+        if(button.getStyle().contains("blue") || button.getStyle().contains("red")){
+            setToDefault(button);
+        }else if(whiteKeys.contains(button)) button.setStyle("-fx-background-color: blue");
+        else button.setStyle("-fx-background-color: red");
     }
 
     public static void main(String[] args) {
@@ -202,5 +461,21 @@ public class LearnWindow extends Application {
         learn.setTitle("Learn Chords and Scales");
         learn.setScene(scene);
         learn.show();
+    }
+
+    private void setToDefault(Button button){
+        if(blackKeys.contains(button)){
+            button.setStyle("-fx-background-color: black");
+        }else{
+            button.setStyle(new Button().getStyle());
+        }
+    }
+    private void resetButtons(){
+        for(Button button: whiteKeys){
+            setToDefault(button);
+        }
+        for(Button button: blackKeys){
+            setToDefault(button);
+        }
     }
 }
