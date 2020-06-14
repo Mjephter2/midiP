@@ -2,7 +2,7 @@ package sample.DataClasses;
 
 public class Minor7th implements Chord {
 
-    private Note[] chord_Notes = new Note[3];
+    private Note[] chord_Notes = new Note[4];
 
     @Override
     public Minor7th transposeUp(int n) {
