@@ -59,7 +59,7 @@ public class Major9th implements Chord {
 
     @Override
     public String toString() {
-        return  getRoot().noteQuality() + " Major 7 :"
+        return  getRoot().noteQuality() + " Major 9 :"
                 + " " + chord_Notes[0].noteQuality()
                 + " " + chord_Notes[1].noteQuality()
                 + " " + chord_Notes[2].noteQuality()
