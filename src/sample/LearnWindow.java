@@ -364,6 +364,64 @@ public class LearnWindow extends Application {
                 }
             }
         });
+
+        majorScaleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetButtons();
+                Note root = new Note("C3");
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    root = root.sharp(1);
+                }
+                Button start = null;
+                for(int i = 0; i < keyBoard.size(); i++){
+                    if(keyBoard.get(i).getTooltip().getText().equals(root.getName())){
+                        start = keyBoard.get(i);
+                        break;
+                    }
+                }
+                if(start != null){
+                    int index = keyBoard.indexOf(start);
+                    colorButton(keyBoard.get(index));
+                    colorButton(keyBoard.get(index + 2));
+                    colorButton(keyBoard.get(index + 4));
+                    colorButton(keyBoard.get(index + 5));
+                    colorButton(keyBoard.get(index + 7));
+                    colorButton(keyBoard.get(index + 9));
+                    colorButton(keyBoard.get(index + 11));
+                    colorButton(keyBoard.get(index + 12));
+                }
+            }
+        });
+
+        minorScaleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetButtons();
+                Note root = new Note("C3");
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    root = root.sharp(1);
+                }
+                Button start = null;
+                for(int i = 0; i < keyBoard.size(); i++){
+                    if(keyBoard.get(i).getTooltip().getText().equals(root.getName())){
+                        start = keyBoard.get(i);
+                        break;
+                    }
+                }
+                if(start != null){
+                    int index = keyBoard.indexOf(start);
+                    colorButton(keyBoard.get(index));
+                    colorButton(keyBoard.get(index + 2));
+                    colorButton(keyBoard.get(index + 3));
+                    colorButton(keyBoard.get(index + 5));
+                    colorButton(keyBoard.get(index + 7));
+                    colorButton(keyBoard.get(index + 8));
+                    colorButton(keyBoard.get(index + 10));
+                    colorButton(keyBoard.get(index + 12));
+                }
+            }
+        });
     }
     private void colorButton(Button button){
         if(button.getStyle().contains("blue") || button.getStyle().contains("red")){
