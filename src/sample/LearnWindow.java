@@ -151,12 +151,6 @@ public class LearnWindow extends Application {
             button.setText("");
             white_keyPane.getChildren().add(button);
             keyBoard.add(button);
-            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    colorButton(button);
-                }
-            });
         }
 
         for(Button button: blackKeys){
@@ -166,6 +160,8 @@ public class LearnWindow extends Application {
             button.setText("");
             black_keyPane.getChildren().add(button);
             keyBoard.add(button);
+        }
+        for(Button button: keyBoard){
             button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -185,10 +181,7 @@ public class LearnWindow extends Application {
         keyPane.add(white_keyPane,0,0,2,1);
         keyPane.add(black_keyPane,0,0,2,1);
         resetButton.setOnMouseClicked(mouseEvent -> {
-            for(Button button: whiteKeys){
-                setToDefault(button);
-            }
-            for(Button button: blackKeys){
+            for(Button button: keyBoard){
                 setToDefault(button);
             }
         });
@@ -208,17 +201,11 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNotes[i].getName());
             }
             System.out.println(chordNotesNames);
-            for(Button button: whiteKeys){
+            for(Button button: keyBoard){
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
                 }
             }
-            for(Button button: blackKeys){
-                if(chordNotesNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                }
-            }
-
         });
 
         minorTriadButton.setOnMouseClicked(mouseEvent -> {
@@ -234,12 +221,7 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNotes[i].getName());
             }
             System.out.println(chordNotesNames);
-            for(Button button: whiteKeys){
-                if(chordNotesNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                }
-            }
-            for(Button button: blackKeys){
+            for(Button button: keyBoard){
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
                 }
