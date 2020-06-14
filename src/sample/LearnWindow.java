@@ -15,8 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import sample.DataClasses.FillerButton;
-import sample.DataClasses.Utilities;
+import sample.DataClasses.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -154,9 +153,7 @@ public class LearnWindow extends Application {
             button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if(button.getStyle().contains("blue")){
-                        setToDefault(button);
-                    }else button.setStyle("-fx-background-color: blue");
+                    colorButton(button);
                 }
             });
         }
@@ -170,9 +167,7 @@ public class LearnWindow extends Application {
             button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if(button.getStyle().contains("red")){
-                        setToDefault(button);
-                    }else button.setStyle("-fx-background-color: darkred");
+                    colorButton(button);
                 }
             });
         }
@@ -194,6 +189,41 @@ public class LearnWindow extends Application {
                 setToDefault(button);
             }
         });
+    }
+    //selection buttons actions
+    {
+        majorTriadButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = new Note("C3");
+            while(!root.noteQuality().equals(keyBox.getValue())){
+                root = root.sharp(1);
+            }
+            //System.out.println("root note: " + root);
+            Chord chord = new MajorTriad(root);
+            Note[] chordNotes = chord.notes();
+            ArrayList<String> chordNotesNames = new ArrayList<>();
+            for(int i = 0; i < chordNotes.length; i++){
+                chordNotesNames.add(chordNotes[i].getName());
+            }
+            System.out.println(chordNotesNames);
+            for(Button button: whiteKeys){
+                if(chordNotesNames.contains(button.getTooltip().getText())){
+                    colorButton(button);
+                }
+            }
+            for(Button button: blackKeys){
+                if(chordNotesNames.contains(button.getTooltip().getText())){
+                    colorButton(button);
+                }
+            }
+
+        });
+    }
+    private void colorButton(Button button){
+        if(button.getStyle().contains("blue") || button.getStyle().contains("red")){
+            setToDefault(button);
+        }else if(whiteKeys.contains(button)) button.setStyle("-fx-background-color: blue");
+        else button.setStyle("-fx-background-color: red");
     }
 
     public static void main(String[] args) {
@@ -228,11 +258,20 @@ public class LearnWindow extends Application {
         learn.setScene(scene);
         learn.show();
     }
+
     private void setToDefault(Button button){
         if(blackKeys.contains(button)){
             button.setStyle("-fx-background-color: black");
         }else{
             button.setStyle(new Button().getStyle());
+        }
+    }
+    private void resetButtons(){
+        for(Button button: whiteKeys){
+            setToDefault(button);
+        }
+        for(Button button: blackKeys){
+            setToDefault(button);
         }
     }
 }
