@@ -22,7 +22,7 @@ import java.util.LinkedList;
 
 public class LearnWindow extends Application {
     private static final int NUMBER_OF_KEYS = 27;
-    private Button[] keyBoard = new Button[NUMBER_OF_KEYS];   //array containing the piano keys
+    private LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
     private LinkedList<Button> whiteKeys = new LinkedList<>();
     private LinkedList<Button> blackKeys = new LinkedList<>();
     private ToggleButton majorTriadButton = new ToggleButton("Major Triad");
@@ -150,6 +150,7 @@ public class LearnWindow extends Application {
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
             white_keyPane.getChildren().add(button);
+            keyBoard.add(button);
             button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -164,6 +165,7 @@ public class LearnWindow extends Application {
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
             black_keyPane.getChildren().add(button);
+            keyBoard.add(button);
             button.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -171,6 +173,7 @@ public class LearnWindow extends Application {
                 }
             });
         }
+        keyBoard.sort((o1, o2) -> Utilities.NOTE_COMPARATOR.compare(new Note(o1.getTooltip().getText()), new Note(o2.getTooltip().getText())));
         black_keyPane.getChildren().add(2, new FillerButton(30,80));
         black_keyPane.getChildren().add(6, new FillerButton(30,80));
         black_keyPane.getChildren().add(9, new FillerButton(30,80));
@@ -198,7 +201,6 @@ public class LearnWindow extends Application {
             while(!root.noteQuality().equals(keyBox.getValue())){
                 root = root.sharp(1);
             }
-            //System.out.println("root note: " + root);
             Chord chord = new MajorTriad(root);
             Note[] chordNotes = chord.notes();
             ArrayList<String> chordNotesNames = new ArrayList<>();
@@ -217,6 +219,31 @@ public class LearnWindow extends Application {
                 }
             }
 
+        });
+
+        minorTriadButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = new Note("C3");
+            while(!root.noteQuality().equals(keyBox.getValue())){
+                root = root.sharp(1);
+            }
+            Chord chord = new MinorTriad(root);
+            Note[] chordNotes = chord.notes();
+            ArrayList<String> chordNotesNames = new ArrayList<>();
+            for(int i = 0; i < chordNotes.length; i++){
+                chordNotesNames.add(chordNotes[i].getName());
+            }
+            System.out.println(chordNotesNames);
+            for(Button button: whiteKeys){
+                if(chordNotesNames.contains(button.getTooltip().getText())){
+                    colorButton(button);
+                }
+            }
+            for(Button button: blackKeys){
+                if(chordNotesNames.contains(button.getTooltip().getText())){
+                    colorButton(button);
+                }
+            }
         });
     }
     private void colorButton(Button button){
