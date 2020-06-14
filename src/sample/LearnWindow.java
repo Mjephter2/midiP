@@ -296,6 +296,29 @@ public class LearnWindow extends Application {
                 }
             }
         });
+
+        minor9thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetButtons();
+                Note root = new Note("C3");
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    root = root.sharp(1);
+                }
+                Chord chord = new Minor9th(root);
+                Note[] chordNotes = chord.notes();
+                ArrayList<String> chordNotesNames = new ArrayList<>();
+                for(int i = 0; i < chordNotes.length; i++){
+                    chordNotesNames.add(chordNotes[i].getName());
+                }
+                System.out.println(chordNotesNames);
+                for(Button button: keyBoard){
+                    if(chordNotesNames.contains(button.getTooltip().getText())){
+                        colorButton(button);
+                    }
+                }
+            }
+        });
     }
     private void colorButton(Button button){
         if(button.getStyle().contains("blue") || button.getStyle().contains("red")){
