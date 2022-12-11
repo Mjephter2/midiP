@@ -1,4 +1,6 @@
-package sample.DataClasses;
+package sample.DataClasses.chords;
+
+import sample.DataClasses.Note;
 
 public interface Chord {
     Chord transposeUp(int n);

@@ -1,4 +1,7 @@
-package sample.DataClasses;
+package sample.DataClasses.chords;
+
+import sample.DataClasses.Note;
+import sample.DataClasses.Utilities;
 
 public class Dominant7th implements Chord {
     private Note[] chord_Notes = new Note[4];

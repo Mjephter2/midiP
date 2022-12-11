@@ -1,15 +1,17 @@
-package sample.DataClasses;
+package sample.DataClasses.chords;
 
-public class MinorTriad implements Chord {
+import sample.DataClasses.Note;
+import sample.DataClasses.Utilities;
 
-    private Note[] chord_Notes = new Note[3];
+public class Major7th implements Chord {
+    private Note[] chord_Notes = new Note[4];
 
     @Override
-    public MinorTriad transposeUp(int n) {
+    public Major7th transposeUp(int n) {
         return this.sharp(n);
     }
     @Override
-    public MinorTriad transposeDown(int n) {
+    public Major7th transposeDown(int n) {
         return this.flat(n);
     }
     @Override
@@ -21,16 +23,16 @@ public class MinorTriad implements Chord {
         return this.chord_Notes[0].getName();
     }
 
-    public MinorTriad(Note scaleRoot){
+    public Major7th(Note scaleRoot){
         this(scaleRoot.getName());
     }
-    public MinorTriad(){
+    public Major7th(){
         this("C3");
     }
-    public MinorTriad(MinorTriad triad){
-        this(triad.chord_Notes[0].getName());
+    public Major7th(Major7th chord){
+        this(chord.chord_Notes[0].getName());
     }
-    public MinorTriad(String root){
+    public Major7th(String root){
         Note newRoot = new Note(root);
         generateScale(newRoot);
     }
@@ -40,32 +42,34 @@ public class MinorTriad implements Chord {
     }
 
 
-    private MinorTriad sharp(int n){
-        if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) + n + 7 > 87) return this;
+    private Major7th sharp(int n){
+        if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) + n + 11 > 87) return this;
         String newRoot = this.chord_Notes[0].sharp(n).getName();
-        return new MinorTriad(newRoot);
+        return new Major7th(newRoot);
     }
-    private MinorTriad flat(int n){
+    private Major7th flat(int n){
         if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) - n > 87) return this;
         String newRoot = this.chord_Notes[0].sharp(n).getName();
-        return new MinorTriad(newRoot);
+        return new Major7th(newRoot);
     }
     private void generateScale(Note root){
         this.chord_Notes[0] = root;
-        this.chord_Notes[1]= root.sharp(3);
+        this.chord_Notes[1]= root.sharp(4);
         this.chord_Notes[2]= root.sharp(7);
+        this.chord_Notes[3] = root.sharp(11);
     }
 
     @Override
     public String toString() {
-        return  getRoot().noteQuality() + " Minor Triad:"
-                + " " + getRoot().noteQuality()
+        return  getRoot().noteQuality() + " Major 7 :"
+                + " " + chord_Notes[0].noteQuality()
                 + " " + chord_Notes[1].noteQuality()
-                + " " + chord_Notes[2].noteQuality();
+                + " " + chord_Notes[2].noteQuality()
+                + " " + chord_Notes[3].noteQuality();
     }
 
     public static void main(String[] args) {
-        Chord c = new MinorTriad("C3");
+        Chord c = new Major7th("C3");
         System.out.println(c.transposeUp(1));
     }
 }

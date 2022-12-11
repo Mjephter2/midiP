@@ -1,4 +1,4 @@
-package sample;
+package sample.views;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -16,6 +16,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import sample.DataClasses.*;
+import sample.DataClasses.chords.Chord;
+import sample.DataClasses.chords.Dominant7th;
+import sample.DataClasses.chords.Dominant9th;
+import sample.DataClasses.chords.Major7th;
+import sample.DataClasses.chords.Major9th;
+import sample.DataClasses.chords.MajorTriad;
+import sample.DataClasses.chords.Minor7th;
+import sample.DataClasses.chords.Minor9th;
+import sample.DataClasses.chords.MinorTriad;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package sample;
+package sample.views;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import sample.AudioPlayer;
 
 import java.util.LinkedList;
 

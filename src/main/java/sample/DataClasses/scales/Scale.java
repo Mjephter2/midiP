@@ -1,4 +1,6 @@
-package sample.DataClasses;
+package sample.DataClasses.scales;
+
+import sample.DataClasses.Note;
 
 public interface Scale {
 
