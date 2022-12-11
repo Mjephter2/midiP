@@ -3,7 +3,7 @@
  */
 
 
-package sample;
+package sample.views;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;

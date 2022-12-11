@@ -1,6 +1,9 @@
-package sample.DataClasses;
+package sample.DataClasses.scales;
 
-public class MajorScale implements Scale{
+import sample.DataClasses.Note;
+import sample.DataClasses.Utilities;
+
+public class MinorScale implements Scale{
     private Note[] scale_Notes = new Note[8];
 
     @Override
@@ -20,16 +23,16 @@ public class MajorScale implements Scale{
         return this.scale_Notes[0].getName();
     }
 
-    public MajorScale(Note scaleRoot){
+    public MinorScale(Note scaleRoot){
         this(scaleRoot.getName());
     }
-    public MajorScale(){
+    public MinorScale(){
         this("C3");
     }
-    public MajorScale(MajorScale scale){
+    public MinorScale(MinorScale scale){
         this(scale.scale_Notes[0].getName());
     }
-    public MajorScale(String root){
+    public MinorScale(String root){
         Note newRoot = new Note(root);
         generateScale(newRoot);
     }
@@ -56,29 +59,29 @@ public class MajorScale implements Scale{
         return scale_Notes[6];
     }
 
-    private MajorScale sharp(int n){
+    private MinorScale sharp(int n){
         if(Utilities.NOTE_NAMES.indexOf(this.scale_Notes[0].getName()) + n + 12 > 87) return this;
         String newRoot = this.scale_Notes[0].sharp(n).getName();
-        return new MajorScale(newRoot);
+        return new MinorScale(newRoot);
     }
-    private MajorScale flat(int n){
+    private MinorScale flat(int n){
         if(Utilities.NOTE_NAMES.indexOf(this.scale_Notes[0].getName()) - n < 0) return this;
         String newRoot = this.scale_Notes[0].flat(n).getName();
-        return new MajorScale(newRoot);
+        return new MinorScale(newRoot);
     }
     private void generateScale(Note root){
         this.scale_Notes[0] = root;
         this.scale_Notes[1]= root.sharp(2);
-        this.scale_Notes[2]= root.sharp(4);
+        this.scale_Notes[2]= root.sharp(3);
         this.scale_Notes[3]= root.sharp(5);
         this.scale_Notes[4]= root.sharp(7);
-        this.scale_Notes[5]= root.sharp(9);
-        this.scale_Notes[6]= root.sharp(11);
+        this.scale_Notes[5]= root.sharp(8);
+        this.scale_Notes[6]= root.sharp(10);
     }
 
     @Override
     public String toString() {
-        return  getRoot().noteQuality() + "\tMajor Scale:"
+        return  getRoot().noteQuality() + "\tMinor Scale:"
                 + " " + getRoot().noteQuality()
                 + "\t" + getDegree_2().noteQuality()
                 + "\t" + getDegree_3().noteQuality()
@@ -90,7 +93,7 @@ public class MajorScale implements Scale{
     }
 
     public static void main(String[] args) {
-        Scale scale = new MajorScale(new Note("C1"));
+        Scale scale = new MinorScale(new Note("C1"));
         for(int i = 0; i < 11; i++){
             System.out.println(scale.transposeUp(i));
         }
