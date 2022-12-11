@@ -56,11 +56,4 @@ public class AudioPlayer {
             ex.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        String audioFilePath = "src/Sample sounds/PinkPanther60.wav";
-        AudioPlayer player = new AudioPlayer();
-        player.play(audioFilePath);
-    }
-
 }
