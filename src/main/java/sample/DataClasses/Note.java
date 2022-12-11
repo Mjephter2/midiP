@@ -5,18 +5,11 @@ import sample.AudioPlayer;
 public class Note {
     // variable to store the full name of a Note. e.g Db1
     private String name;
-    // audio file of the Note's sound
-    private String audioFilePath;
-
-    public static void main(String[] args) {
-        new Note("B5").play();
- }
 
     //default constructor
     //Assigns Note name to "C1"
     public Note(){
         this.name = "C1";
-        this.audioFilePath = this.getSoundFilePath(this.name);
     }
 
     public Note(String name){
@@ -25,12 +18,6 @@ public class Note {
             System.exit(0);
         }
         this.name = name;
-        this.audioFilePath = getSoundFilePath(name);
-    }
-    //may not be needed
-    public Note(Note otherNote){
-        this.name = otherNote.name;
-        this.audioFilePath = getSoundFilePath(otherNote.getName());
     }
 
     private boolean isValidNote(String name){
@@ -61,7 +48,7 @@ public class Note {
 
     public void play(){
         System.out.println("Playing " + this.name);
-        String path = this.audioFilePath;
+        String path = getSoundFilePath(this.name);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -72,8 +59,8 @@ public class Note {
 
     // retrieve the filePath of the Note's corresponding sound
     private String getSoundFilePath(String noteName){
-        // to do
-        return "src/Sample sounds/Piano.mf." + noteName + ".aiff";
+        // TODO
+        return "PATH TO SOUND FILE OF: " + noteName;
     }
 
     public String noteQuality(){
