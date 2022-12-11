@@ -1,6 +1,8 @@
 .idea
+.vscode
 mods
 *.iml
 out
 src/midiTrials
+target/
 
