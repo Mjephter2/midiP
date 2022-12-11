@@ -265,12 +265,6 @@ public class ScaleWindow extends Application {
                         reset();
                     }
                 }).start();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        player.play("src/Sample sounds/StarWars3.wav");
-                    }
-                }).start();
             }
         });
         homeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
