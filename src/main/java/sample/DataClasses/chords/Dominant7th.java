@@ -2,16 +2,17 @@ package sample.DataClasses.chords;
 
 import sample.DataClasses.Note;
 import sample.DataClasses.Utilities;
+import sample.DataClasses.exceptions.InvalidNoteException;
 
 public class Dominant7th implements Chord {
     private Note[] chord_Notes = new Note[4];
 
     @Override
-    public Dominant7th transposeUp(int n) {
+    public Dominant7th transposeUp(int n) throws InvalidNoteException {
         return this.sharp(n);
     }
     @Override
-    public Dominant7th transposeDown(int n) {
+    public Dominant7th transposeDown(int n) throws InvalidNoteException {
         return this.flat(n);
     }
     @Override
@@ -23,16 +24,16 @@ public class Dominant7th implements Chord {
         return this.chord_Notes[0].getName();
     }
 
-    public Dominant7th(Note scaleRoot){
+    public Dominant7th(Note scaleRoot) throws InvalidNoteException{
         this(scaleRoot.getName());
     }
-    public Dominant7th(){
+    public Dominant7th() throws InvalidNoteException{
         this("C3");
     }
-    public Dominant7th(Dominant7th chord){
+    public Dominant7th(Dominant7th chord) throws InvalidNoteException{
         this(chord.chord_Notes[0].getName());
     }
-    public Dominant7th(String root){
+    public Dominant7th(String root) throws InvalidNoteException{
         Note newRoot = new Note(root);
         generateScale(newRoot);
     }
@@ -42,17 +43,17 @@ public class Dominant7th implements Chord {
     }
 
 
-    private Dominant7th sharp(int n){
+    private Dominant7th sharp(int n) throws InvalidNoteException{
         if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) + n + 10 > 87) return this;
         String newRoot = this.chord_Notes[0].sharp(n).getName();
         return new Dominant7th(newRoot);
     }
-    private Dominant7th flat(int n){
+    private Dominant7th flat(int n) throws InvalidNoteException{
         if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) - n > 87) return this;
         String newRoot = this.chord_Notes[0].sharp(n).getName();
         return new Dominant7th(newRoot);
     }
-    private void generateScale(Note root){
+    private void generateScale(Note root) throws InvalidNoteException{
         this.chord_Notes[0] = root;
         this.chord_Notes[1]= root.sharp(4);
         this.chord_Notes[2]= root.sharp(7);
@@ -66,10 +67,5 @@ public class Dominant7th implements Chord {
                 + " " + chord_Notes[1].noteQuality()
                 + " " + chord_Notes[2].noteQuality()
                 + " " + chord_Notes[3].noteQuality();
-    }
-
-    public static void main(String[] args) {
-        Chord c = new Dominant7th("C3");
-        System.out.println(c);
     }
 }

@@ -1,10 +1,12 @@
 package sample.DataClasses;
 
 import sample.AudioPlayer;
+import sample.DataClasses.exceptions.InvalidNoteException;
 
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import javafx.scene.control.Button;
 
 public class Utilities {
     public static final Comparator<Note> NOTE_COMPARATOR = new Comparator<Note>() {
@@ -14,6 +16,21 @@ public class Utilities {
             int note2Num = note2.getName().charAt(note2.getName().length() - 1);
             if(note1Num != note2Num) return note1Num - note2Num;
             return NOTE_QUALITIES.indexOf(note1.noteQuality()) - NOTE_QUALITIES.indexOf(note2.noteQuality());
+        }
+    };
+
+    public static final Comparator<Button> KEY_NOTE_COMPARATOR = new Comparator<Button>() {
+        @Override
+        public int compare(Button o1, Button o2) {
+            Note note1 = null;
+            Note note2 = null;
+            try {
+                note1 = new Note(o1.getTooltip().getText());
+                note2 = new Note(o2.getTooltip().getText());
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
+            }
+            return NOTE_COMPARATOR.compare(note1, note2);
         }
     };
 

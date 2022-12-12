@@ -2,17 +2,18 @@ package sample.DataClasses.chords;
 
 import sample.DataClasses.Note;
 import sample.DataClasses.Utilities;
+import sample.DataClasses.exceptions.InvalidNoteException;
 
 public class Minor7th implements Chord {
 
     private Note[] chord_Notes = new Note[4];
 
     @Override
-    public Minor7th transposeUp(int n) {
+    public Minor7th transposeUp(int n) throws InvalidNoteException {
         return this.sharp(n);
     }
     @Override
-    public Minor7th transposeDown(int n) {
+    public Minor7th transposeDown(int n) throws InvalidNoteException {
         return this.flat(n);
     }
     @Override
@@ -24,16 +25,16 @@ public class Minor7th implements Chord {
         return this.chord_Notes[0].getName();
     }
 
-    public Minor7th(Note scaleRoot){
+    public Minor7th(Note scaleRoot) throws InvalidNoteException{
         this(scaleRoot.getName());
     }
-    public Minor7th(){
+    public Minor7th() throws InvalidNoteException{
         this("C3");
     }
-    public Minor7th(Minor7th chord){
+    public Minor7th(Minor7th chord) throws InvalidNoteException{
         this(chord.chord_Notes[0].getName());
     }
-    public Minor7th(String root){
+    public Minor7th(String root) throws InvalidNoteException{
         Note newRoot = new Note(root);
         generateScale(newRoot);
     }
@@ -43,17 +44,17 @@ public class Minor7th implements Chord {
     }
 
 
-    private Minor7th sharp(int n){
+    private Minor7th sharp(int n) throws InvalidNoteException{
         if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) + n + 10 > 87) return this;
         String newRoot = this.chord_Notes[0].sharp(n).getName();
         return new Minor7th(newRoot);
     }
-    private Minor7th flat(int n){
+    private Minor7th flat(int n) throws InvalidNoteException{
         if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) - n > 87) return this;
         String newRoot = this.chord_Notes[0].sharp(n).getName();
         return new Minor7th(newRoot);
     }
-    private void generateScale(Note root){
+    private void generateScale(Note root) throws InvalidNoteException{
         this.chord_Notes[0] = root;
         this.chord_Notes[1]= root.sharp(3);
         this.chord_Notes[2]= root.sharp(7);
@@ -67,10 +68,5 @@ public class Minor7th implements Chord {
                 + " " + chord_Notes[1].noteQuality()
                 + " " + chord_Notes[2].noteQuality()
                 + " " + chord_Notes[3].noteQuality();
-    }
-
-    public static void main(String[] args) {
-        Chord c = new Minor7th("C3");
-        System.out.println(c);
     }
 }

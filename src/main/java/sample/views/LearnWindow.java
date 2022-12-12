@@ -25,6 +25,7 @@ import sample.DataClasses.chords.MajorTriad;
 import sample.DataClasses.chords.Minor7th;
 import sample.DataClasses.chords.Minor9th;
 import sample.DataClasses.chords.MinorTriad;
+import sample.DataClasses.exceptions.InvalidNoteException;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -57,8 +58,7 @@ public class LearnWindow extends Application {
     private GridPane keyPane = new GridPane();
     private Button resetButton = new Button("RESET");
 
-    //draw selection buttons
-    {
+    private void drawSelectionButtons() {
         //bottom.setGridLinesVisible(true);
         bottom.setStyle("-fx-background-color: darkgray;");
         bottom.setPadding(new Insets(10,0,10,0));
@@ -133,8 +133,8 @@ public class LearnWindow extends Application {
         bottom.add(new FillerButton(60,10), 9 , 0);
         bottom.add(resetButton,10,0);
     }
-    //draw the on-display keyboard
-    {
+
+    private void drawKeyboard() {
         int start = Utilities.NOTE_NAMES.indexOf("C3");
         ArrayList<Integer> blackIndex = new ArrayList<>();
         blackIndex.add(1);
@@ -178,7 +178,7 @@ public class LearnWindow extends Application {
                 }
             });
         }
-        keyBoard.sort((o1, o2) -> Utilities.NOTE_COMPARATOR.compare(new Note(o1.getTooltip().getText()), new Note(o2.getTooltip().getText())));
+        keyBoard.sort(Utilities.KEY_NOTE_COMPARATOR);
         black_keyPane.getChildren().add(2, new FillerButton(30,80));
         black_keyPane.getChildren().add(6, new FillerButton(30,80));
         black_keyPane.getChildren().add(9, new FillerButton(30,80));
@@ -195,15 +195,29 @@ public class LearnWindow extends Application {
             }
         });
     }
-    //selection buttons actions
-    {
+
+    private void addActionsToSelectionButtons() {
         majorTriadButton.setOnMouseClicked(mouseEvent -> {
             resetButtons();
-            Note root = new Note("C3");
-            while(!root.noteQuality().equals(keyBox.getValue())){
-                root = root.sharp(1);
+            Note root = null;
+            try {
+                root = new Note("C3");
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
             }
-            Chord chord = new MajorTriad(root);
+            while(!root.noteQuality().equals(keyBox.getValue())){
+                try {
+                    root = root.sharp(1);
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
+                }
+            }
+            Chord chord = null;
+            try {
+                chord = new MajorTriad(root);
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
+            }
             Note[] chordNotes = chord.notes();
             ArrayList<String> chordNotesNames = new ArrayList<>();
             for(int i = 0; i < chordNotes.length; i++){
@@ -219,11 +233,25 @@ public class LearnWindow extends Application {
 
         minorTriadButton.setOnMouseClicked(mouseEvent -> {
             resetButtons();
-            Note root = new Note("C3");
-            while(!root.noteQuality().equals(keyBox.getValue())){
-                root = root.sharp(1);
+            Note root = null;
+            try {
+                root = new Note("C3");
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
             }
-            Chord chord = new MinorTriad(root);
+            while(!root.noteQuality().equals(keyBox.getValue())){
+                try {
+                    root = root.sharp(1);
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
+                }
+            }
+            Chord chord = null;
+            try {
+                chord = new MinorTriad(root);
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
+            }
             Note[] chordNotes = chord.notes();
             ArrayList<String> chordNotesNames = new ArrayList<>();
             for(int i = 0; i < chordNotes.length; i++){
@@ -241,11 +269,25 @@ public class LearnWindow extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 resetButtons();
-                Note root = new Note("C3");
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    root = root.sharp(1);
+                Note root = null;
+                try {
+                    root = new Note("C3");
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
                 }
-                Chord chord = new Major7th(root);
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    try {
+                        root = root.sharp(1);
+                    } catch (InvalidNoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Chord chord = null;
+                try {
+                    chord = new Major7th(root);
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
+                }
                 Note[] chordNotes = chord.notes();
                 ArrayList<String> chordNotesNames = new ArrayList<>();
                 for(int i = 0; i < chordNotes.length; i++){
@@ -264,11 +306,25 @@ public class LearnWindow extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 resetButtons();
-                Note root = new Note("C3");
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    root = root.sharp(1);
+                Note root = null;
+                try {
+                    root = new Note("C3");
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
                 }
-                Chord chord = new Minor7th(root);
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    try {
+                        root = root.sharp(1);
+                    } catch (InvalidNoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Chord chord = null;
+                try {
+                    chord = new Minor7th(root);
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
+                }
                 Note[] chordNotes = chord.notes();
                 ArrayList<String> chordNotesNames = new ArrayList<>();
                 for(int i = 0; i < chordNotes.length; i++){
@@ -287,11 +343,25 @@ public class LearnWindow extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 resetButtons();
-                Note root = new Note("C3");
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    root = root.sharp(1);
+                Note root = null;
+                try {
+                    root = new Note("C3");
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
                 }
-                Chord chord = new Major9th(root);
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    try {
+                        root = root.sharp(1);
+                    } catch (InvalidNoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Chord chord = null;
+                try {
+                    chord = new Major9th(root);
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
+                }
                 Note[] chordNotes = chord.notes();
                 ArrayList<String> chordNotesNames = new ArrayList<>();
                 for(int i = 0; i < chordNotes.length; i++){
@@ -310,11 +380,25 @@ public class LearnWindow extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 resetButtons();
-                Note root = new Note("C3");
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    root = root.sharp(1);
+                Note root = null;
+                try {
+                    root = new Note("C3");
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
                 }
-                Chord chord = new Minor9th(root);
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    try {
+                        root = root.sharp(1);
+                    } catch (InvalidNoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Chord chord = null;
+                try {
+                    chord = new Minor9th(root);
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
+                }
                 Note[] chordNotes = chord.notes();
                 ArrayList<String> chordNotesNames = new ArrayList<>();
                 for(int i = 0; i < chordNotes.length; i++){
@@ -333,11 +417,25 @@ public class LearnWindow extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 resetButtons();
-                Note root = new Note("C3");
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    root = root.sharp(1);
+                Note root = null;
+                try {
+                    root = new Note("C3");
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
                 }
-                Chord chord = new Dominant7th(root);
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    try {
+                        root = root.sharp(1);
+                    } catch (InvalidNoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Chord chord = null;
+                try {
+                    chord = new Dominant7th(root);
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
+                }
                 Note[] chordNotes = chord.notes();
                 ArrayList<String> chordNotesNames = new ArrayList<>();
                 for(int i = 0; i < chordNotes.length; i++){
@@ -355,11 +453,25 @@ public class LearnWindow extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 resetButtons();
-                Note root = new Note("C3");
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    root = root.sharp(1);
+                Note root = null;
+                try {
+                    root = new Note("C3");
+                } catch (InvalidNoteException e1) {
+                    e1.printStackTrace();
                 }
-                Chord chord = new Dominant9th(root);
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    try {
+                        root = root.sharp(1);
+                    } catch (InvalidNoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Chord chord = null;
+                try {
+                    chord = new Dominant9th(root);
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
+                }
                 Note[] chordNotes = chord.notes();
                 ArrayList<String> chordNotesNames = new ArrayList<>();
                 for(int i = 0; i < chordNotes.length; i++){
@@ -378,9 +490,18 @@ public class LearnWindow extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 resetButtons();
-                Note root = new Note("C3");
+                Note root = null;
+                try {
+                    root = new Note("C3");
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
+                }
                 while(!root.noteQuality().equals(keyBox.getValue())){
-                    root = root.sharp(1);
+                    try {
+                        root = root.sharp(1);
+                    } catch (InvalidNoteException e) {
+                        e.printStackTrace();
+                    }
                 }
                 Button start = null;
                 for(int i = 0; i < keyBoard.size(); i++){
@@ -407,9 +528,18 @@ public class LearnWindow extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 resetButtons();
-                Note root = new Note("C3");
+                Note root = null;
+                try {
+                    root = new Note("C3");
+                } catch (InvalidNoteException e) {
+                    e.printStackTrace();
+                }
                 while(!root.noteQuality().equals(keyBox.getValue())){
-                    root = root.sharp(1);
+                    try {
+                        root = root.sharp(1);
+                    } catch (InvalidNoteException e) {
+                        e.printStackTrace();
+                    }
                 }
                 Button start = null;
                 for(int i = 0; i < keyBoard.size(); i++){
@@ -432,11 +562,23 @@ public class LearnWindow extends Application {
             }
         });
     }
+
     private void colorButton(Button button){
         if(button.getStyle().contains("blue") || button.getStyle().contains("red")){
             setToDefault(button);
         }else if(whiteKeys.contains(button)) button.setStyle("-fx-background-color: blue");
         else button.setStyle("-fx-background-color: red");
+    }
+
+    /**
+     * draws selection buttons
+     * draws on-display keyboard
+     * add actions to selection buttons
+     */
+    private void draw() {
+        drawSelectionButtons();
+        drawKeyboard();
+        addActionsToSelectionButtons();
     }
 
     public static void main(String[] args) {
@@ -445,6 +587,7 @@ public class LearnWindow extends Application {
 
     @Override
     public void start(Stage learn) {
+        draw();
 //        learn.setOnCloseRequest(windowEvent -> {
 //            Main mainWindow = new Main();
 //            Stage mainStage = new Stage();
