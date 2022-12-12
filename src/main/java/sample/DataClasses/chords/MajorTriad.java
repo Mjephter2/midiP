@@ -2,37 +2,44 @@ package sample.DataClasses.chords;
 
 import sample.DataClasses.Note;
 import sample.DataClasses.Utilities;
+import sample.DataClasses.exceptions.InvalidNoteException;
 
 public class MajorTriad implements Chord {
     private Note[] chord_Notes = new Note[3];
 
     @Override
-    public MajorTriad transposeUp(int n) {
+    public MajorTriad transposeUp(int n) throws InvalidNoteException {
         return this.sharp(n);
     }
+
     @Override
-    public MajorTriad transposeDown(int n) {
+    public MajorTriad transposeDown(int n) throws InvalidNoteException {
         return this.flat(n);
     }
+
     @Override
     public Note[] notes() {
         return chord_Notes;
     }
+
     @Override
     public String root() {
         return this.chord_Notes[0].getName();
     }
 
-    public MajorTriad(Note scaleRoot){
+    public MajorTriad(Note scaleRoot) throws InvalidNoteException{
         this(scaleRoot.getName());
     }
-    public MajorTriad(){
+
+    public MajorTriad() throws InvalidNoteException{
         this("C3");
     }
-    public MajorTriad(MajorTriad triad){
+
+    public MajorTriad(MajorTriad triad) throws InvalidNoteException{
         this(triad.chord_Notes[0].getName());
     }
-    public MajorTriad(String root){
+
+    public MajorTriad(String root) throws InvalidNoteException{
         Note newRoot = new Note(root);
         generateScale(newRoot);
     }
@@ -41,18 +48,19 @@ public class MajorTriad implements Chord {
         return chord_Notes[0];
     }
 
-
-    private MajorTriad sharp(int n){
+    private MajorTriad sharp(int n) throws InvalidNoteException{
         if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) + n + 11 > 87) return this;
         String newRoot = this.chord_Notes[0].sharp(n).getName();
         return new MajorTriad(newRoot);
     }
-    private MajorTriad flat(int n){
+
+    private MajorTriad flat(int n) throws InvalidNoteException{
         if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) - n > 87) return this;
         String newRoot = this.chord_Notes[0].sharp(n).getName();
         return new MajorTriad(newRoot);
     }
-    private void generateScale(Note root){
+    
+    private void generateScale(Note root) throws InvalidNoteException{
         this.chord_Notes[0] = root;
         this.chord_Notes[1]= root.sharp(4);
         this.chord_Notes[2]= root.sharp(7);
@@ -64,10 +72,5 @@ public class MajorTriad implements Chord {
                 + " " + getRoot().noteQuality()
                 + " " + chord_Notes[1].noteQuality()
                 + " " + chord_Notes[2].noteQuality();
-    }
-
-    public static void main(String[] args) {
-        Chord c = new MajorTriad("C3");
-        System.out.println(c.transposeUp(1));
     }
 }

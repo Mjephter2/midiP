@@ -2,16 +2,17 @@ package sample.DataClasses.scales;
 
 import sample.DataClasses.Note;
 import sample.DataClasses.Utilities;
+import sample.DataClasses.exceptions.InvalidNoteException;
 
 public class MinorScale implements Scale{
     private Note[] scale_Notes = new Note[8];
 
     @Override
-    public Scale transposeUp(int n) {
+    public Scale transposeUp(int n) throws InvalidNoteException {
         return this.sharp(n);
     }
     @Override
-    public Scale transposeDown(int n) {
+    public Scale transposeDown(int n) throws InvalidNoteException {
         return this.flat(n);
     }
     @Override
@@ -23,16 +24,16 @@ public class MinorScale implements Scale{
         return this.scale_Notes[0].getName();
     }
 
-    public MinorScale(Note scaleRoot){
+    public MinorScale(Note scaleRoot) throws InvalidNoteException{
         this(scaleRoot.getName());
     }
-    public MinorScale(){
+    public MinorScale() throws InvalidNoteException{
         this("C3");
     }
-    public MinorScale(MinorScale scale){
+    public MinorScale(MinorScale scale) throws InvalidNoteException{
         this(scale.scale_Notes[0].getName());
     }
-    public MinorScale(String root){
+    public MinorScale(String root) throws InvalidNoteException{
         Note newRoot = new Note(root);
         generateScale(newRoot);
     }
@@ -59,17 +60,17 @@ public class MinorScale implements Scale{
         return scale_Notes[6];
     }
 
-    private MinorScale sharp(int n){
+    private MinorScale sharp(int n) throws InvalidNoteException{
         if(Utilities.NOTE_NAMES.indexOf(this.scale_Notes[0].getName()) + n + 12 > 87) return this;
         String newRoot = this.scale_Notes[0].sharp(n).getName();
         return new MinorScale(newRoot);
     }
-    private MinorScale flat(int n){
+    private MinorScale flat(int n) throws InvalidNoteException{
         if(Utilities.NOTE_NAMES.indexOf(this.scale_Notes[0].getName()) - n < 0) return this;
         String newRoot = this.scale_Notes[0].flat(n).getName();
         return new MinorScale(newRoot);
     }
-    private void generateScale(Note root){
+    private void generateScale(Note root) throws InvalidNoteException{
         this.scale_Notes[0] = root;
         this.scale_Notes[1]= root.sharp(2);
         this.scale_Notes[2]= root.sharp(3);
@@ -91,14 +92,4 @@ public class MinorScale implements Scale{
                 + "\t" + getDegree_7().noteQuality()
                 + "\t" + getRoot().noteQuality();
     }
-
-    public static void main(String[] args) {
-        Scale scale = new MinorScale(new Note("C1"));
-        for(int i = 0; i < 11; i++){
-            System.out.println(scale.transposeUp(i));
-        }
-
-    }
-
-
 }

@@ -1,8 +1,3 @@
-/*
-*author: Maurice Jephter
- */
-
-
 package sample.views;
 
 import javafx.application.Application;

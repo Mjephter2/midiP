@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import sample.AudioPlayer;
 
 import java.util.LinkedList;
 
@@ -25,8 +24,6 @@ public class ScaleWindow extends Application {
     private LinkedList<Button> blackKeys = new LinkedList<>();
     private ToggleButton majorScaleButton = new ToggleButton("Major Scale");
     private ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
-    //for testing/learning purpose
-    private AudioPlayer player = new AudioPlayer();
 
     @Override
     public void start(Stage primaryStage2) throws Exception{

@@ -1,49 +1,84 @@
 package sample.DataClasses;
 
 import sample.AudioPlayer;
+import sample.DataClasses.exceptions.InvalidNoteException;
 
+/**
+ * A class implementation of a piano key / notes
+ */
 public class Note {
-    // variable to store the full name of a Note. e.g Db1
+    /**
+     * variable to store the full name of a Note, for example 'Db1'
+     */
     private String name;
 
-    //default constructor
-    //Assigns Note name to "C1"
+    /**
+     * default constructor
+     * Assigns Note name to "C1"
+     */
     public Note(){
         this.name = "C1";
     }
 
-    public Note(String name){
+    /**
+     * constructor
+     * @param name: the full name of the Note
+     */
+    public Note(String name) throws InvalidNoteException {
         if(!isValidNote(name)){
-            System.out.println("Invalid Note Name!!!");
-            System.exit(0);
+            throw new InvalidNoteException("Invalid Note created: " + this.name);
         }
         this.name = name;
     }
 
+    /**
+     * Checks if the Note is valid
+     * @param name: the full name of the Note
+     * @return true if the Note is valid, false otherwise
+     */
     private boolean isValidNote(String name){
         if(!Utilities.NOTE_NAMES.contains(name)) return false;
         return true;
     }
 
+    /**
+     * @return the full name of the Note.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * @return a string representation of the Note
+     */
     public String toString(){
         return name;
     }
 
-    public Note sharp(int n){
+    /**
+     * sharpens a Note @param n times
+     * @param n: number of times to sharpen the Note
+     * @return a new Note @param n notes above the current one
+     */
+    public Note sharp(int n) throws InvalidNoteException {
         int index = Utilities.NOTE_NAMES.indexOf(this.name);
-        if(index + n > 87) return null;
-        Note result = new Note(Utilities.NOTE_NAMES.get(index + n));
-        return result;
+        if(index + n > 87) {
+            throw new InvalidNoteException("Invalid Note created: " + this.name);
+        };
+        return new Note(Utilities.NOTE_NAMES.get(index + n));
     }
-    public Note flat(int n){
+
+    /**
+     * flatten a Note @param n times
+     * @param n: number of times to flatten the Note
+     * @return a new Note @param n notes below the current one
+     */
+    public Note flat(int n) throws InvalidNoteException {
         int index = Utilities.NOTE_NAMES.indexOf(this.name);
-        if(index - n < 0) return null;
-        Note result = new Note(Utilities.NOTE_NAMES.get(index - n));
-        return result;
+        if(index - n < 0) {
+            throw new InvalidNoteException("Invalid Note created: " + this.name);
+        };
+        return new Note(Utilities.NOTE_NAMES.get(index - n));
     }
 
     public void play(){
