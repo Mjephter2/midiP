@@ -1,7 +1,7 @@
-package sample.DataClasses;
+package sample.models;
 
 import sample.AudioPlayer;
-import sample.DataClasses.exceptions.InvalidNoteException;
+import sample.models.exceptions.InvalidNoteException;
 
 /**
  * A class implementation of a piano key / notes

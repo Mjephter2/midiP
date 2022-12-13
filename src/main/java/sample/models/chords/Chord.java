@@ -1,7 +1,7 @@
-package sample.DataClasses.chords;
+package sample.models.chords;
 
-import sample.DataClasses.Note;
-import sample.DataClasses.exceptions.InvalidNoteException;
+import sample.models.Note;
+import sample.models.exceptions.InvalidNoteException;
 
 public interface Chord {
     Chord transposeUp(int n) throws InvalidNoteException;

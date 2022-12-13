@@ -1,4 +1,4 @@
-package sample.DataClasses;
+package sample.models;
 
 import javafx.scene.control.Button;
 

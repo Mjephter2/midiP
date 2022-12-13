@@ -1,8 +1,8 @@
-package sample.DataClasses.chords;
+package sample.models.chords;
 
-import sample.DataClasses.Note;
-import sample.DataClasses.Utilities;
-import sample.DataClasses.exceptions.InvalidNoteException;
+import sample.models.Note;
+import sample.models.Utilities;
+import sample.models.exceptions.InvalidNoteException;
 
 public class Major7th implements Chord {
     private Note[] chord_Notes = new Note[4];
