@@ -3,6 +3,7 @@ package sample.DataClasses;
 import sample.AudioPlayer;
 import sample.DataClasses.exceptions.InvalidNoteException;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class Utilities {
     };
 
     // list containing all possible Note qualities
-    public static final LinkedList<String> NOTE_QUALITIES = new LinkedList(List.of("A","Bb", "B","C", "Db", "D",
+    public static final ArrayList<String> NOTE_QUALITIES = new ArrayList<>(List.of("A","Bb", "B","C", "Db", "D",
             "Eb", "E","F", "Gb", "G", "Ab"));
 
     public static LinkedList<String> NOTE_NAMES = generateNames();

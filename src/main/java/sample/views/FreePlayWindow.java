@@ -29,7 +29,6 @@ public class FreePlayWindow extends Application {
     private static int whiteKeySize = 24;
     private static int blackKeySize = 20;
     private String buttonOriginalStyle;
-    private String black_buttonOriginalStyle;
     private MidiInputReceiver midiInputReceiver = new MidiInputReceiver("Receiver");
     private int lastKeyPressedIndex = 0;
 
@@ -57,7 +56,6 @@ public class FreePlayWindow extends Application {
         //System.out.println("white keys: " + whiteKeys.size());
         //System.out.println("black keys: " + blackKeys.size());
         buttonOriginalStyle = keyBoard[0].getStyle();
-        black_buttonOriginalStyle = keyBoard[1].getStyle();
         for(Button button: keyBoard){
             button.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
