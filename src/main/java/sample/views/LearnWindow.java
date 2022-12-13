@@ -47,8 +47,7 @@ public class LearnWindow extends Application {
     private ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
     private RadioButton selectChord = new RadioButton("CHORD");
     private RadioButton selectScale = new RadioButton("SCALE");
-    private static ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList("C", "Db", "D", "Eb", "E",
-            "F", "Gb", "G", "Ab", "A", "Bb", "B"));
+    private static ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(Utilities.NOTE_QUALITIES));
     private GridPane bottom = new GridPane();
     private ToggleGroup selectChordOrScale = new ToggleGroup();
     private ToggleGroup scaleType = new ToggleGroup();
