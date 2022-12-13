@@ -1,8 +1,8 @@
-package sample.DataClasses.scales;
+package sample.models.scales;
 
-import sample.DataClasses.Note;
-import sample.DataClasses.Utilities;
-import sample.DataClasses.exceptions.InvalidNoteException;
+import sample.models.Note;
+import sample.models.Utilities;
+import sample.models.exceptions.InvalidNoteException;
 
 public class MinorScale implements Scale{
     private Note[] scale_Notes = new Note[8];

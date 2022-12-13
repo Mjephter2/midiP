@@ -12,8 +12,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import sample.DataClasses.FillerButton;
-import sample.DataClasses.Utilities;
+import sample.models.FillerButton;
+import sample.models.Utilities;
 
 import javax.sound.midi.*;
 import java.util.ArrayList;
@@ -146,7 +146,6 @@ public class FreePlayWindow extends Application {
         black_keyPane.setSpacing(4);
         white_keyPane.setSpacing(0.4);
 
-        //System.out.println(screenSize.width);
         for(Button button: whiteKeys){
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
@@ -169,7 +168,6 @@ public class FreePlayWindow extends Application {
         }
 
         GridPane keyPane = new GridPane();
-        //keyPane.setPadding(new Insets(55,20,20,20));
         keyPane.add(white_keyPane,0,0,2,1);
         keyPane.add(black_keyPane,0,0,2,1);
         root.setCenter(keyPane);

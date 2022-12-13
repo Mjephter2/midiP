@@ -1,7 +1,7 @@
-package sample.DataClasses;
+package sample.models;
 
 import sample.AudioPlayer;
-import sample.DataClasses.exceptions.InvalidNoteException;
+import sample.models.exceptions.InvalidNoteException;
 
 import java.util.ArrayList;
 import java.util.Comparator;

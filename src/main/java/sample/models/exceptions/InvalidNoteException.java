@@ -1,4 +1,4 @@
-package sample.DataClasses.exceptions;
+package sample.models.exceptions;
 
 /**
  * class to be thrown when a Note is not valid.

@@ -1,7 +1,7 @@
-package sample.DataClasses.scales;
+package sample.models.scales;
 
-import sample.DataClasses.Note;
-import sample.DataClasses.exceptions.InvalidNoteException;
+import sample.models.Note;
+import sample.models.exceptions.InvalidNoteException;
 
 public interface Scale {
 
