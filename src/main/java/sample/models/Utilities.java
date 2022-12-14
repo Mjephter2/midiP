@@ -36,8 +36,8 @@ public class Utilities {
     };
 
     // list containing all possible Note qualities
-    public static final ArrayList<String> NOTE_QUALITIES = new ArrayList<>(List.of("A","Bb", "B","C", "Db", "D",
-            "Eb", "E","F", "Gb", "G", "Ab"));
+    public static final ArrayList<String> NOTE_QUALITIES = new ArrayList<>(List.of("C", "Db", "D",
+            "Eb", "E","F", "Gb", "G", "Ab", "A", "Bb", "B"));
 
     public static LinkedList<String> NOTE_NAMES = generateNames();
 
