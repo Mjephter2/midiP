@@ -10,6 +10,7 @@ import java.util.List;
 import javafx.scene.control.Button;
 
 public class Utilities {
+    public static final int NUMBER_OF_KEYS_88 = 88;
     public static final Comparator<Note> NOTE_COMPARATOR = new Comparator<Note>() {
         @Override
         public int compare(Note note1, Note note2) {
