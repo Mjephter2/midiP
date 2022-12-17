@@ -5,6 +5,8 @@ A JavaFX MIDI multipurpose application with the following functionalities
 - Displaying scales and common chords
 
 ![scales_chords_window_pic](pics/scales_chords_window.png)
+![scales_chords_window_pic](pics/scales_chords_window_2.png)
+![scales_chords_window_pic](pics/scales_chords_window_3.png)
 - An 88 keys open keyboard for free play (no sounds, yet)
 
 ![free_play_window_pic](pics/free_play_window.png)
