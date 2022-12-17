@@ -4,41 +4,41 @@ import sample.AudioPlayer;
 import sample.models.exceptions.InvalidNoteException;
 
 /**
- * A class implementation of a piano key / notes
+ * A class implementation of a piano key / notes.
  */
-public class Note {
+public final class Note {
     /**
-     * variable to store the full name of a Note, for example 'Db1'
+     * variable to store the full name of a Note, for example 'Db1'.
      */
-    private String name;
+    private final String name;
 
     /**
-     * default constructor
+     * default constructor.
      * Assigns Note name to "C1"
      */
-    public Note(){
+    public Note() {
         this.name = "C1";
     }
 
     /**
-     * constructor
-     * @param name: the full name of the Note
+     * Constructs a note using the given string.
+     * @param noteName the full name of the Note
+     * @throws InvalidNoteException if the note name is not valid
      */
-    public Note(String name) throws InvalidNoteException {
-        if(!isValidNote(name)){
-            throw new InvalidNoteException("Invalid Note created: " + this.name);
+    public Note(final String noteName) throws InvalidNoteException {
+        if (!isValidNote(noteName)) {
+            throw new InvalidNoteException("Invalid Note created: " + noteName);
         }
-        this.name = name;
+        name = noteName;
     }
 
     /**
-     * Checks if the Note is valid
-     * @param name: the full name of the Note
+     * Checks if the Note is valid.
+     * @param noteName the full name of the Note
      * @return true if the Note is valid, false otherwise
      */
-    private boolean isValidNote(String name){
-        if(!Utilities.NOTE_NAMES.contains(name)) return false;
-        return true;
+    private boolean isValidNote(final String noteName) {
+        return Utilities.NOTE_NAMES.contains(noteName);
     }
 
     /**
@@ -51,54 +51,59 @@ public class Note {
     /**
      * @return a string representation of the Note
      */
-    public String toString(){
+    public String toString() {
         return name;
     }
 
     /**
-     * sharpens a Note @param n times
-     * @param n: number of times to sharpen the Note
-     * @return a new Note @param n notes above the current one
+     * sharpens a Note @param n times.
+     * @param n number of times to sharpen the Note
+     * @return a new Note n half notes above the current one
      */
-    public Note sharp(int n) throws InvalidNoteException {
+    public Note sharp(final int n) throws InvalidNoteException {
         int index = Utilities.NOTE_NAMES.indexOf(this.name);
-        if(index + n > 87) {
-            throw new InvalidNoteException("Invalid Note created: " + this.name);
-        };
+        if (index + n > Utilities.NUMBER_OF_KEYS_88 - 1) {
+            throw new InvalidNoteException("Invalid Note created: " + name);
+        }
         return new Note(Utilities.NOTE_NAMES.get(index + n));
     }
 
     /**
-     * flatten a Note @param n times
-     * @param n: number of times to flatten the Note
+     * flattens a Note @param n times.
+     * @param n number of times to flatten the Note
      * @return a new Note @param n notes below the current one
      */
-    public Note flat(int n) throws InvalidNoteException {
-        int index = Utilities.NOTE_NAMES.indexOf(this.name);
-        if(index - n < 0) {
-            throw new InvalidNoteException("Invalid Note created: " + this.name);
-        };
+    public Note flat(final int n) throws InvalidNoteException {
+        int index = Utilities.NOTE_NAMES.indexOf(name);
+        if (index - n < 0) {
+            throw new InvalidNoteException("Invalid Note created: " + name);
+        }
         return new Note(Utilities.NOTE_NAMES.get(index - n));
     }
 
-    public void play(){
+    /**
+     * TODO.
+     */
+    public void play() {
         System.out.println("Playing " + this.name);
         String path = getSoundFilePath(this.name);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                new AudioPlayer().play(path);
-            }
-        }).start();
+        new Thread(() -> new AudioPlayer().play(path)).start();
     }
 
-    // retrieve the filePath of the Note's corresponding sound
-    private String getSoundFilePath(String noteName){
+    /**
+      * retrieve the filePath of the Note's corresponding sound.
+     * @param noteName the full name of the note
+     * @return the sound file name corresponding to the note name
+      */
+    private String getSoundFilePath(final String noteName) {
         // TODO
         return "PATH TO SOUND FILE OF: " + noteName;
     }
 
-    public String noteQuality(){
-        return this.getName().substring(0,this.getName().length() - 1);
+    /**
+     * @return the quality of a note
+     */
+    public String noteQuality() {
+        return this.getName().substring(0, this.getName().length() - 1);
     }
 }
