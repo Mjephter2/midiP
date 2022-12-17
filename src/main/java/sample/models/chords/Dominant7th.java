@@ -5,16 +5,16 @@ import sample.models.Utilities;
 import sample.models.exceptions.InvalidNoteException;
 
 /**
- * Class implementing a dominant 7th chord.
+ * Class implementing a Dominant 7th Chord.
  */
 public final class Dominant7th implements Chord {
     /**
-     * max number of notes in any dominant 7th chord.
+     * max number of notes in any Dominant 7th Chord.
      */
     private static final int NUM_NOTES = 4;
 
     /**
-     * largest interval in the chord.
+     * largest interval in the Chord.
      */
     private static final int MAX_INTERVAL = 10;
 
@@ -24,12 +24,12 @@ public final class Dominant7th implements Chord {
     private static final int ROOT_TO_THIRD = 4;
 
     /**
-     * interval between the root note and the fifth.
+     * interval between the root Note and the fifth.
      */
     private static final int ROOT_TO_FIFTH = 7;
 
     /**
-     * Array of notes representing the chord
+     * Array of Notes representing the Chord
      * starting from the root.
      */
     private Note[] chordNotes;
@@ -54,7 +54,7 @@ public final class Dominant7th implements Chord {
     /**
      * Constructs a Dominant 7th Chord with the given note
      * as the root.
-     * @param scaleRoot the root note of the chord
+     * @param scaleRoot the root note of the Chord
      * @throws InvalidNoteException
      */
     public Dominant7th(final Note scaleRoot) throws InvalidNoteException {
@@ -63,7 +63,7 @@ public final class Dominant7th implements Chord {
 
     /**
      * Default Constructor.
-     * Constructs a Dominant 7th chord rooted at C3
+     * Constructs a Dominant 7th Chord rooted at C3
      * @throws InvalidNoteException
      */
     public Dominant7th() throws InvalidNoteException {
@@ -71,7 +71,7 @@ public final class Dominant7th implements Chord {
     }
 
     /**
-     * Constructs a chord rooted at the same note as the
+     * Constructs a chord rooted at the same root as the
      * passed Chord.
      * @param chord Chord to copy from
      * @throws InvalidNoteException
@@ -81,7 +81,7 @@ public final class Dominant7th implements Chord {
     }
 
     /**
-     * Constructs a Dominant 7th Chord rooted at the note
+     * Constructs a Dominant 7th Chord rooted at the Note
      * represented by the string @root.
      * @param root string representing a Note
      * @throws InvalidNoteException
@@ -92,7 +92,7 @@ public final class Dominant7th implements Chord {
     }
 
     /**
-     * @return the root note of the Chord
+     * @return the root Note of the Chord
      */
     public Note getRoot() {
         return chordNotes[0];

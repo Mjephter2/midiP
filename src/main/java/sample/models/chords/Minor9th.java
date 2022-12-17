@@ -4,78 +4,137 @@ import sample.models.Note;
 import sample.models.Utilities;
 import sample.models.exceptions.InvalidNoteException;
 
-public class Minor9th implements Chord {
+/**
+ * Class implementing a Minor 9th Chord.
+ */
+public final class Minor9th implements Chord {
+    /**
+     * max number of notes in any Minor 9th Chord.
+     */
+    private static final int NUM_NOTES = 5;
 
-    private Note[] chord_Notes = new Note[5];
+    /**
+     * largest interval in the Chord.
+     */
+    private static final int MAX_INTERVAL = 14;
 
+    /**
+     * interval between the root and the third.
+     */
+    private static final int ROOT_TO_THIRD = 3;
+
+    /**
+     * interval between the root Note and the fifth.
+     */
+    private static final int ROOT_TO_FIFTH = 7;
+
+    /**
+     * interval between the root Note and the seventh.
+     */
+    private static final int ROOT_TO_SEVEN = 10;
+
+    /**
+     * Array of Notes representing the Chord
+     * starting from the root.
+     */
+    private Note[] chordNotes;
     @Override
-    public Minor9th transposeUp(int n) throws InvalidNoteException {
+    public Minor9th transposeUp(final int n) throws InvalidNoteException {
         return this.sharp(n);
     }
-
     @Override
-    public Minor9th transposeDown(int n) throws InvalidNoteException {
+    public Minor9th transposeDown(final int n) throws InvalidNoteException {
         return this.flat(n);
     }
-
     @Override
     public Note[] notes() {
-        return chord_Notes;
+        return chordNotes;
     }
-
     @Override
     public String root() {
-        return this.chord_Notes[0].getName();
+        return this.chordNotes[0].getName();
     }
 
-    public Minor9th(Note scaleRoot) throws InvalidNoteException{
+    /**
+     * Constructs a Minor 9th Chord rooted at the passed Note.
+     * @param scaleRoot root of the Chord
+     * @throws InvalidNoteException
+     */
+    public Minor9th(final Note scaleRoot) throws InvalidNoteException {
         this(scaleRoot.getName());
     }
 
-    public Minor9th() throws InvalidNoteException{
+    /**
+     * Default Constructor
+     * Constructs a Minor 9th Chord rooted at C3.
+     * @throws InvalidNoteException
+     */
+    public Minor9th() throws InvalidNoteException {
         this("C3");
     }
 
-    public Minor9th(Minor9th chord) throws InvalidNoteException{
-        this(chord.chord_Notes[0].getName());
+    /**
+     * Constructs a Minor 9th Chord rooted at the same Note.
+     * as the passed Chord
+     * @param chord Note to copy root from
+     * @throws InvalidNoteException
+     */
+    public Minor9th(final Minor9th chord) throws InvalidNoteException {
+        this(chord.chordNotes[0].getName());
     }
 
-    public Minor9th(String root) throws InvalidNoteException{
+    /**
+     * Constructs a Minor 9th Chord rooted at the Note described.
+     * by the passed String
+     * @param root name of the root Note
+     * @throws InvalidNoteException
+     */
+    public Minor9th(final String root) throws InvalidNoteException {
         Note newRoot = new Note(root);
         generateScale(newRoot);
     }
 
+    /**
+     * @return the root Note of the Chord
+     */
     public Note getRoot() {
-        return chord_Notes[0];
+        return chordNotes[0];
     }
 
-    private Minor9th sharp(int n) throws InvalidNoteException{
-        if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) + n + 14 > 87) return this;
-        String newRoot = this.chord_Notes[0].sharp(n).getName();
-        return new Minor9th(newRoot);
-    }
 
-    private Minor9th flat(int n) throws InvalidNoteException{
-        if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) - n > 87) return this;
-        String newRoot = this.chord_Notes[0].sharp(n).getName();
+    private Minor9th sharp(final int n) throws InvalidNoteException {
+        if (Utilities.NOTE_NAMES.indexOf(this.chordNotes[0].getName())
+                + n + MAX_INTERVAL > Utilities.NUMBER_OF_KEYS_88 - 1) {
+            return this;
+        }
+        String newRoot = this.chordNotes[0].sharp(n).getName();
         return new Minor9th(newRoot);
     }
-    
-    private void generateScale(Note root) throws InvalidNoteException{
-        this.chord_Notes[0] = root;
-        this.chord_Notes[1]= root.sharp(3);
-        this.chord_Notes[2]= root.sharp(7);
-        this.chord_Notes[3] = root.sharp(10);
-        this.chord_Notes[4] = root.sharp(14);
+    private Minor9th flat(final int n) throws InvalidNoteException {
+        if (Utilities.NOTE_NAMES.indexOf(this.chordNotes[0].getName())
+                - n > Utilities.NUMBER_OF_KEYS_88 - 1) {
+            return this;
+        }
+        String newRoot = this.chordNotes[0].sharp(n).getName();
+        return new Minor9th(newRoot);
+    }
+    private void generateScale(final Note root) throws InvalidNoteException {
+        this.chordNotes = new Note[]{
+                root,
+                root.sharp(ROOT_TO_THIRD),
+                root.sharp(ROOT_TO_FIFTH),
+                root.sharp(ROOT_TO_SEVEN),
+                root.sharp(MAX_INTERVAL)
+        };
     }
 
     @Override
     public String toString() {
-        return  getRoot().noteQuality() + " Minor 9 :"
-                + " " + chord_Notes[0].noteQuality()
-                + " " + chord_Notes[1].noteQuality()
-                + " " + chord_Notes[2].noteQuality()
-                + " " + chord_Notes[3].noteQuality()
-                + " " + chord_Notes[4].noteQuality();
+        StringBuilder rep = new StringBuilder();
+        rep.append(getRoot().noteQuality() + " Minor 9 :");
+        for (Note note: chordNotes) {
+            rep.append(" " + note.noteQuality());
+        }
+        return rep.toString();
     }
 }
