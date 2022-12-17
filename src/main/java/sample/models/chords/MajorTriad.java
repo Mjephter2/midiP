@@ -4,73 +4,128 @@ import sample.models.Note;
 import sample.models.Utilities;
 import sample.models.exceptions.InvalidNoteException;
 
-public class MajorTriad implements Chord {
-    private Note[] chord_Notes = new Note[3];
+/**
+ * Class implementing a Major Triad Chord.
+ */
+public final class MajorTriad implements Chord {
+    /**
+     * max number of notes in any Major Triad Chord.
+     */
+    private static final int NUM_NOTES = 3;
+
+    /**
+     * largest interval in the Chord.
+     */
+    private static final int MAX_INTERVAL = 7;
+
+    /**
+     * interval between the root and the third.
+     */
+    private static final int ROOT_TO_THIRD = 4;
+
+    /**
+     * Array of Notes representing the Chord
+     * starting from the root.
+     */
+    private Note[] chordNotes;
 
     @Override
-    public MajorTriad transposeUp(int n) throws InvalidNoteException {
+    public MajorTriad transposeUp(final int n) throws InvalidNoteException {
         return this.sharp(n);
     }
 
     @Override
-    public MajorTriad transposeDown(int n) throws InvalidNoteException {
+    public MajorTriad transposeDown(final int n) throws InvalidNoteException {
         return this.flat(n);
     }
 
     @Override
     public Note[] notes() {
-        return chord_Notes;
+        return chordNotes;
     }
-
     @Override
     public String root() {
-        return this.chord_Notes[0].getName();
+        return this.chordNotes[0].getName();
     }
 
-    public MajorTriad(Note scaleRoot) throws InvalidNoteException{
+    /**
+     * Constructs a Major Triad Chord rooted at the passed Note.
+     * @param scaleRoot root of the Chord
+     * @throws InvalidNoteException
+     */
+    public MajorTriad(final Note scaleRoot) throws InvalidNoteException {
         this(scaleRoot.getName());
     }
 
-    public MajorTriad() throws InvalidNoteException{
+    /**
+     * Default Constructor
+     * Constructs a Major Triad Chord rooted at C3.
+     * @throws InvalidNoteException
+     */
+    public MajorTriad() throws InvalidNoteException {
         this("C3");
     }
 
-    public MajorTriad(MajorTriad triad) throws InvalidNoteException{
-        this(triad.chord_Notes[0].getName());
+    /**
+     * Constructs a Major Triad Chord rooted at the same Note.
+     * as the passed Chord
+     * @param triad to copy root from
+     * @throws InvalidNoteException
+     */
+    public MajorTriad(final MajorTriad triad) throws InvalidNoteException {
+        this(triad.chordNotes[0].getName());
     }
 
-    public MajorTriad(String root) throws InvalidNoteException{
+    /**
+     * Constructs a Major Triad Chord rooted at the Note described.
+     * by the passed String
+     * @param root name of the root Note
+     * @throws InvalidNoteException
+     */
+    public MajorTriad(final String root) throws InvalidNoteException {
         Note newRoot = new Note(root);
         generateScale(newRoot);
     }
 
+    /**
+     * @return the root Note of the Chord
+     */
     public Note getRoot() {
-        return chord_Notes[0];
+        return chordNotes[0];
     }
 
-    private MajorTriad sharp(int n) throws InvalidNoteException{
-        if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) + n + 11 > 87) return this;
-        String newRoot = this.chord_Notes[0].sharp(n).getName();
+    private MajorTriad sharp(final int n) throws InvalidNoteException {
+        if (Utilities.NOTE_NAMES.indexOf(this.chordNotes[0].getName())
+                + n + MAX_INTERVAL > Utilities.NUMBER_OF_KEYS_88 - 1) {
+            return this;
+        }
+        String newRoot = this.chordNotes[0].sharp(n).getName();
         return new MajorTriad(newRoot);
     }
 
-    private MajorTriad flat(int n) throws InvalidNoteException{
-        if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) - n > 87) return this;
-        String newRoot = this.chord_Notes[0].sharp(n).getName();
+    private MajorTriad flat(final int n) throws InvalidNoteException {
+        if (Utilities.NOTE_NAMES.indexOf(this.chordNotes[0].getName())
+                - n > Utilities.NUMBER_OF_KEYS_88 - 1) {
+            return this;
+        }
+        String newRoot = this.chordNotes[0].sharp(n).getName();
         return new MajorTriad(newRoot);
     }
-    
-    private void generateScale(Note root) throws InvalidNoteException{
-        this.chord_Notes[0] = root;
-        this.chord_Notes[1]= root.sharp(4);
-        this.chord_Notes[2]= root.sharp(7);
+    private void generateScale(final Note root) throws InvalidNoteException {
+        this.chordNotes = new Note[]{
+                root,
+                root.sharp(ROOT_TO_THIRD),
+                root.sharp(MAX_INTERVAL)
+        };
     }
 
     @Override
     public String toString() {
-        return  getRoot().noteQuality() + " Major Triad:"
-                + " " + getRoot().noteQuality()
-                + " " + chord_Notes[1].noteQuality()
-                + " " + chord_Notes[2].noteQuality();
+        StringBuilder rep = new StringBuilder();
+        rep.append(getRoot().noteQuality() + " Major Triad :");
+        for (Note note: chordNotes) {
+            rep.append(" " + note.noteQuality());
+        }
+        return rep.toString();
     }
 }

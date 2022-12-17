@@ -4,74 +4,132 @@ import sample.models.Note;
 import sample.models.Utilities;
 import sample.models.exceptions.InvalidNoteException;
 
-public class Major7th implements Chord {
-    private Note[] chord_Notes = new Note[4];
+/**
+ * Class implementing a Major 7th Chord.
+ */
+public final class Major7th implements Chord {
+    /**
+     * max number of notes in any Major 7th Chord.
+     */
+    private static final int NUM_NOTES = 4;
+
+    /**
+     * largest interval in the Chord.
+     */
+    private static final int MAX_INTERVAL = 11;
+
+    /**
+     * interval between the root and the third.
+     */
+    private static final int ROOT_TO_THIRD = 4;
+
+    /**
+     * interval between the root Note and the fifth.
+     */
+    private static final int ROOT_TO_FIFTH = 7;
+
+    /**
+     * Array of Notes representing the Chord
+     * starting from the root.
+     */
+    private Note[] chordNotes;
 
     @Override
-    public Major7th transposeUp(int n) throws InvalidNoteException {
+    public Major7th transposeUp(final int n) throws InvalidNoteException {
         return this.sharp(n);
     }
 
     @Override
-    public Major7th transposeDown(int n) throws InvalidNoteException {
+    public Major7th transposeDown(final int n) throws InvalidNoteException {
         return this.flat(n);
     }
 
     @Override
     public Note[] notes() {
-        return chord_Notes;
+        return chordNotes;
     }
 
     @Override
     public String root() {
-        return this.chord_Notes[0].getName();
+        return this.chordNotes[0].getName();
     }
 
-    public Major7th(Note scaleRoot) throws InvalidNoteException{
+    /**
+     * Constructs a Major 7th Chord rooted at the passed Note.
+     * @param scaleRoot root of the Chord
+     * @throws InvalidNoteException
+     */
+    public Major7th(final Note scaleRoot) throws InvalidNoteException {
         this(scaleRoot.getName());
     }
 
-    public Major7th() throws InvalidNoteException{
+    /**
+     * Constructs a Major 7th Chord rooted at C3.
+     * @throws InvalidNoteException
+     */
+    public Major7th() throws InvalidNoteException {
         this("C3");
     }
 
-    public Major7th(Major7th chord) throws InvalidNoteException{
-        this(chord.chord_Notes[0].getName());
+    /**
+     * Constructs a Major 7th Chord rooted at the same Note.
+     * as the passed Chord
+     * @param chord Note to copy root from
+     * @throws InvalidNoteException
+     */
+    public Major7th(final Major7th chord) throws InvalidNoteException {
+        this(chord.chordNotes[0].getName());
     }
-    
-    public Major7th(String root) throws InvalidNoteException{
+
+    /**
+     * Constructs a Major 7th Chord rooted at the Note described.
+     * by the passed String
+     * @param root name of the root Note
+     * @throws InvalidNoteException
+     */
+    public Major7th(final String root) throws InvalidNoteException {
         Note newRoot = new Note(root);
         generateScale(newRoot);
     }
 
+    /**
+     * @return the root Note of the Chord
+     */
     public Note getRoot() {
-        return chord_Notes[0];
+        return chordNotes[0];
     }
-
-
-    private Major7th sharp(int n) throws InvalidNoteException{
-        if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) + n + 11 > 87) return this;
-        String newRoot = this.chord_Notes[0].sharp(n).getName();
+    private Major7th sharp(final int n) throws InvalidNoteException {
+        if (Utilities.NOTE_NAMES.indexOf(this.chordNotes[0].getName())
+                + n + MAX_INTERVAL > Utilities.NUMBER_OF_KEYS_88 - 1) {
+            return this;
+        }
+        String newRoot = this.chordNotes[0].sharp(n).getName();
         return new Major7th(newRoot);
     }
-    private Major7th flat(int n) throws InvalidNoteException{
-        if(Utilities.NOTE_NAMES.indexOf(this.chord_Notes[0].getName()) - n > 87) return this;
-        String newRoot = this.chord_Notes[0].sharp(n).getName();
+    private Major7th flat(final int n) throws InvalidNoteException {
+        if (Utilities.NOTE_NAMES.indexOf(this.chordNotes[0].getName())
+                - n > Utilities.NUMBER_OF_KEYS_88 - 1) {
+            return this;
+        }
+        String newRoot = this.chordNotes[0].sharp(n).getName();
         return new Major7th(newRoot);
     }
-    private void generateScale(Note root) throws InvalidNoteException{
-        this.chord_Notes[0] = root;
-        this.chord_Notes[1]= root.sharp(4);
-        this.chord_Notes[2]= root.sharp(7);
-        this.chord_Notes[3] = root.sharp(11);
+    private void generateScale(final Note root) throws InvalidNoteException {
+        this.chordNotes = new Note[]{
+                root,
+                root.sharp(ROOT_TO_THIRD),
+                root.sharp(ROOT_TO_FIFTH),
+                root.sharp(MAX_INTERVAL)
+        };
     }
 
     @Override
     public String toString() {
-        return  getRoot().noteQuality() + " Major 7 :"
-                + " " + chord_Notes[0].noteQuality()
-                + " " + chord_Notes[1].noteQuality()
-                + " " + chord_Notes[2].noteQuality()
-                + " " + chord_Notes[3].noteQuality();
+        StringBuilder rep = new StringBuilder();
+        rep.append(getRoot().noteQuality() + " Major 7 :");
+        for (Note note: chordNotes) {
+            rep.append(" " + note.noteQuality());
+        }
+        return rep.toString();
     }
 }
