@@ -23,6 +23,11 @@ public final class Utilities {
     public static final int NUMBER_OF_UNALTERED_NOTES = 8;
 
     /**
+     * number of Note qualities
+     */
+    public static final int NUM_NOTE_QUALITIES = 12;
+
+    /**
      * Comparator for Notes.
      */
     public static final Comparator<Note> NOTE_COMPARATOR = new Comparator<>() {
@@ -71,6 +76,20 @@ public final class Utilities {
                     "Gb",
                     "G",
                     "Ab"));
+
+    /**
+     * List containing the notes interval relative to the root for Major scales
+     */
+    public static final ArrayList<Integer> MAJOR_SCALE_DEGREE_INTERVALS = new ArrayList<>(List.of(
+            0, 2, 4, 5, 7, 9, 11
+    ));
+
+    /**
+     * List containing the notes interval relative to the root for Minor scales
+     */
+    public static final ArrayList<Integer> MINOR_SCALE_DEGREE_INTERVALS = new ArrayList<>(List.of(
+            0, 2, 3, 5, 7, 8, 10
+    ));
 
     /**
      * list containing all possible Note names
