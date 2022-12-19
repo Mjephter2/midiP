@@ -4,106 +4,138 @@ import sample.models.Note;
 import sample.models.Utilities;
 import sample.models.exceptions.InvalidNoteException;
 
-public class MajorScale implements Scale{
-    private Note[] scale_Notes = new Note[8];
+/**
+ * Class implementing a Major Scale.
+ */
+public final class MajorScale implements Scale {
+    /**
+     * number of notes in a Major Scale.
+     */
+    private static final int NUM_NOTES = 8;
 
+    /**
+     * Array of Notes making the Scale.
+     */
+    private Note[] scaleNotes;
+
+    /**
+     * Transposes a Major Scale up n times.
+     * @param n number of times to transpose
+     * @return the transposed Scale
+     * @throws InvalidNoteException
+     */
     @Override
-    public Scale transposeUp(int n) throws InvalidNoteException {
+    public MajorScale transposeUp(final int n) throws InvalidNoteException {
         return this.sharp(n);
     }
 
+    /**
+     * Transposes a Major Scale down n times.
+     * @param n number of times to transpose
+     * @return the transposed Scale
+     * @throws InvalidNoteException
+     */
     @Override
-    public Scale transposeDown(int n) throws InvalidNoteException {
+    public MajorScale transposeDown(final int n) throws InvalidNoteException {
         return this.flat(n);
     }
 
+    /**
+     * @return the Notes in the Scale
+     */
     @Override
     public Note[] notes() {
-        return scale_Notes;
+        return scaleNotes;
     }
 
+    /**
+     * @return a String representation of the root Note.
+     */
     @Override
     public String root() {
-        return this.scale_Notes[0].getName();
+        return this.scaleNotes[0].getName();
     }
 
-    public MajorScale(Note scaleRoot) throws InvalidNoteException{
+    /**
+     * Constructs a Major Scale rooted at the given Note.
+     * @param scaleRoot root of the Scale
+     * @throws InvalidNoteException
+     */
+    public MajorScale(final Note scaleRoot) throws InvalidNoteException {
         this(scaleRoot.getName());
     }
 
-    public MajorScale() throws InvalidNoteException{
+    /**
+     * Default Constructor.
+     * Constructs a Major Scale rooted at C3
+     * @throws InvalidNoteException
+     */
+    public MajorScale() throws InvalidNoteException {
         this("C3");
     }
 
-    public MajorScale(MajorScale scale) throws InvalidNoteException{
-        this(scale.scale_Notes[0].getName());
+    /**
+     * Constructs a Major Scale rooted at the same root Note
+     * as the passed Scale.
+     * @param scale Scale to copy root Note from
+     * @throws InvalidNoteException
+     */
+    public MajorScale(final MajorScale scale) throws InvalidNoteException {
+        this(scale.scaleNotes[0].getName());
     }
 
-    public MajorScale(String root) throws InvalidNoteException{
+    /**
+     * Constructs a Major Scale rooted at the Note represented by
+     *  the passed String.
+     * @param root String representation of root Note
+     * @throws InvalidNoteException
+     */
+    public MajorScale(final String root) throws InvalidNoteException {
         Note newRoot = new Note(root);
         generateScale(newRoot);
     }
 
+    /**
+     * @return the root Note of the Scale
+     */
     public Note getRoot() {
-        return scale_Notes[0];
+        return scaleNotes[0];
     }
 
-    public Note getDegree_2() {
-        return scale_Notes[1];
-    }
-
-    public Note getDegree_3() {
-        return scale_Notes[2];
-    }
-
-    public Note getDegree_4() {
-        return scale_Notes[3];
-    }
-
-    public Note getDegree_5() {
-        return scale_Notes[4];
-    }
-
-    public Note getDegree_6() {
-        return scale_Notes[5];
-    }
-
-    public Note getDegree_7() {
-        return scale_Notes[6];
-    }
-
-    private MajorScale sharp(int n) throws InvalidNoteException{
-        if(Utilities.NOTE_NAMES.indexOf(this.scale_Notes[0].getName()) + n + 12 > 87) return this;
-        String newRoot = this.scale_Notes[0].sharp(n).getName();
+    private MajorScale sharp(final int n) throws InvalidNoteException {
+        if (Utilities.NOTE_NAMES.indexOf(this.scaleNotes[0].getName())
+                + n
+                + Utilities.NUM_NOTE_QUALITIES
+                > Utilities.NUMBER_OF_KEYS_88 - 1) {
+            return this;
+        }
+        String newRoot = this.scaleNotes[0].sharp(n).getName();
         return new MajorScale(newRoot);
     }
-
-    private MajorScale flat(int n) throws InvalidNoteException{
-        if(Utilities.NOTE_NAMES.indexOf(this.scale_Notes[0].getName()) - n < 0) return this;
-        String newRoot = this.scale_Notes[0].flat(n).getName();
+    private MajorScale flat(final int n) throws InvalidNoteException {
+        if (Utilities.NOTE_NAMES.indexOf(this.scaleNotes[0].getName())
+                - n < 0) {
+            return this;
+        }
+        String newRoot = this.scaleNotes[0].flat(n).getName();
         return new MajorScale(newRoot);
     }
-    
-    private void generateScale(Note root) throws InvalidNoteException{
-        this.scale_Notes[0] = root;
-        this.scale_Notes[1]= root.sharp(2);
-        this.scale_Notes[2]= root.sharp(4);
-        this.scale_Notes[3]= root.sharp(5);
-        this.scale_Notes[4]= root.sharp(7);
-        this.scale_Notes[5]= root.sharp(9);
-        this.scale_Notes[6]= root.sharp(11);
+    private void generateScale(final Note root) throws InvalidNoteException {
+        this.scaleNotes = new Note[NUM_NOTES];
+        int position = 0;
+        for (Integer interval: Utilities.MAJOR_SCALE_DEGREE_INTERVALS) {
+            this.scaleNotes[position++] = root.sharp(interval);
+        }
     }
 
     @Override
     public String toString() {
-        return  getRoot().noteQuality() + "\tMajor Scale:"
-                + " " + getRoot().noteQuality()
-                + "\t" + getDegree_2().noteQuality()
-                + "\t" + getDegree_3().noteQuality()
-                + "\t" + getDegree_4().noteQuality()
-                + "\t" + getDegree_5().noteQuality()
-                + "\t" + getDegree_6().noteQuality()
-                + "\t" + getDegree_7().noteQuality()
-                + "\t" + getRoot().noteQuality();
+        StringBuilder rep = new StringBuilder(
+                getRoot().noteQuality() + "\tMajor Scale:"
+        );
+        for (Note note: scaleNotes) {
+            rep.append("\t").append(note.noteQuality());
+        }
+        return rep.toString();
     }
 }
