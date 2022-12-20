@@ -4,7 +4,7 @@ import sample.AudioPlayer;
 import sample.models.exceptions.InvalidNoteException;
 
 /**
- * A class implementation of a piano key / notes.
+ * Class implementation of a piano key / notes.
  */
 public final class Note {
     /**

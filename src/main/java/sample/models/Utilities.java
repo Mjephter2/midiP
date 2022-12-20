@@ -23,7 +23,7 @@ public final class Utilities {
     public static final int NUMBER_OF_UNALTERED_NOTES = 8;
 
     /**
-     * number of Note qualities
+     * number of Note qualities.
      */
     public static final int NUM_NOTE_QUALITIES = 12;
 
@@ -78,18 +78,16 @@ public final class Utilities {
                     "Ab"));
 
     /**
-     * List containing the notes interval relative to the root for Major scales
+     * List containing the notes interval relative to the root for Major scales.
      */
-    public static final ArrayList<Integer> MAJOR_SCALE_DEGREE_INTERVALS = new ArrayList<>(List.of(
-            0, 2, 4, 5, 7, 9, 11
-    ));
+    public static final ArrayList<Integer> MAJOR_SCALE_DEGREE_INTERVALS =
+            new ArrayList<>(List.of(0, 2, 4, 5, 7, 9, 11));
 
     /**
-     * List containing the notes interval relative to the root for Minor scales
+     * List containing the notes interval relative to the root for Minor scales.
      */
-    public static final ArrayList<Integer> MINOR_SCALE_DEGREE_INTERVALS = new ArrayList<>(List.of(
-            0, 2, 3, 5, 7, 8, 10
-    ));
+    public static final ArrayList<Integer> MINOR_SCALE_DEGREE_INTERVALS =
+            new ArrayList<>(List.of(0, 2, 3, 5, 7, 8, 10));
 
     /**
      * list containing all possible Note names
@@ -100,7 +98,7 @@ public final class Utilities {
     private static LinkedList<String> generateNames() {
         LinkedList<String> list = new LinkedList<>();
         for (int i = 1; i < NUMBER_OF_UNALTERED_NOTES; i++) {
-            for (int j = 0; j < NOTE_QUALITIES.size(); j++) {
+            for (int j = 0; j < NUM_NOTE_QUALITIES; j++) {
                 String str = NOTE_QUALITIES.get(j) + i;
                 list.add(str);
             }
