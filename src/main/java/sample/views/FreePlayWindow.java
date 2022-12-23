@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * GUI for the full size view of a midi piano
+ * allowing for free play without audio feedback.
+ */
 public final class FreePlayWindow extends Application {
     /**
      * Array of Button representing the keys on the piano.
@@ -70,6 +74,9 @@ public final class FreePlayWindow extends Application {
      */
     private int lastKeyPressedIndex = 0;
 
+    /**
+     * Initializes the components of the UI.
+     */
     private void initialize() {
         int i = 0;
         while (i < Utilities.NUMBER_OF_KEYS_88) {
@@ -103,6 +110,10 @@ public final class FreePlayWindow extends Application {
         }
     }
 
+    /**
+     * Opens all the midi transmitters available in
+     * the system.
+     */
     private void openAllTransmitters() {
         MidiDevice device;
         MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
@@ -125,6 +136,9 @@ public final class FreePlayWindow extends Application {
         }
     }
 
+    /**
+     * Closes all the open midi transmitters available in the system.
+     */
     private void closeAllTransmitters() {
         MidiDevice device;
         MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
@@ -141,7 +155,11 @@ public final class FreePlayWindow extends Application {
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * Main entry point.
+     * @param args application parameters
+     */
+    public static void main(final String[] args) {
         launch(args);
     }
 
@@ -210,6 +228,11 @@ public final class FreePlayWindow extends Application {
         freePlay.show();
     }
 
+    /**
+     * Event handler for midi keyboard events.
+     * Assigns the appropriate style to the keyboard keys involved
+     * @param key
+     */
     private void keyPressedReleased(final int key) {
         Button button = keyBoard[key];
         if (button.getStyle().contains("blue")
@@ -228,6 +251,9 @@ public final class FreePlayWindow extends Application {
         }
     }
 
+    /**
+     * Class to handle midi events.
+     */
     public final class MidiInputReceiver implements Receiver {
 
         /**
