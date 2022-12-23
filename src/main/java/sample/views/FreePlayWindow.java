@@ -1,17 +1,14 @@
 package sample.views;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import sample.models.FillerButton;
 import sample.models.Utilities;
 
@@ -25,21 +22,57 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FreePlayWindow extends Application {
-    private static final int NUMBER_OF_KEYS = 88;
-    private Button[] keyBoard = new Button[NUMBER_OF_KEYS];
-    private LinkedList<Button> whiteKeys = new LinkedList<>();
-    private LinkedList<Button> blackKeys = new LinkedList<>();
-    private static int screenWidth = 1248;
-    private static int whiteKeySize = 24;
-    private static int blackKeySize = 20;
-    private String buttonOriginalStyle;
-    private MidiInputReceiver midiInputReceiver = new MidiInputReceiver("Receiver");
+public final class FreePlayWindow extends Application {
+    /**
+     * Array of Button representing the keys on the piano.
+     */
+    private final Button[] keyBoard = new Button[Utilities.NUMBER_OF_KEYS_88];
+
+    /**\
+     * Array of white keys on the piano.
+     */
+    private final LinkedList<Button> whiteKeys = new LinkedList<>();
+
+    /**
+     * Array of black keys on the piano.
+     */
+    private final LinkedList<Button> blackKeys = new LinkedList<>();
+
+    /**
+     * Preferred window width.
+     */
+    private static final int SCREEN_WIDTH = 1248;
+
+    /**
+     * White key width.
+     */
+    private static final int WHITE_KEY_SIZE = 24;
+
+    /**
+     * Black keys width.
+     */
+    private static final int BLACK_KEY_SIZE = 20;
+
+    /**
+     * Default Button style.
+     */
+    private static final String BUTTON_ORIGINAL_STYLE = new Button().getStyle();
+
+    /**
+     * Midi Receiver to capture keyboard / midi events.
+     */
+    private final MidiInputReceiver midiInputReceiver =
+            new MidiInputReceiver("Receiver");
+
+    /**
+     * Index the last key pressed
+     * as captured from a physical midi device.
+     */
     private int lastKeyPressedIndex = 0;
 
-    {
+    private void initialize() {
         int i = 0;
-        while (i < 88) {
+        while (i < Utilities.NUMBER_OF_KEYS_88) {
             ArrayList<Integer> blackIndex = new ArrayList<>();
             blackIndex.add(1);
             blackIndex.add(4);
@@ -49,67 +82,55 @@ public class FreePlayWindow extends Application {
             Button button = new Button(Utilities.NOTE_NAMES.get(i));
             if (blackIndex.contains(i % 12)) {
                 blackKeys.add(button);
-                // System.out.println("Added " + Utilities.NOTE_NAMES.get(i) + " to the black
-                // keys");
             } else {
                 whiteKeys.add(button);
-                // System.out.println("Added " + Utilities.NOTE_NAMES.get(i) + " to the white
-                // keys");
             }
             keyBoard[i] = button;
             i++;
         }
 
-        // System.out.println("white keys: " + whiteKeys.size());
-        // System.out.println("black keys: " + blackKeys.size());
-        buttonOriginalStyle = keyBoard[0].getStyle();
         for (Button button : keyBoard) {
-            button.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    button.setStyle("-fx-background-color: gray");
-                }
-            });
-            button.setOnMouseReleased(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    if (blackKeys.contains(button)) {
-                        button.setStyle("-fx-background-color: black");
-                    } else if (whiteKeys.contains(button)) {
-                        button.setStyle(buttonOriginalStyle);
-                    }
+            button.setOnMousePressed(mouseEvent
+                    ->
+                    button.setStyle("-fx-background-color: gray"));
+            button.setOnMouseReleased(mouseEvent -> {
+                if (blackKeys.contains(button)) {
+                    button.setStyle("-fx-background-color: black");
+                } else if (whiteKeys.contains(button)) {
+                    button.setStyle(BUTTON_ORIGINAL_STYLE);
                 }
             });
         }
     }
 
-    public void openAllTransmitters() {
+    private void openAllTransmitters() {
         MidiDevice device;
         MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
-        for (int i = 0; i < infos.length; i++) {
+        for (MidiDevice.Info info : infos) {
             try {
-                device = MidiSystem.getMidiDevice(infos[i]);
+                device = MidiSystem.getMidiDevice(info);
                 int numTrans = device.getTransmitters().size();
-                System.out.println(infos[i] + " has " + numTrans + " transmitters");
+                System.out.println(info + " has " + numTrans + " transmitters");
                 List<Transmitter> transmitters = device.getTransmitters();
-                for (int j = 0; j < transmitters.size(); j++)
-                    transmitters.get(j).setReceiver(midiInputReceiver);
+                for (Transmitter transmitter : transmitters) {
+                    transmitter.setReceiver(midiInputReceiver);
+                }
                 Transmitter trans = device.getTransmitter();
                 trans.setReceiver(midiInputReceiver);
                 device.open();
                 System.out.println(device.getDeviceInfo() + " Was Opened");
             } catch (MidiUnavailableException e) {
-
+                e.printStackTrace();
             }
         }
     }
 
-    public void closeAllTransmitters() {
+    private void closeAllTransmitters() {
         MidiDevice device;
         MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
-        for (int i = 0; i < infos.length; i++) {
+        for (MidiDevice.Info info : infos) {
             try {
-                device = MidiSystem.getMidiDevice(infos[i]);
+                device = MidiSystem.getMidiDevice(info);
                 if (device.isOpen()) {
                     device.close();
                     System.out.println(device.getDeviceInfo() + " Was closed");
@@ -125,63 +146,63 @@ public class FreePlayWindow extends Application {
     }
 
     @Override
-    public void start(Stage freePlay) {
+    public void start(final Stage freePlay) {
+        initialize();
         openAllTransmitters();
         BorderPane root = new BorderPane();
-        freePlay.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                // Main mainWindow = new Main();
-                // Stage mainStage = new Stage();
-                // try {
-                // mainWindow.start(mainStage);
-                // freePlay.close();
-                // mainStage.show();
-                // } catch (Exception ex) {
-                // System.out.println("Error opening Main Window!!!");
-                // ex.printStackTrace();
-                // }
-                closeAllTransmitters();
-                midiInputReceiver.close();
-                System.exit(0);
+        freePlay.setOnCloseRequest(windowEvent -> {
+            Main mainWindow = new Main();
+            Stage mainStage = new Stage();
+            try {
+                mainWindow.start(mainStage);
+                freePlay.close();
+                mainStage.show();
+            } catch (Exception ex) {
+                System.out.println("Error opening Main Window!!!");
+                ex.printStackTrace();
             }
+            closeAllTransmitters();
+            midiInputReceiver.close();
+            System.exit(0);
         });
 
-        HBox white_keyPane = new HBox();
-        white_keyPane.setPickOnBounds(false);
-        HBox black_keyPane = new HBox();
-        black_keyPane.setPickOnBounds(false);
-        black_keyPane.setPadding(new Insets(0, 0, 0, 13));
-        black_keyPane.setSpacing(4);
-        white_keyPane.setSpacing(0.4);
+        HBox whiteKeyPane = new HBox();
+        whiteKeyPane.setPickOnBounds(false);
+        HBox blackKeyPane = new HBox();
+        blackKeyPane.setPickOnBounds(false);
+        blackKeyPane.setPadding(new Insets(0, 0, 0, 13));
+        blackKeyPane.setSpacing(4);
+        whiteKeyPane.setSpacing(0.4);
 
         for (Button button : whiteKeys) {
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
-            button.setPrefSize(whiteKeySize, 112);
-            white_keyPane.getChildren().add(button);
+            button.setPrefSize(WHITE_KEY_SIZE, 112);
+            whiteKeyPane.getChildren().add(button);
         }
         for (Button button : blackKeys) {
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
-            button.setPrefSize(blackKeySize, 80);
-            black_keyPane.getChildren().add(button);
+            button.setPrefSize(BLACK_KEY_SIZE, 80);
+            blackKeyPane.getChildren().add(button);
             button.setStyle("-fx-background-color: black");
         }
-        black_keyPane.getChildren().add(1, new FillerButton(blackKeySize, 80));
+        blackKeyPane.getChildren().add(1, new FillerButton(BLACK_KEY_SIZE, 80));
         int i = 1;
-        while (i < black_keyPane.getChildren().size() - 1) {
-            black_keyPane.getChildren().add(i + 3, new FillerButton(blackKeySize, 80));
-            black_keyPane.getChildren().add(i + 7, new FillerButton(blackKeySize, 80));
+        while (i < blackKeyPane.getChildren().size() - 1) {
+            FillerButton fillerButton1 = new FillerButton(BLACK_KEY_SIZE, 80);
+            FillerButton fillerButton2 = new FillerButton(BLACK_KEY_SIZE, 80);
+            blackKeyPane.getChildren().add(i + 3, fillerButton1);
+            blackKeyPane.getChildren().add(i + 7, fillerButton2);
             i = i + 7;
         }
 
         GridPane keyPane = new GridPane();
-        keyPane.add(white_keyPane, 0, 0, 2, 1);
-        keyPane.add(black_keyPane, 0, 0, 2, 1);
+        keyPane.add(whiteKeyPane, 0, 0, 2, 1);
+        keyPane.add(blackKeyPane, 0, 0, 2, 1);
         root.setCenter(keyPane);
 
-        Scene scene = new Scene(root, screenWidth, 112);
+        Scene scene = new Scene(root, SCREEN_WIDTH, 112);
         freePlay.setFullScreen(false);
         freePlay.setResizable(false);
         freePlay.setTitle("Free Play");
@@ -189,11 +210,12 @@ public class FreePlayWindow extends Application {
         freePlay.show();
     }
 
-    private void keyPressed_Released(int key) {
+    private void keyPressedReleased(final int key) {
         Button button = keyBoard[key];
-        if (button.getStyle().contains("blue") || button.getStyle().contains("red")) {
+        if (button.getStyle().contains("blue")
+                || button.getStyle().contains("red")) {
             if (whiteKeys.contains(button)) {
-                button.setStyle(buttonOriginalStyle);
+                button.setStyle(BUTTON_ORIGINAL_STYLE);
             } else if (blackKeys.contains(button)) {
                 button.setStyle("-fx-background-color: black");
             }
@@ -206,24 +228,39 @@ public class FreePlayWindow extends Application {
         }
     }
 
-    public class MidiInputReceiver implements Receiver {
+    public final class MidiInputReceiver implements Receiver {
 
-        public String name;
+        /**
+         * name of the receiver.
+         */
+        private final String name;
 
-        public MidiInputReceiver(String name) {
-            this.name = name;
+        /**
+         * Construct a receiver with the String argument as name.
+         * @param receiverName name of receiver
+         */
+        public MidiInputReceiver(final String receiverName) {
+            this.name = receiverName;
         }
 
-        public void send(MidiMessage msg, long timeStamp) {
+        /**
+         * @param msg the MIDI message to send
+         * @param timeStamp the time-stamp for the message, in microseconds
+         */
+        public void send(final MidiMessage msg, final long timeStamp) {
             byte[] aMsg = msg.getMessage();
-            if ((lastKeyPressedIndex == 127 && aMsg[2] == 0) || aMsg[2] == 127) {
+            if ((lastKeyPressedIndex == 127 && aMsg[2] == 0)
+                    || aMsg[2] == 127) {
                 lastKeyPressedIndex = aMsg[2];
                 return;
             }
-            System.out.println("Message: " + aMsg[0] + ", " + aMsg[1] + ", " + aMsg[2]);
-            if (aMsg[1] - 21 < 0)
+            System.out.println(
+                    "Message: " + aMsg[0] + ", " + aMsg[1] + ", " + aMsg[2]
+            );
+            if (aMsg[1] - 21 < 0) {
                 return;
-            keyPressed_Released(aMsg[1] - 21);
+            }
+            keyPressedReleased(aMsg[1] - 21);
             lastKeyPressedIndex = aMsg[2];
         }
 
