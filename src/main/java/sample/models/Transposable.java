@@ -19,7 +19,7 @@ public abstract class Transposable {
      * by the specified amount.
      * @param n number of times to transpose
      * @return the transposed Notes
-     * @throws InvalidNoteException when an invalid Note is encountered
+     * @throws InvalidNoteException when an invalid Note is encounteredTran
      */
     public Note[] transposeUp(final int n) throws InvalidNoteException {
         Note[] newNotes = Arrays.copyOf(notes(), notes().length);
@@ -50,5 +50,5 @@ public abstract class Transposable {
      * @return the generated Notes in an array
      * @throws InvalidNoteException when an invalid Note is encountered
      */
-    public abstract Note[] generateNotes(Note root) throws InvalidNoteException;
+    public abstract Note[] generateNotes(Note root) throws Exception;
 }

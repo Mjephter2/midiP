@@ -16,15 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import sample.models.*;
-import sample.models.chords.Chord;
-import sample.models.chords.Dominant7th;
-import sample.models.chords.Dominant9th;
-import sample.models.chords.Major7th;
-import sample.models.chords.Major9th;
-import sample.models.chords.MajorTriad;
-import sample.models.chords.Minor7th;
-import sample.models.chords.Minor9th;
-import sample.models.chords.MinorTriad;
+import sample.models.chords.*;
 import sample.models.exceptions.InvalidNoteException;
 
 import java.util.ArrayList;
@@ -213,17 +205,17 @@ public class LearnWindow extends Application {
             }
             Chord chord = null;
             try {
-                chord = new MajorTriad(root);
-            } catch (InvalidNoteException e) {
+                chord = new Chord(ChordType.MAJOR_TRIAD, root);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             Note[] chordNotes = chord.notes();
             ArrayList<String> chordNotesNames = new ArrayList<>();
-            for(int i = 0; i < chordNotes.length; i++){
-                chordNotesNames.add(chordNotes[i].getName());
+            for (Note chordNote : chordNotes) {
+                chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-            for(Button button: keyBoard){
+            for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
                 }
@@ -247,14 +239,14 @@ public class LearnWindow extends Application {
             }
             Chord chord = null;
             try {
-                chord = new MinorTriad(root);
-            } catch (InvalidNoteException e) {
+                chord = new Chord(ChordType.MINOR_TRIAD, root);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             Note[] chordNotes = chord.notes();
             ArrayList<String> chordNotesNames = new ArrayList<>();
-            for(int i = 0; i < chordNotes.length; i++){
-                chordNotesNames.add(chordNotes[i].getName());
+            for (Note chordNote : chordNotes) {
+                chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
             for(Button button: keyBoard){
@@ -264,223 +256,206 @@ public class LearnWindow extends Application {
             }
         });
 
-        major7thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                resetButtons();
-                Note root = null;
+        major7thButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = null;
+            try {
+                root = new Note("C3");
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
+            }
+            while(!root.noteQuality().equals(keyBox.getValue())){
                 try {
-                    root = new Note("C3");
+                    root = root.sharp(1);
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    try {
-                        root = root.sharp(1);
-                    } catch (InvalidNoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Chord chord = null;
-                try {
-                    chord = new Major7th(root);
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
-                }
-                Note[] chordNotes = chord.notes();
-                ArrayList<String> chordNotesNames = new ArrayList<>();
-                for(int i = 0; i < chordNotes.length; i++){
-                    chordNotesNames.add(chordNotes[i].getName());
-                }
-                System.out.println(chordNotesNames);
-                for(Button button: keyBoard){
-                    if(chordNotesNames.contains(button.getTooltip().getText())){
-                        colorButton(button);
-                    }
+            }
+            Chord chord = null;
+            try {
+                chord = new Chord(ChordType.MAJOR_7TH, root);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Note[] chordNotes = chord.notes();
+            ArrayList<String> chordNotesNames = new ArrayList<>();
+            for (Note chordNote : chordNotes) {
+                chordNotesNames.add(chordNote.getName());
+            }
+            System.out.println(chordNotesNames);
+            for (Button button: keyBoard) {
+                if(chordNotesNames.contains(button.getTooltip().getText())){
+                    colorButton(button);
                 }
             }
         });
 
-        minor7thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                resetButtons();
-                Note root = null;
+        minor7thButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = null;
+            try {
+                root = new Note("C3");
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
+            }
+            while(!root.noteQuality().equals(keyBox.getValue())){
                 try {
-                    root = new Note("C3");
+                    root = root.sharp(1);
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    try {
-                        root = root.sharp(1);
-                    } catch (InvalidNoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Chord chord = null;
-                try {
-                    chord = new Minor7th(root);
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
-                }
-                Note[] chordNotes = chord.notes();
-                ArrayList<String> chordNotesNames = new ArrayList<>();
-                for(int i = 0; i < chordNotes.length; i++){
-                    chordNotesNames.add(chordNotes[i].getName());
-                }
-                System.out.println(chordNotesNames);
-                for(Button button: keyBoard){
-                    if(chordNotesNames.contains(button.getTooltip().getText())){
-                        colorButton(button);
-                    }
+            }
+            Chord chord = null;
+            try {
+                chord = new Chord(ChordType.MINOR_7TH, root);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Note[] chordNotes = chord.notes();
+            ArrayList<String> chordNotesNames = new ArrayList<>();
+            for (Note chordNote : chordNotes) {
+                chordNotesNames.add(chordNote.getName());
+            }
+            System.out.println(chordNotesNames);
+            for (Button button: keyBoard) {
+                if(chordNotesNames.contains(button.getTooltip().getText())){
+                    colorButton(button);
                 }
             }
         });
 
-        major9thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                resetButtons();
-                Note root = null;
+        major9thButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = null;
+            try {
+                root = new Note("C3");
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
+            }
+            while(!root.noteQuality().equals(keyBox.getValue())){
                 try {
-                    root = new Note("C3");
+                    root = root.sharp(1);
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    try {
-                        root = root.sharp(1);
-                    } catch (InvalidNoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Chord chord = null;
-                try {
-                    chord = new Major9th(root);
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
-                }
-                Note[] chordNotes = chord.notes();
-                ArrayList<String> chordNotesNames = new ArrayList<>();
-                for(int i = 0; i < chordNotes.length; i++){
-                    chordNotesNames.add(chordNotes[i].getName());
-                }
-                System.out.println(chordNotesNames);
-                for(Button button: keyBoard){
-                    if(chordNotesNames.contains(button.getTooltip().getText())){
-                        colorButton(button);
-                    }
+            }
+            Chord chord = null;
+            try {
+                chord = new Chord(ChordType.MAJOR_9TH, root);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Note[] chordNotes = chord.notes();
+            ArrayList<String> chordNotesNames = new ArrayList<>();
+            for (Note chordNote : chordNotes) {
+                chordNotesNames.add(chordNote.getName());
+            }
+            System.out.println(chordNotesNames);
+            for(Button button: keyBoard){
+                if(chordNotesNames.contains(button.getTooltip().getText())){
+                    colorButton(button);
                 }
             }
         });
 
-        minor9thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                resetButtons();
-                Note root = null;
+        minor9thButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = null;
+            try {
+                root = new Note("C3");
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
+            }
+            while(!root.noteQuality().equals(keyBox.getValue())){
                 try {
-                    root = new Note("C3");
+                    root = root.sharp(1);
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    try {
-                        root = root.sharp(1);
-                    } catch (InvalidNoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Chord chord = null;
-                try {
-                    chord = new Minor9th(root);
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
-                }
-                Note[] chordNotes = chord.notes();
-                ArrayList<String> chordNotesNames = new ArrayList<>();
-                for(int i = 0; i < chordNotes.length; i++){
-                    chordNotesNames.add(chordNotes[i].getName());
-                }
-                System.out.println(chordNotesNames);
-                for(Button button: keyBoard){
-                    if(chordNotesNames.contains(button.getTooltip().getText())){
-                        colorButton(button);
-                    }
+            }
+            Chord chord = null;
+            try {
+                chord = new Chord(ChordType.MINOR_9TH, root);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Note[] chordNotes = chord.notes();
+            ArrayList<String> chordNotesNames = new ArrayList<>();
+            for (Note chordNote : chordNotes) {
+                chordNotesNames.add(chordNote.getName());
+            }
+            System.out.println(chordNotesNames);
+            for (Button button: keyBoard) {
+                if(chordNotesNames.contains(button.getTooltip().getText())){
+                    colorButton(button);
                 }
             }
         });
 
-        dominant7thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                resetButtons();
-                Note root = null;
+        dominant7thButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = null;
+            try {
+                root = new Note("C3");
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
+            }
+            while(!root.noteQuality().equals(keyBox.getValue())){
                 try {
-                    root = new Note("C3");
+                    root = root.sharp(1);
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    try {
-                        root = root.sharp(1);
-                    } catch (InvalidNoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Chord chord = null;
-                try {
-                    chord = new Dominant7th(root);
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
-                }
-                Note[] chordNotes = chord.notes();
-                ArrayList<String> chordNotesNames = new ArrayList<>();
-                for(int i = 0; i < chordNotes.length; i++){
-                    chordNotesNames.add(chordNotes[i].getName());
-                }
-                System.out.println(chordNotesNames);
-                for(Button button: keyBoard){
-                    if(chordNotesNames.contains(button.getTooltip().getText())){
-                        colorButton(button);
-                    }
+            }
+            Chord chord = null;
+            try {
+                chord = new Chord(ChordType.DOMINANT_7TH, root);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Note[] chordNotes = chord.notes();
+            ArrayList<String> chordNotesNames = new ArrayList<>();
+            for (Note chordNote : chordNotes) {
+                chordNotesNames.add(chordNote.getName());
+            }
+            System.out.println(chordNotesNames);
+            for (Button button: keyBoard) {
+                if(chordNotesNames.contains(button.getTooltip().getText())) {
+                    colorButton(button);
                 }
             }
         });
-        dominant9thButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                resetButtons();
-                Note root = null;
+
+        dominant9thButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = null;
+            try {
+                root = new Note("C3");
+            } catch (InvalidNoteException e1) {
+                e1.printStackTrace();
+            }
+            while(!root.noteQuality().equals(keyBox.getValue())) {
                 try {
-                    root = new Note("C3");
-                } catch (InvalidNoteException e1) {
-                    e1.printStackTrace();
-                }
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    try {
-                        root = root.sharp(1);
-                    } catch (InvalidNoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Chord chord = null;
-                try {
-                    chord = new Dominant9th(root);
+                    root = root.sharp(1);
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-                Note[] chordNotes = chord.notes();
-                ArrayList<String> chordNotesNames = new ArrayList<>();
-                for(int i = 0; i < chordNotes.length; i++){
-                    chordNotesNames.add(chordNotes[i].getName());
-                }
-                System.out.println(chordNotesNames);
-                for(Button button: keyBoard){
-                    if(chordNotesNames.contains(button.getTooltip().getText())){
-                        colorButton(button);
-                    }
+            }
+            Chord chord = null;
+            try {
+                chord = new Chord(ChordType.DOMINANT_9TH, root);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Note[] chordNotes = chord.notes();
+            ArrayList<String> chordNotesNames = new ArrayList<>();
+            for (Note chordNote : chordNotes) {
+                chordNotesNames.add(chordNote.getName());
+            }
+            System.out.println(chordNotesNames);
+            for (Button button: keyBoard) {
+                if (chordNotesNames.contains(button.getTooltip().getText())) {
+                    colorButton(button);
                 }
             }
         });

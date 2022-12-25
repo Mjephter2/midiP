@@ -1,41 +1,82 @@
 package sample.models.chords;
 
 import sample.models.Note;
-import sample.models.exceptions.InvalidNoteException;
+import sample.models.Transposable;
 
 /**
  * interface representation of a chord.
  * A chord is essentially a combination of notes
  */
-public interface Chord {
+public class Chord extends Transposable {
     /**
-     * @param n number half-notes
-     * @return a chord transposed up by n half-notes
-     * @throws InvalidNoteException
+     * the type of the Chord.
      */
-    Chord transposeUp(int n) throws InvalidNoteException;
+    private final ChordType type;
 
     /**
-     * @param n number of half-notes
-     * @return a chord transposed down by n half-notes
-     * @throws InvalidNoteException
+     * Array of Notes making the Chord.
      */
-    Chord transposeDown(int n) throws InvalidNoteException;
+    private final Note[] chordNotes;
 
     /**
-     * @return an array of the notes making up a chord
-     * starting from the root note
+     * Constructs a Chord of the provided type,
+     * rooted at the given Note.
+     * @param chordType type of the Chord
+     * @param root root Note of the Chord
      */
-    Note[] notes();
+    public Chord(final ChordType chordType, final Note root)
+            throws Exception {
+        this.type = chordType;
+        this.chordNotes = generateNotes(root);
+    }
 
     /**
-     * @return a string representation of the root note
-     * TODO make into a default method
+     * @return the Notes in the Chord
      */
-    String root();
+    @Override
+    public Note[] notes() {
+        return chordNotes;
+    }
 
     /**
-     * @return a string representation of the chord
+     * Generates the Notes of the Chord.
+     * @param root root Note
+     * @return the Chord Notes in array form
+     * @throws Exception when ChordType provided in not valid
      */
-    String toString();
+    @Override
+    public Note[] generateNotes(final Note root) throws Exception {
+        if (this.type == ChordType.MAJOR_TRIAD) {
+            return MajorTriad.generateScale(root);
+        } else if (this.type == ChordType.MINOR_TRIAD) {
+            return MinorTriad.generateScale(root);
+        } else if (this.type == ChordType.MAJOR_7TH) {
+            return Major7th.generateScale(root);
+        } else if (this.type == ChordType.MINOR_7TH) {
+            return Minor7th.generateScale(root);
+        } else if (this.type == ChordType.MAJOR_9TH) {
+            return Major9th.generateScale(root);
+        } else if (this.type == ChordType.MINOR_9TH) {
+            return Minor9th.generateScale(root);
+        } else if (this.type == ChordType.DOMINANT_7TH) {
+            return Dominant7th.generateScale(root);
+        } else if (this.type == ChordType.DOMINANT_9TH) {
+            return Dominant9th.generateScale(root);
+        }
+        throw new Exception("Could not find ChordType specified!!!");
+    }
+
+    /**
+     * @return a String representation of the Chord
+     */
+    public String toString() {
+        StringBuilder rep = new StringBuilder();
+        rep.append(chordNotes[0].noteQuality())
+                .append(" ")
+                .append(this.type.toString());
+        for (Note note: chordNotes) {
+            rep.append(" ").append(note.noteQuality());
+        }
+        return rep.toString();
+    }
 }
