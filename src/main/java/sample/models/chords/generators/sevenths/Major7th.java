@@ -1,4 +1,4 @@
-package sample.models.chords;
+package sample.models.chords.generators.sevenths;
 
 import sample.models.Note;
 import sample.models.exceptions.InvalidNoteException;

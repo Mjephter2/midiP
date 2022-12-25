@@ -1,5 +1,5 @@
 /**
- * Provides the classes implementing the various chords
+ * Provides generators the various chords
  * used in music.
  * Implemented chords are:
  *      Major Triad

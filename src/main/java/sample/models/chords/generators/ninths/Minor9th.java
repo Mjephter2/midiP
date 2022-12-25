@@ -1,21 +1,21 @@
-package sample.models.chords;
+package sample.models.chords.generators.ninths;
 
 import sample.models.Note;
 import sample.models.exceptions.InvalidNoteException;
 
 /**
- * Utility Class for generating Major 9th Chords.
+ * Utility Class for generating Minor 9th Chords.
  */
-public final class Major9th {
+public final class Minor9th {
     /**
-     * largest interval in a Major 9th Chord.
+     * largest interval in a Minor Chord.
      */
     private static final int MAX_INTERVAL = 14;
 
     /**
      * interval between the root and the third.
      */
-    private static final int ROOT_TO_THIRD = 4;
+    private static final int ROOT_TO_THIRD = 3;
 
     /**
      * interval between the root Note and the fifth.
@@ -25,12 +25,12 @@ public final class Major9th {
     /**
      * interval between the root Note and the seventh.
      */
-    private static final int ROOT_TO_SEVEN = 11;
+    private static final int ROOT_TO_SEVEN = 10;
 
-    private Major9th() { }
+    private Minor9th() { }
 
     /**
-     * Generate the Notes of the Major 9th Chord rooted
+     * Generate the Notes of the Minor 9th Chord rooted
      * at the given Note.
      * @param root root Note of the Chord
      * @return an array of the Notes

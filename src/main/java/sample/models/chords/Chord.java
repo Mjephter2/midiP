@@ -2,6 +2,14 @@ package sample.models.chords;
 
 import sample.models.Note;
 import sample.models.Transposable;
+import sample.models.chords.generators.dominants.Dominant7th;
+import sample.models.chords.generators.dominants.Dominant9th;
+import sample.models.chords.generators.ninths.Major9th;
+import sample.models.chords.generators.ninths.Minor9th;
+import sample.models.chords.generators.sevenths.Major7th;
+import sample.models.chords.generators.sevenths.Minor7th;
+import sample.models.chords.generators.triads.MajorTriad;
+import sample.models.chords.generators.triads.MinorTriad;
 
 /**
  * interface representation of a chord.

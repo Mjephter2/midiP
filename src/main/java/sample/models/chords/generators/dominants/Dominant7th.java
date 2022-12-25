@@ -1,4 +1,4 @@
-package sample.models.chords;
+package sample.models.chords.generators.dominants;
 
 import sample.models.Note;
 import sample.models.exceptions.InvalidNoteException;

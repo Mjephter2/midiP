@@ -1,14 +1,14 @@
-package sample.models.chords;
+package sample.models.chords.generators.ninths;
 
 import sample.models.Note;
 import sample.models.exceptions.InvalidNoteException;
 
 /**
- * Utility Class for generating Dominant 9th Chords.
+ * Utility Class for generating Major 9th Chords.
  */
-public final class Dominant9th {
+public final class Major9th {
     /**
-     * largest interval in the Chord.
+     * largest interval in a Major 9th Chord.
      */
     private static final int MAX_INTERVAL = 14;
 
@@ -25,18 +25,19 @@ public final class Dominant9th {
     /**
      * interval between the root Note and the seventh.
      */
-    private static final int ROOT_TO_SEVEN = 10;
+    private static final int ROOT_TO_SEVEN = 11;
 
-    private Dominant9th() { }
+    private Major9th() { }
 
     /**
-     * Generate the Notes of the Dominant 9th Chord rooted
+     * Generate the Notes of the Major 9th Chord rooted
      * at the given Note.
      * @param root root Note of the Chord
      * @return an array of the Notes
      * @throws InvalidNoteException when an invalid Note is encountered
      */
-    public static Note[] generateScale(final Note root) throws InvalidNoteException {
+    public static Note[] generateScale(final Note root)
+            throws InvalidNoteException {
         return new Note[]{
                 root,
                 root.sharp(ROOT_TO_THIRD),
