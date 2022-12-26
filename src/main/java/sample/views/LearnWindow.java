@@ -11,9 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import sample.models.*;
 import sample.models.chords.*;
@@ -24,30 +22,49 @@ import java.util.LinkedList;
 
 public class LearnWindow extends Application {
     private static final int NUMBER_OF_KEYS = 27;
-    private LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
-    private LinkedList<Button> whiteKeys = new LinkedList<>();
-    private LinkedList<Button> blackKeys = new LinkedList<>();
-    private ToggleButton majorTriadButton = new ToggleButton("Major Triad");
-    private ToggleButton minorTriadButton = new ToggleButton("Minor Triad");
-    private ToggleButton major7thButton = new ToggleButton("Major 7th");
-    private ToggleButton minor7thButton = new ToggleButton(("Minor 7th"));
-    private ToggleButton major9thButton = new ToggleButton("Major 9th");
-    private ToggleButton minor9thButton = new ToggleButton("Minor 9th");
-    private ToggleButton dominant7thButton = new ToggleButton("Dominant 7th");
-    private ToggleButton dominant9thButton = new ToggleButton("Dominant 9th");
-    private ToggleButton majorScaleButton = new ToggleButton("Major Scale");
-    private ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
-    private RadioButton selectChord = new RadioButton("CHORD");
-    private RadioButton selectScale = new RadioButton("SCALE");
-    private static ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(Utilities.NOTE_QUALITIES));
-    private GridPane bottom = new GridPane();
-    private ToggleGroup selectChordOrScale = new ToggleGroup();
-    private ToggleGroup scaleType = new ToggleGroup();
-    private ToggleGroup chordType = new ToggleGroup();
-    private HBox white_keyPane = new HBox();
-    private HBox black_keyPane = new HBox();
-    private GridPane keyPane = new GridPane();
-    private Button resetButton = new Button("RESET");
+    private final LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
+    private final LinkedList<Button> whiteKeys = new LinkedList<>();
+    private final LinkedList<Button> blackKeys = new LinkedList<>();
+    private final ToggleButton majorTriadButton = new ToggleButton("Major Triad");
+    private final ToggleButton minorTriadButton = new ToggleButton("Minor Triad");
+    private final ToggleButton major7thButton = new ToggleButton("Major 7th");
+    private final ToggleButton minor7thButton = new ToggleButton(("Minor 7th"));
+    private final ToggleButton major9thButton = new ToggleButton("Major 9th");
+    private final ToggleButton minor9thButton = new ToggleButton("Minor 9th");
+    private final ToggleButton dominant7thButton = new ToggleButton("Dominant 7th");
+    private final ToggleButton dominant9thButton = new ToggleButton("Dominant 9th");
+    private final ToggleButton majorScaleButton = new ToggleButton("Major Scale");
+    private final ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
+    private final RadioButton selectChord = new RadioButton("CHORD");
+    private final RadioButton selectScale = new RadioButton("SCALE");
+    private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(Utilities.NOTE_QUALITIES));
+    private final GridPane bottom = new GridPane();
+    private final ToggleGroup selectChordOrScale = new ToggleGroup();
+    private final ToggleGroup scaleType = new ToggleGroup();
+    private final ToggleGroup chordType = new ToggleGroup();
+    private final HBox white_keyPane = new HBox();
+    private final HBox black_keyPane = new HBox();
+    private final GridPane keyPane = new GridPane();
+    private final Button resetButton = new Button("RESET");
+
+    private final String whiteKeysPressedCss = "-fx-background-color: linear-gradient(#fff 0%,#b9b9b9 100%);"
+            + " -fx-background-radius: 0 0 4 4;"
+            + " -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );";
+    private final String whiteKeysReleasedCss = "-fx-background-color: linear-gradient(to bottom,#eee 0%,#fff 100%);"
+            + " -fx-background-radius: 0 0 5 5;"
+            + " -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );";
+
+    private final String blackKeysReleasedCss = "-fx-background-color: linear-gradient(to bottom left, #111 0%, #555 100%);"
+            + " -fx-border-radius:0 0 3 3;"
+            + "  -fx-border-color: #000;";
+    private final String blackKeysPressedCSs = "-fx-background-color: linear-gradient(to top right, #111 0%, #555 100%);"
+            + " -fx-padding: 0 0 0 -1;" +
+            "  -fx-border-insets: 0 0 0 -1;" +
+            "  -fx-background-insets: 0 0 0 -1;" +
+            "  -fx-border-style: solid inside;" +
+            "  -fx-border-width: 1;" +
+            " -fx-border-radius:0 0 3 3;"
+            + "  -fx-border-color: #000;";
 
     private void drawSelectionButtons() {
         //bottom.setGridLinesVisible(true);
@@ -146,29 +163,46 @@ public class LearnWindow extends Application {
         black_keyPane.setSpacing(11);
         black_keyPane.setPadding(new Insets(0,0,0,25));
         for(Button button: whiteKeys){
-            button.setPrefSize(40,120);
+            button.setPrefSize(40,140);
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
+            button.setStyle(whiteKeysReleasedCss);
             white_keyPane.getChildren().add(button);
             keyBoard.add(button);
         }
 
         for(Button button: blackKeys){
             button.setPrefSize(30,80);
-            button.setStyle("-fx-background-color: black");
+            button.setStyle(blackKeysReleasedCss);
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
             black_keyPane.getChildren().add(button);
             keyBoard.add(button);
         }
-        for(Button button: keyBoard){
-            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    colorButton(button);
-                }
+        for(Button button: whiteKeys){
+            button.setOnMousePressed(event -> {
+                button.setStyle(whiteKeysPressedCss);
+                button.setPrefSize(40,150);
+            });
+
+            button.setOnMouseReleased(event -> {
+                button.setStyle(whiteKeysReleasedCss);
+                button.setPrefSize(40,140);
             });
         }
+
+        for(Button button: blackKeys){
+            button.setOnMousePressed(event -> {
+                button.setStyle(blackKeysPressedCSs);
+                button.setPrefSize(30,82);
+            });
+
+            button.setOnMouseReleased(event -> {
+                button.setStyle(blackKeysReleasedCss);
+                button.setPrefSize(30,80);
+            });
+        }
+
         keyBoard.sort(Utilities.KEY_NOTE_COMPARATOR);
         black_keyPane.getChildren().add(2, new FillerButton(30,80));
         black_keyPane.getChildren().add(6, new FillerButton(30,80));
@@ -181,9 +215,7 @@ public class LearnWindow extends Application {
         keyPane.add(white_keyPane,0,0,2,1);
         keyPane.add(black_keyPane,0,0,2,1);
         resetButton.setOnMouseClicked(mouseEvent -> {
-            for(Button button: keyBoard){
-                setToDefault(button);
-            }
+            resetButtons();
         });
     }
 
@@ -538,10 +570,7 @@ public class LearnWindow extends Application {
     }
 
     private void colorButton(Button button){
-        if(button.getStyle().contains("blue") || button.getStyle().contains("red")){
-            setToDefault(button);
-        }else if(whiteKeys.contains(button)) button.setStyle("-fx-background-color: blue");
-        else button.setStyle("-fx-background-color: red");
+        button.setStyle(button.getStyle() + "-fx-background-color: #83AAE6");
     }
 
     /**
@@ -575,13 +604,13 @@ public class LearnWindow extends Application {
 //            }
 //        });
         BorderPane root = new BorderPane();
-        root.setStyle("-fx-background-color: slategrey");
+        root.setStyle("-fx-background-color: #E6BF83");
         root.setPadding(new Insets(10,10,10,10));
         root.setBottom(bottom);
         GridPane.setHalignment(bottom, HPos.CENTER);
         root.setCenter(keyPane);
 
-        Scene scene = new Scene(root,1000,220);
+        Scene scene = new Scene(root,1000,255);
         learn.setFullScreen(false);
         learn.setResizable(false);
         learn.setTitle("Learn Chords and Scales");
@@ -589,19 +618,21 @@ public class LearnWindow extends Application {
         learn.show();
     }
 
-    private void setToDefault(Button button){
-        if(blackKeys.contains(button)){
-            button.setStyle("-fx-background-color: black");
-        }else{
-            button.setStyle(new Button().getStyle());
-        }
-    }
     private void resetButtons(){
+        resetBlackKeys();
+        resetWhiteKeys();
+    }
+
+    private void resetWhiteKeys() {
         for(Button button: whiteKeys){
-            setToDefault(button);
-        }
-        for(Button button: blackKeys){
-            setToDefault(button);
+            button.setStyle(whiteKeysReleasedCss);
         }
     }
+
+    private void resetBlackKeys() {
+        for(Button button: blackKeys) {
+            button.setStyle(blackKeysReleasedCss);
+        }
+    }
+
 }
