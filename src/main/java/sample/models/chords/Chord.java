@@ -12,7 +12,7 @@ import sample.models.chords.generators.triads.MajorTriad;
 import sample.models.chords.generators.triads.MinorTriad;
 
 /**
- * interface representation of a chord.
+ * Class representation of a Chord.
  * A chord is essentially a combination of notes
  */
 public class Chord extends Transposable {

@@ -81,13 +81,13 @@ public final class Utilities {
      * List containing the notes interval relative to the root for Major scales.
      */
     public static final ArrayList<Integer> MAJOR_SCALE_DEGREE_INTERVALS =
-            new ArrayList<>(List.of(0, 2, 4, 5, 7, 9, 11));
+            new ArrayList<>(List.of(0, 2, 4, 5, 7, 9, 11, 12));
 
     /**
      * List containing the notes interval relative to the root for Minor scales.
      */
     public static final ArrayList<Integer> MINOR_SCALE_DEGREE_INTERVALS =
-            new ArrayList<>(List.of(0, 2, 3, 5, 7, 8, 10));
+            new ArrayList<>(List.of(0, 2, 3, 5, 7, 8, 10, 12));
 
     /**
      * list containing all possible Note names

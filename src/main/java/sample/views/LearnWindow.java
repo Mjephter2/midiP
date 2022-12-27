@@ -16,9 +16,12 @@ import javafx.stage.Stage;
 import sample.models.*;
 import sample.models.chords.*;
 import sample.models.exceptions.InvalidNoteException;
+import sample.models.scales.Scale;
+import sample.models.scales.ScaleType;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class LearnWindow extends Application {
     private static final int NUMBER_OF_KEYS = 27;
@@ -492,78 +495,74 @@ public class LearnWindow extends Application {
             }
         });
 
-        majorScaleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                resetButtons();
-                Note root = null;
+        majorScaleButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = null;
+            try {
+                root = new Note("C3");
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
+            }
+            while (!root.noteQuality().equals(keyBox.getValue())) {
                 try {
-                    root = new Note("C3");
+                    root = root.sharp(1);
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    try {
-                        root = root.sharp(1);
-                    } catch (InvalidNoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Button start = null;
-                for(int i = 0; i < keyBoard.size(); i++){
-                    if(keyBoard.get(i).getTooltip().getText().equals(root.getName())){
-                        start = keyBoard.get(i);
-                        break;
-                    }
-                }
-                if(start != null){
-                    int index = keyBoard.indexOf(start);
-                    colorButton(keyBoard.get(index));
-                    colorButton(keyBoard.get(index + 2));
-                    colorButton(keyBoard.get(index + 4));
-                    colorButton(keyBoard.get(index + 5));
-                    colorButton(keyBoard.get(index + 7));
-                    colorButton(keyBoard.get(index + 9));
-                    colorButton(keyBoard.get(index + 11));
-                    colorButton(keyBoard.get(index + 12));
+            }
+
+            Scale majorScale = null;
+            try {
+                majorScale = new Scale(ScaleType.MAJOR_SCALE, root);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Note[] scaleNotes = majorScale.notes();
+            List<String> noteNames = new ArrayList<>();
+            for (Note note: scaleNotes) {
+                noteNames.add(note.getName());
+            }
+
+            System.out.println(noteNames);
+            for (Button button: keyBoard) {
+                if (noteNames.contains(button.getTooltip().getText())) {
+                    colorButton(button);
                 }
             }
         });
 
-        minorScaleButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                resetButtons();
-                Note root = null;
+        minorScaleButton.setOnMouseClicked(mouseEvent -> {
+            resetButtons();
+            Note root = null;
+            try {
+                root = new Note("C3");
+            } catch (InvalidNoteException e) {
+                e.printStackTrace();
+            }
+            while (!root.noteQuality().equals(keyBox.getValue())) {
                 try {
-                    root = new Note("C3");
+                    root = root.sharp(1);
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-                while(!root.noteQuality().equals(keyBox.getValue())){
-                    try {
-                        root = root.sharp(1);
-                    } catch (InvalidNoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Button start = null;
-                for(int i = 0; i < keyBoard.size(); i++){
-                    if(keyBoard.get(i).getTooltip().getText().equals(root.getName())){
-                        start = keyBoard.get(i);
-                        break;
-                    }
-                }
-                if(start != null){
-                    int index = keyBoard.indexOf(start);
-                    colorButton(keyBoard.get(index));
-                    colorButton(keyBoard.get(index + 2));
-                    colorButton(keyBoard.get(index + 3));
-                    colorButton(keyBoard.get(index + 5));
-                    colorButton(keyBoard.get(index + 7));
-                    colorButton(keyBoard.get(index + 8));
-                    colorButton(keyBoard.get(index + 10));
-                    colorButton(keyBoard.get(index + 12));
+            }
+
+            Scale minorScale = null;
+            try {
+                minorScale = new Scale(ScaleType.MINOR_SCALE, root);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Note[] scaleNotes = minorScale.notes();
+            List<String> noteNames = new ArrayList<>();
+            for (Note note: scaleNotes) {
+                noteNames.add(note.getName());
+            }
+
+            System.out.println(noteNames);
+            for (Button button: keyBoard) {
+                if (noteNames.contains(button.getTooltip().getText())) {
+                    colorButton(button);
                 }
             }
         });

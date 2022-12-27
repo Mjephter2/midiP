@@ -1,42 +1,58 @@
 package sample.models.scales;
 
 import sample.models.Note;
-import sample.models.exceptions.InvalidNoteException;
+import sample.models.Transposable;
 
 /**
- * Base Interface representing a musical Scale.
+ * Class representation of a Scale.
  */
-public interface Scale {
+public class Scale extends Transposable {
     /**
-     * Transposes a Scale up.
-     *
-     * @param n number of times to transpose
-     * @return the transposed Scale
-     * @throws InvalidNoteException
+     * Type of the Scale.
      */
-    Scale transposeUp(int n) throws InvalidNoteException;
+    private final ScaleType type;
 
     /**
-     * Transposes a Scale down.
-     * @param n number of times to transpose
-     * @return the transposed Scale
-     * @throws InvalidNoteException
+     * Array of Notes making the Scale.
      */
-    Scale transposeDown(int n) throws InvalidNoteException;
+    private final Note[] scaleNotes;
 
     /**
-     * @return the array of Notes making up a Scale.
-     * starting from the root
+     * Constructs a Scale of the provided type,
+     * rooted at the given Note.
+     * @param scaleType type of the Scale
+     * @param root root Note of the Scale
+     * @throws Exception when invalid ScaleType in encountered.
      */
-    Note[] notes();
+    public Scale(final ScaleType scaleType, final Note root) throws Exception {
+        this.type = scaleType;
+        this.scaleNotes = this.generateNotes(root);
+    }
 
     /**
-     * @return a String representation of the root Note.
+     * @return the Notes making the Scale.
      */
-    String root();
+    @Override
+    public Note[] notes() {
+        return scaleNotes;
+    }
 
     /**
-     * @return a String representation of the Scale.
+     * Generates the Notes of the Scale rooted at the given Note.
+     * @param root root Note
+     * @return the Scale Notes in array form
+     * @throws Exception when ScaleType provided in not valid
      */
-    String toString();
+    @Override
+    public Note[] generateNotes(final Note root) throws Exception {
+        switch (type) {
+            case MAJOR_SCALE -> {
+                return MajorScale.generateScale(root);
+            }
+            case MINOR_SCALE -> {
+                return MinorScale.generateScale(root);
+            }
+            default -> throw new Exception("Chord type is unrecognized or not yet implemented!");
+        }
+    }
 }
