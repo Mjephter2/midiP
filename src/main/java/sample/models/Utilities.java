@@ -2,6 +2,12 @@ package sample.models;
 
 import sample.models.exceptions.InvalidNoteException;
 
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.File;
+import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -9,6 +15,35 @@ import java.util.List;
 import javafx.scene.control.Button;
 
 public final class Utilities {
+    private static final String soundZipFilePath = new File("").getAbsolutePath() + "/src/main/java/sample/resources/sounds/piano.zip";
+    private static final String s3SoundFileUrl = "https://midip-sounds.s3.amazonaws.com/piano/piano.zip";
+
+    // author https://www.digitalocean.com/community/tutorials/java-download-file-url
+    public static boolean downloadUsingStream() {
+        if (new File(soundZipFilePath).exists()) {
+            System.out.println("Sound File Zip has already been downloaded!");
+            return true;
+        }
+        try {
+            System.out.println("Starting Sound File Zip download!");
+            URL url = new URL(s3SoundFileUrl);
+            BufferedInputStream bis = new BufferedInputStream(url.openStream());
+            FileOutputStream fis = new FileOutputStream(soundZipFilePath);
+            byte[] buffer = new byte[1024];
+            int count = 0;
+            while ((count = bis.read(buffer, 0, 1024)) != -1) {
+                fis.write(buffer, 0, count);
+            }
+            fis.close();
+            bis.close();
+            System.out.println("Successfully downloaded Sound File Zip : " + s3SoundFileUrl);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     private Utilities() {
     }
 
@@ -109,10 +144,5 @@ public final class Utilities {
         }
         list.add("C8");
         return list;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(NOTE_NAMES);
-        System.out.println(NOTE_NAMES.size());
     }
 }
