@@ -96,17 +96,23 @@ public final class Utilities {
     public static final LinkedList<String> NOTE_NAMES = generateNames();
 
     private static LinkedList<String> generateNames() {
+        int _A_to_C = 3;
         LinkedList<String> list = new LinkedList<>();
+        list.add("A0");
+        list.add("Bb0");
+        list.add("B0");
         for (int i = 1; i < NUMBER_OF_UNALTERED_NOTES; i++) {
             for (int j = 0; j < NUM_NOTE_QUALITIES; j++) {
-                String str = NOTE_QUALITIES.get(j) + i;
+                String str = NOTE_QUALITIES.get((j + _A_to_C) % 12) + i;
                 list.add(str);
             }
         }
-        list.add("A8");
-        list.add("Bb8");
-        list.add("B8");
         list.add("C8");
         return list;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(NOTE_NAMES);
+        System.out.println(NOTE_NAMES.size());
     }
 }
