@@ -14,7 +14,7 @@ public class FillerButton extends Button {
      * @param width width of the Button
      * @param height height of the Button
      */
-    public FillerButton(final int width, final int height) {
+    public FillerButton(final double width, final double height) {
         this.setVisible(false);
         this.setPrefSize(width, height);
     }
