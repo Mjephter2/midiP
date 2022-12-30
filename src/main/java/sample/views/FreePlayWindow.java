@@ -1,7 +1,9 @@
 package sample.views;
 
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
@@ -22,43 +24,35 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static sample.views.Styles.*;
+
 /**
  * GUI for the full size view of a midi piano
  * allowing for free play without audio feedback.
  */
 public final class FreePlayWindow extends Application {
     /**
+     * Window configuration.
+     */
+    public FreePlayWindowConfig freePlayWindowConfig = FreePlayWindowConfig.defaultConfig();
+    /**
      * Array of Button representing the keys on the piano.
      */
     private final Button[] keyBoard = new Button[Utilities.NUMBER_OF_KEYS_88];
 
-    /**\
-     * Array of white keys on the piano.
+    /**
+     * List of white keys on the piano in order.
      */
     private final LinkedList<Button> whiteKeys = new LinkedList<>();
 
     /**
-     * Array of black keys on the piano.
+     * List of black keys on the piano in order.
      */
     private final LinkedList<Button> blackKeys = new LinkedList<>();
 
     /**
-     * Preferred window width.
-     */
-    private static final int SCREEN_WIDTH = 1248;
-
-    /**
-     * White key width.
-     */
-    private static final int WHITE_KEY_SIZE = 24;
-
-    /**
-     * Black keys width.
-     */
-    private static final int BLACK_KEY_SIZE = 20;
-
-    /**
-     * Default Button style.
+     * Default Button style to help
+     * reset buttons to original look.
      */
     private static final String BUTTON_ORIGINAL_STYLE = new Button().getStyle();
 
@@ -69,7 +63,7 @@ public final class FreePlayWindow extends Application {
             new MidiInputReceiver("Receiver");
 
     /**
-     * Index the last key pressed
+     * Index of the last key pressed
      * as captured from a physical midi device.
      */
     private int lastKeyPressedIndex = 0;
@@ -168,6 +162,8 @@ public final class FreePlayWindow extends Application {
         initialize();
         openAllTransmitters();
         BorderPane root = new BorderPane();
+        root.setStyle("-fx-background-color: #E6BF83");
+        root.setPadding(new Insets(0,0,0,0));
         freePlay.setOnCloseRequest(windowEvent -> {
             Main mainWindow = new Main();
             Stage mainStage = new Stage();
@@ -188,39 +184,70 @@ public final class FreePlayWindow extends Application {
         whiteKeyPane.setPickOnBounds(false);
         HBox blackKeyPane = new HBox();
         blackKeyPane.setPickOnBounds(false);
-        blackKeyPane.setPadding(new Insets(0, 0, 0, 13));
-        blackKeyPane.setSpacing(4);
-        whiteKeyPane.setSpacing(0.4);
+        blackKeyPane.setPadding(new Insets(0, 0, 0, freePlayWindowConfig.getBlackKeyPaneLeftPadding()));
+        blackKeyPane.setSpacing(freePlayWindowConfig.getBlackKeyPaneSpacing());
+        whiteKeyPane.setSpacing(FreePlayWindowConfig.WHITE_KEY_PANE_SPACING);
 
         for (Button button : whiteKeys) {
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
-            button.setPrefSize(WHITE_KEY_SIZE, 112);
+            button.setPrefSize(freePlayWindowConfig.getWhiteKeysPrefWidth(), freePlayWindowConfig.getWhiteKeysPrefHeight());
+            button.setPadding(new Insets(0,0,0,0));
+            button.setOnMousePressed(event -> {
+                button.setStyle(whiteKeysPressedCss);
+                button.setTranslateY(2);
+            });
+
+            button.setOnMouseReleased(event -> {
+                button.setStyle(whiteKeysReleasedCss);
+                button.setTranslateY(0);
+            });
             whiteKeyPane.getChildren().add(button);
         }
+
         for (Button button : blackKeys) {
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
-            button.setPrefSize(BLACK_KEY_SIZE, 80);
+            button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
+            button.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
+            button.setOnMousePressed(event -> {
+                button.setStyle(blackKeysPressedCSs);
+                button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight() + 2);
+            });
+
+            button.setOnMouseReleased(event -> {
+                button.setStyle(blackKeysReleasedCss);
+                button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
+            });
             blackKeyPane.getChildren().add(button);
-            button.setStyle("-fx-background-color: black");
         }
-        blackKeyPane.getChildren().add(1, new FillerButton(BLACK_KEY_SIZE, 80));
+        FillerButton filler = new FillerButton((int) freePlayWindowConfig.getBlackKeysPrefWidth(), (int) freePlayWindowConfig.getBlackKeysPrefHeight());
+        filler.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
+        blackKeyPane.getChildren().add(1, filler);
         int i = 1;
         while (i < blackKeyPane.getChildren().size() - 1) {
-            FillerButton fillerButton1 = new FillerButton(BLACK_KEY_SIZE, 80);
-            FillerButton fillerButton2 = new FillerButton(BLACK_KEY_SIZE, 80);
+            FillerButton fillerButton1 = new FillerButton(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
+            FillerButton fillerButton2 = new FillerButton(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
+            fillerButton1.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
+            fillerButton2.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
             blackKeyPane.getChildren().add(i + 3, fillerButton1);
             blackKeyPane.getChildren().add(i + 7, fillerButton2);
             i = i + 7;
+        }
+        for (Button button: blackKeys) {
+            button.setStyle(blackKeysReleasedCss);
+        }
+        for (Button button: whiteKeys) {
+            button.setStyle(whiteKeysReleasedCss);
         }
 
         GridPane keyPane = new GridPane();
         keyPane.add(whiteKeyPane, 0, 0, 2, 1);
         keyPane.add(blackKeyPane, 0, 0, 2, 1);
         root.setCenter(keyPane);
+        keyPane.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(root, SCREEN_WIDTH, 112);
+        Scene scene = new Scene(root, freePlayWindowConfig.getWindowWidth(), freePlayWindowConfig.getWindowHeight());
         freePlay.setFullScreen(false);
         freePlay.setResizable(false);
         freePlay.setTitle("Free Play");

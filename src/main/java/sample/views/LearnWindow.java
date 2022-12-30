@@ -10,7 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import sample.models.*;
@@ -22,6 +21,8 @@ import sample.models.scales.ScaleType;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static sample.views.Styles.*;
 
 public class LearnWindow extends Application {
     private static final int NUMBER_OF_KEYS = 27;
@@ -49,25 +50,6 @@ public class LearnWindow extends Application {
     private final HBox black_keyPane = new HBox();
     private final GridPane keyPane = new GridPane();
     private final Button resetButton = new Button("RESET");
-
-    private final String whiteKeysPressedCss = "-fx-background-color: linear-gradient(#fff 0%,#b9b9b9 100%);"
-            + " -fx-background-radius: 0 0 4 4;"
-            + " -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );";
-    private final String whiteKeysReleasedCss = "-fx-background-color: linear-gradient(to bottom,#eee 0%,#fff 100%);"
-            + " -fx-background-radius: 0 0 5 5;"
-            + " -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );";
-
-    private final String blackKeysReleasedCss = "-fx-background-color: linear-gradient(to bottom left, #111 0%, #555 100%);"
-            + " -fx-border-radius:0 0 3 3;"
-            + "  -fx-border-color: #000;";
-    private final String blackKeysPressedCSs = "-fx-background-color: linear-gradient(to top right, #111 0%, #555 100%);"
-            + " -fx-padding: 0 0 0 -1;" +
-            "  -fx-border-insets: 0 0 0 -1;" +
-            "  -fx-background-insets: 0 0 0 -1;" +
-            "  -fx-border-style: solid inside;" +
-            "  -fx-border-width: 1;" +
-            " -fx-border-radius:0 0 3 3;"
-            + "  -fx-border-color: #000;";
 
     private void drawSelectionButtons() {
         //bottom.setGridLinesVisible(true);
