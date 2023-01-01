@@ -148,14 +148,14 @@ public class FreePlayWindowConfig {
      * @return a WindowConfig with width 1200.
      */
     public static FreePlayWindowConfig config1200() {
-        return new FreePlayWindowConfig(1200, 250);
+        return customConfig(1200.0, 250.0);
     }
 
     /**
      * @return a WindowConfig with width 1500.
      */
     public static FreePlayWindowConfig config1500() {
-        return new FreePlayWindowConfig(1500, 300);
+        return customConfig(1500.0, 300.0);
     }
 
     /**
@@ -168,6 +168,8 @@ public class FreePlayWindowConfig {
         if (width < 1200 || height < 200) {
             System.out.println("Specified Width or height is too small.\nDefaulting to the defaultConfig.");
             return defaultConfig();
+        } else if (width > Toolkit.getDefaultToolkit().getScreenSize().getWidth()) {
+            return fullWidthConfig();
         }
         return new FreePlayWindowConfig(width, height);
     }
