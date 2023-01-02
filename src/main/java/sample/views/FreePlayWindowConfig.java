@@ -132,7 +132,7 @@ public class FreePlayWindowConfig {
      * @return a pre-defined WindowConfig using screen resolution 1650 x 250.
      */
     public static FreePlayWindowConfig defaultConfig() {
-        return new FreePlayWindowConfig(1650.0, 250.0);
+        return customConfig(1650.0, 250.0);
     }
 
     /**
