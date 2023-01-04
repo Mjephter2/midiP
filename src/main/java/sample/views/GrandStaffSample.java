@@ -1,11 +1,13 @@
 package sample.views;
 
 import javafx.application.Application;
+import javafx.css.Style;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.scene.text.Font;
@@ -33,18 +35,18 @@ public class GrandStaffSample extends Application {
         double initialEndX = 800.0;
         double initialY = 10.0;
         //Creating line objects, circle objects and Text objects
-        Line[] lines = new Line[9];
-        Circle[] circles = new Circle[9];
-        Text[] texts = new Text[9];
+        Line[] lines = new Line[11];
+        Circle[] circles = new Circle[11];
+        Text[] texts = new Text[11];
         for (int i = 0; i < lines.length; i++) {
             lines[i] = new Line(initialStartX, initialY + 40 * i, initialEndX, initialY + 40 * i);
-            lines[i].setVisible(i % 2 == 0);
+            lines[i].setStrokeWidth(6);
 
-            circles[i] = new Circle(lines[i].getStartX() + 30, lines[i].getStartY(), 19);
+            circles[i] = new Circle(lines[i].getStartX(), lines[i].getStartY(), 19);
             circles[i].setFill(Paint.valueOf("gray"));
             circles[i].setVisible(true);
-            circles[i].setTranslateX(i % 2 == 0 ? 0 : 20);
-            texts[i] = new Text("");
+            circles[i].setTranslateX(100);
+            texts[i] = new Text("" + i);
             texts[i].setX(lines[i].getStartX() + 50);
             texts[i].setY(lines[i].getStartY());
             texts[i].setFont(new Font(30));
@@ -52,8 +54,17 @@ public class GrandStaffSample extends Application {
             texts[i].setVisible(true);
         }
 
+        for (int i : new int[]{1, 3, 5, 7, 9, 10}) {
+            lines[i].setStrokeWidth(0.1);
+            circles[i].setTranslateX(50);
+        }
+        circles[9].setFill(Color.TRANSPARENT);
+        circles[10].setFill(Color.TRANSPARENT);
+
         Line verticalLine = new Line(initialStartX, initialY, initialStartX, initialY + 40 * 8);
+        verticalLine.setStrokeWidth(6);
         verticalLine.setTranslateX((initialStartX - initialEndX) / 2.0);
+        verticalLine.setTranslateY(-38.5);
 
 
         InputStream stream = null;
@@ -68,17 +79,18 @@ public class GrandStaffSample extends Application {
         treble_clef.setX(10);
         treble_clef.setY(10);
         treble_clef.setFitWidth(200);
-        treble_clef.setFitHeight(550);
-//        treble_clef.setPreserveRatio(true);
-        treble_clef.setTranslateX(-250);
-        treble_clef.setTranslateY(15);
+        treble_clef.setFitHeight(525);
+        treble_clef.setTranslateX(-240);
+        treble_clef.setTranslateY(-15);
 
         //Create a Group object for lines
         Group lineGroup = new Group(lines);
         //Create a Group object for circle
         Group circleGroup = new Group(circles);
+        circleGroup.setTranslateX(-90);
         //Create a Group for texts objects
         Group textsGroup = new Group(texts);
+        textsGroup.setTranslateX(100);
 
         StackPane root = new StackPane();
         root.getChildren().add(0, lineGroup);
