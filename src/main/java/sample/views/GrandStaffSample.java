@@ -73,15 +73,31 @@ public class GrandStaffSample extends Application {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        Image image = new Image(stream);
+        Image treble_clef_image = new Image(stream);
         ImageView treble_clef = new ImageView();
-        treble_clef.setImage(image);
+        treble_clef.setImage(treble_clef_image);
         treble_clef.setX(10);
         treble_clef.setY(10);
         treble_clef.setFitWidth(200);
         treble_clef.setFitHeight(525);
         treble_clef.setTranslateX(-240);
         treble_clef.setTranslateY(-15);
+
+        stream = null;
+        try {
+            stream = new FileInputStream("src/main/java/sample/views/left_brace.png");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        Image left_brace_image = new Image(stream);
+        ImageView left_brace = new ImageView();
+        left_brace.setImage(left_brace_image);
+        left_brace.setX(10);
+        left_brace.setY(10);
+        left_brace.setFitWidth(200);
+        left_brace.setFitHeight(600);
+        left_brace.setTranslateX(-400);
+        left_brace.setTranslateY(-15);
 
         //Create a Group object for lines
         Group lineGroup = new Group(lines);
@@ -98,8 +114,9 @@ public class GrandStaffSample extends Application {
         root.getChildren().add(2, textsGroup);
         root.getChildren().add(3, verticalLine);
         root.getChildren().add(4, treble_clef);
+        root.getChildren().add(5, left_brace);
 
-        Scene scene = new Scene(root ,900, 600);
+        Scene scene = new Scene(root ,1000, 600);
         primaryStage.setTitle("Grand Staff Sample");
         primaryStage.setScene(scene);
         primaryStage.show();
