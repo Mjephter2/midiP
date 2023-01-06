@@ -1,15 +1,15 @@
 package sample.views;
 
 import javafx.application.Application;
-import javafx.css.Style;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
@@ -30,74 +30,108 @@ public class GrandStaffSample extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(final Stage primaryStage) {
         double initialStartX = 100.0;
         double initialEndX = 800.0;
         double initialY = 10.0;
         //Creating line objects, circle objects and Text objects
-        Line[] lines = new Line[11];
-        Circle[] circles = new Circle[11];
-        Text[] texts = new Text[11];
-        for (int i = 0; i < lines.length; i++) {
-            lines[i] = new Line(initialStartX, initialY + 40 * i, initialEndX, initialY + 40 * i);
-            lines[i].setStrokeWidth(6);
+        Line[] lines = new Line[52];
+        Circle[] circles = new Circle[52];
+        Text[] texts = new Text[52];
+        for (int i = 0; i < 21; i++) {
+            lines[i] = new Line(initialStartX, initialY + 10 * i, initialEndX, initialY + 10 * i);
+            lines[i].setStrokeWidth(2);
 
-            circles[i] = new Circle(lines[i].getStartX(), lines[i].getStartY(), 19);
+            circles[i] = new Circle(lines[i].getStartX(), lines[i].getStartY(), 5);
             circles[i].setFill(Paint.valueOf("gray"));
             circles[i].setVisible(true);
             circles[i].setTranslateX(100);
-            texts[i] = new Text("" + i);
+            texts[i] = new Text();
+            if (i == 0 || i == 13 || i == 20) {
+                texts[i].setText("" + i);
+            }
             texts[i].setX(lines[i].getStartX() + 50);
             texts[i].setY(lines[i].getStartY());
-            texts[i].setFont(new Font(30));
+            texts[i].setFont(new Font(10));
             texts[i].setBoundsType(TextBoundsType.VISUAL);
             texts[i].setVisible(true);
         }
 
-        for (int i : new int[]{1, 3, 5, 7, 9, 10}) {
-            lines[i].setStrokeWidth(0.1);
-            circles[i].setTranslateX(50);
-        }
-        circles[9].setFill(Color.TRANSPARENT);
-        circles[10].setFill(Color.TRANSPARENT);
+        double fClefStartY = initialY + 2 * 10;
+        for (int i = 21; i < lines.length; i++) {
+            lines[i] = new Line(initialStartX, fClefStartY + 10 * i, initialEndX, fClefStartY + 10 * i);
+            lines[i].setStrokeWidth(1.5);
 
-        Line verticalLine = new Line(initialStartX, initialY, initialStartX, initialY + 40 * 8);
-        verticalLine.setStrokeWidth(6);
+            circles[i] = new Circle(lines[i].getStartX(), lines[i].getStartY(), 5);
+            circles[i].setFill(Paint.valueOf("gray"));
+            circles[i].setVisible(true);
+            circles[i].setTranslateX(100);
+            texts[i] = new Text();
+            if (i == lines.length - 1 || i == 24 || i == 27) {
+                texts[i].setText("" + i);
+            }
+            texts[i].setX(lines[i].getStartX() + 50);
+            texts[i].setY(lines[i].getStartY());
+            texts[i].setFont(new Font(10));
+            texts[i].setBoundsType(TextBoundsType.VISUAL);
+            texts[i].setVisible(true);
+        }
+
+        for (int i : new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 19, 20, 21}) {
+            lines[i].setStroke(Color.TRANSPARENT);
+            circles[i].setFill(Color.TRANSPARENT);
+        }
+
+        for (int i : new int[]{10, 11, 12, 13, 14, 15, 16, 17, 18, 22, 23, 24, 25, 26, 27, 28, 29, 30}) {
+            if (i % 2 != 0) {
+                lines[i].setStroke(Color.TRANSPARENT);
+                circles[i].setTranslateX(50);
+//                circles[i].setFill(Color.TRANSPARENT);
+            }
+        }
+
+        for (int i = 31; i <= 51; i++) {
+            lines[i].setStroke(Color.TRANSPARENT);
+            circles[i].setFill(Color.TRANSPARENT);
+        }
+
+        Line verticalLine = new Line(initialStartX, initialY, initialStartX, initialY + 10 * 22);
+        verticalLine.setStrokeWidth(2);
         verticalLine.setTranslateX((initialStartX - initialEndX) / 2.0);
-        verticalLine.setTranslateY(-38.5);
+        verticalLine.setTranslateY(-55);
 
 
         InputStream stream = null;
         try {
-            stream = new FileInputStream("src/main/java/sample/views/treble_clef.png");
+            stream = new FileInputStream("src/main/java/sample/views/trebleClef.png");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        Image treble_clef_image = new Image(stream);
-        ImageView treble_clef = new ImageView();
-        treble_clef.setImage(treble_clef_image);
-        treble_clef.setX(10);
-        treble_clef.setY(10);
-        treble_clef.setFitWidth(200);
-        treble_clef.setFitHeight(525);
-        treble_clef.setTranslateX(-240);
-        treble_clef.setTranslateY(-15);
+        Image trebleClefImage = new Image(stream);
+        ImageView trebleClef = new ImageView();
+        trebleClef.setImage(trebleClefImage);
+        trebleClef.setX(10);
+        trebleClef.setY(10);
+        trebleClef.setFitWidth(75);
+        trebleClef.setFitHeight(160);
+        trebleClef.setTranslateX(-305);
+        trebleClef.setTranslateY(-127);
 
         stream = null;
         try {
-            stream = new FileInputStream("src/main/java/sample/views/left_brace.png");
+            stream = new FileInputStream("src/main/java/sample/views/leftBrace.png");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        Image left_brace_image = new Image(stream);
-        ImageView left_brace = new ImageView();
-        left_brace.setImage(left_brace_image);
-        left_brace.setX(10);
-        left_brace.setY(10);
-        left_brace.setFitWidth(200);
-        left_brace.setFitHeight(600);
-        left_brace.setTranslateX(-400);
-        left_brace.setTranslateY(-15);
+        Image leftBraceImage = new Image(stream);
+        ImageView leftBrace = new ImageView();
+        leftBrace.setImage(leftBraceImage);
+        leftBrace.setX(10);
+        leftBrace.setY(10);
+        leftBrace.setFitWidth(30);
+        leftBrace.setFitHeight(225);
+        leftBrace.setTranslateX(-367);
+        leftBrace.setTranslateY(-56);
 
         //Create a Group object for lines
         Group lineGroup = new Group(lines);
@@ -113,10 +147,10 @@ public class GrandStaffSample extends Application {
         root.getChildren().add(1, circleGroup);
         root.getChildren().add(2, textsGroup);
         root.getChildren().add(3, verticalLine);
-        root.getChildren().add(4, treble_clef);
-        root.getChildren().add(5, left_brace);
+        root.getChildren().add(4, trebleClef);
+        root.getChildren().add(5, leftBrace);
 
-        Scene scene = new Scene(root ,1000, 600);
+        Scene scene = new Scene(root, 1000, 700);
         primaryStage.setTitle("Grand Staff Sample");
         primaryStage.setScene(scene);
         primaryStage.show();
