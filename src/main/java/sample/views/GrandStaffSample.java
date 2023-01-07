@@ -119,6 +119,22 @@ public class GrandStaffSample extends Application {
 
         stream = null;
         try {
+            stream = new FileInputStream("src/main/java/sample/views/bassClef.png");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        Image bassClefImage = new Image(stream);
+        ImageView bassClef = new ImageView();
+        bassClef.setImage(bassClefImage);
+        bassClef.setX(10);
+        bassClef.setY(10);
+        bassClef.setFitWidth(75);
+        bassClef.setFitHeight(70);
+        bassClef.setTranslateX(-305);
+        bassClef.setTranslateY(6.5);
+
+        stream = null;
+        try {
             stream = new FileInputStream("src/main/java/sample/views/leftBrace.png");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -149,6 +165,7 @@ public class GrandStaffSample extends Application {
         root.getChildren().add(3, verticalLine);
         root.getChildren().add(4, trebleClef);
         root.getChildren().add(5, leftBrace);
+        root.getChildren().add(6, bassClef);
 
         Scene scene = new Scene(root, 1000, 700);
         primaryStage.setTitle("Grand Staff Sample");
