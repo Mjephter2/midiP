@@ -37,6 +37,10 @@ public class Scale extends Transposable {
         return scaleNotes;
     }
 
+    public ScaleType getScaleType() {
+        return type;
+    }
+
     /**
      * Generates the Notes of the Scale rooted at the given Note.
      * @param root root Note
