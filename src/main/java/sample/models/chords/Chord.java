@@ -19,7 +19,7 @@ public class Chord extends Transposable {
     /**
      * the type of the Chord.
      */
-    private final ChordType type;
+    public final ChordType type;
 
     /**
      * Array of Notes making the Chord.
