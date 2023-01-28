@@ -48,9 +48,9 @@ public final class Main extends Application {
      */
     private final Button mainWindowLearnButton = new Button(
             "LEARN\n"
-            + "CHORDS\n"
-            + "and\n"
-            + "SCALES");
+                    + "CHORDS\n"
+                    + "and\n"
+                    + "SCALES");
 
     /**
      * Button for opening the Free Play window.
@@ -77,7 +77,7 @@ public final class Main extends Application {
     public void start(final Stage primaryStage) throws Exception {
         root.setStyle("-fx-background-color: lightgray;");
         root.setPadding(new Insets(0, 10, 10, 10));
-        Scene scene = new Scene(root, 280, 700, Color.AQUA);
+        Scene scene = new Scene(root, 500, 650, Color.RED);
         primaryStage.setResizable(false);
         primaryStage.setTitle("midiP");
         primaryStage.setScene(scene);
@@ -87,7 +87,7 @@ public final class Main extends Application {
         mb.setUseSystemMenuBar(true);
         root.setTop(top);
         // create a menu
-        Menu m = new Menu("midiP");
+        Menu m = new Menu("Menu");
         // create menuitems and add actions
         MenuItem aboutMidiP = new MenuItem("About midiP");
         aboutMidiP.setOnAction(action -> {
@@ -107,8 +107,9 @@ public final class Main extends Application {
         m.getItems().add(quitMidiP);
         // add menu to menubar
         mb.getMenus().add(m);
+        //Add style on menu bar so that it is visible from the user
+        mb.setStyle("-fx-background-color: #77838f");
         top.getChildren().add(mb);
-
         // style center grid and add components
         center.setHgap(5);
         center.setVgap(5);
@@ -131,7 +132,7 @@ public final class Main extends Application {
         mainWindowLearnButton.setWrapText(true);
         mainWindowLearnButton.setFont(mainWindowFont);
         mainWindowLearnButton.setStyle("-fx-background-radius: 30px;"
-                            + "-fx-background-color: darkgray;");
+                + "-fx-background-color: darkgray;");
         mainWindowLearnButton.setPrefSize(210, 300);
         mainWindowLearnButton.setOnMouseEntered(e -> {
             mainWindowLearnButton.setStyle(
@@ -142,7 +143,7 @@ public final class Main extends Application {
         });
         mainWindowLearnButton.setOnMouseExited(e -> {
             mainWindowLearnButton.setStyle("-fx-background-radius: 30px;"
-                            + "-fx-background-color: darkgray;");
+                    + "-fx-background-color: darkgray;");
             info.setText("");
         });
         mainWindowLearnButton.setOnMouseClicked(e -> {

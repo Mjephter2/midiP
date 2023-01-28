@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.models.*;
 import sample.models.chords.*;
@@ -51,6 +52,27 @@ public class LearnWindow extends Application {
     private final GridPane keyPane = new GridPane();
     private final Button resetButton = new Button("RESET");
 
+    private final Button homeButton = new Button("Home");
+
+    private Text text = new Text("          Sequence: \n\n");
+
+    private void TextAssignment(ArrayList<String> noteNames)
+    {
+        String text_test = "";
+        text.setText("          Sequence:\n");
+        for(int i=0; i < noteNames.size(); i++)
+        {
+            if(i==0)
+                text_test = text_test + noteNames.get(i);
+            else {
+                if (i == 3 || i == 6) //test so that the keypane doesnt move (6 is for scales)
+                    text_test = text_test + "\n-> " + noteNames.get(i);
+                else
+                    text_test = text_test + "-> " + noteNames.get(i);
+            }
+        }
+        text.setText(text.getText()+text_test);
+    }
     private void drawSelectionButtons() {
         //bottom.setGridLinesVisible(true);
         bottom.setStyle("-fx-background-color: darkgray;");
@@ -125,6 +147,7 @@ public class LearnWindow extends Application {
         bottom.add(new FillerButton(60,10), 8 , 0);
         bottom.add(new FillerButton(60,10), 9 , 0);
         bottom.add(resetButton,10,0);
+        bottom.add(homeButton, 10, 1);
     }
 
     private void drawKeyboard() {
@@ -175,7 +198,6 @@ public class LearnWindow extends Application {
                 button.setPrefSize(40,140);
             });
         }
-
         for(Button button: blackKeys){
             button.setOnMousePressed(event -> {
                 button.setStyle(blackKeysPressedCSs);
@@ -232,12 +254,14 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
+            TextAssignment(chordNotesNames);
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
                 }
             }
         });
+
 
         minorTriadButton.setOnMouseClicked(mouseEvent -> {
             resetButtons();
@@ -266,6 +290,7 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
+            TextAssignment(chordNotesNames);
             for(Button button: keyBoard){
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
@@ -300,6 +325,7 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
+            TextAssignment(chordNotesNames);
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
@@ -334,6 +360,7 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
+            TextAssignment(chordNotesNames);
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
@@ -368,6 +395,7 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
+            TextAssignment(chordNotesNames);
             for(Button button: keyBoard){
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
@@ -402,6 +430,7 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
+            TextAssignment(chordNotesNames);
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
@@ -436,6 +465,7 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
+            TextAssignment(chordNotesNames);
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())) {
                     colorButton(button);
@@ -448,6 +478,8 @@ public class LearnWindow extends Application {
             Note root = null;
             try {
                 root = new Note("C3");
+                majorScaleButton.setSelected(false);
+                minorScaleButton.setSelected(false);
             } catch (InvalidNoteException e1) {
                 e1.printStackTrace();
             }
@@ -470,6 +502,7 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
+            TextAssignment(chordNotesNames);
             for (Button button: keyBoard) {
                 if (chordNotesNames.contains(button.getTooltip().getText())) {
                     colorButton(button);
@@ -500,12 +533,13 @@ public class LearnWindow extends Application {
                 e.printStackTrace();
             }
             Note[] scaleNotes = majorScale.notes();
-            List<String> noteNames = new ArrayList<>();
+            ArrayList<String> noteNames = new ArrayList<>();
             for (Note note: scaleNotes) {
                 noteNames.add(note.getName());
             }
 
             System.out.println(noteNames);
+            TextAssignment(noteNames);
             for (Button button: keyBoard) {
                 if (noteNames.contains(button.getTooltip().getText())) {
                     colorButton(button);
@@ -536,12 +570,13 @@ public class LearnWindow extends Application {
                 e.printStackTrace();
             }
             Note[] scaleNotes = minorScale.notes();
-            List<String> noteNames = new ArrayList<>();
+            ArrayList<String> noteNames = new ArrayList<>();
             for (Note note: scaleNotes) {
                 noteNames.add(note.getName());
             }
 
             System.out.println(noteNames);
+            TextAssignment(noteNames);
             for (Button button: keyBoard) {
                 if (noteNames.contains(button.getTooltip().getText())) {
                     colorButton(button);
@@ -570,26 +605,33 @@ public class LearnWindow extends Application {
     }
 
     @Override
-    public void start(Stage learn) {
+    public void start(final Stage learn) {
         draw();
-//        learn.setOnCloseRequest(windowEvent -> {
-//            Main mainWindow = new Main();
-//            Stage mainStage = new Stage();
-//            try {
-//                mainWindow.start(mainStage);
-//                learn.close();
-//                mainStage.show();
-//            } catch (Exception ex) {
-//                System.out.println("Error opening Main Window!!!");
-//                ex.printStackTrace();
-//            }
-//        });
+        learn.setOnCloseRequest(windowEvent -> {
+            Main mainWindow = new Main();
+            Stage mainStage = new Stage();
+            try {
+                mainWindow.start(mainStage);
+                learn.close();
+                mainStage.show();
+            } catch (Exception ex) {
+                System.out.println("Error opening Main Window!!!");
+                ex.printStackTrace();
+            }
+        });
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
         root.setPadding(new Insets(10,10,10,10));
         root.setBottom(bottom);
         GridPane.setHalignment(bottom, HPos.CENTER);
-        root.setCenter(keyPane);
+
+        // I store keyPane and text(Text) in Hbox and then add hbox to root
+        HBox hBox = new HBox();
+        hBox.setSpacing(200);
+        hBox.getChildren().add(text);
+        hBox.getChildren().add(keyPane);
+        root.setCenter(hBox);
+
 
         Scene scene = new Scene(root,1000,255);
         learn.setFullScreen(false);
@@ -597,6 +639,17 @@ public class LearnWindow extends Application {
         learn.setTitle("Learn Chords and Scales");
         learn.setScene(scene);
         learn.show();
+
+        // Home button action listener: Closes LearnWindow Stage and opens Main window Stage
+        homeButton.setOnAction( e ->{
+            Main mainWindow = new Main();
+            try {
+                mainWindow.start(new Stage());
+                learn.close();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
     }
 
     private void resetButtons(){
