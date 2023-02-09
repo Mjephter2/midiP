@@ -2,10 +2,12 @@ package tst.models;
 
 import org.junit.jupiter.api.Test;
 import sample.models.Note;
+import sample.models.exceptions.InvalidNoteException;
 import sample.models.scales.Scale;
 import sample.models.scales.ScaleType;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 class ScaleTest {
 
@@ -39,5 +41,14 @@ class ScaleTest {
         assertEquals(new Note("G3").getName(), cMajorScale.notes()[4].getName());
         assertEquals(new Note("Ab3").getName(), cMajorScale.notes()[5].getName());
         assertEquals(new Note("Bb3").getName(), cMajorScale.notes()[6].getName());
+    }
+
+    @Test
+    public void majorScaleOutbound() throws Exception {
+        assertThrows(InvalidNoteException.class, () -> new Scale(ScaleType.MAJOR_SCALE, new Note("F7")));
+    }
+
+    @Test void minorScaleOutbound() throws Exception {
+        assertThrows(InvalidNoteException.class, () -> new Scale(ScaleType.MINOR_SCALE, new Note("F7")));
     }
 }
