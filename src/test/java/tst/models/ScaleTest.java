@@ -44,11 +44,27 @@ class ScaleTest {
     }
 
     @Test
-    public void majorScaleOutbound() throws Exception {
+    public void majorScaleOutbound() {
         assertThrows(InvalidNoteException.class, () -> new Scale(ScaleType.MAJOR_SCALE, new Note("F7")));
     }
 
-    @Test void minorScaleOutbound() throws Exception {
+    @Test void minorScaleOutbound() {
         assertThrows(InvalidNoteException.class, () -> new Scale(ScaleType.MINOR_SCALE, new Note("F7")));
+    }
+
+    @Test
+    public void majorPentatonicNotesTest() throws Exception {
+        Scale cMajorScale = new Scale(ScaleType.MAJOR_PENTATONIC, new Note("C3"));
+        assertEquals(new Note("C3").getName(), cMajorScale.notes()[0].getName());
+        assertEquals(new Note("D3").getName(), cMajorScale.notes()[1].getName());
+        assertEquals(new Note("E3").getName(), cMajorScale.notes()[2].getName());
+        assertEquals(new Note("G3").getName(), cMajorScale.notes()[3].getName());
+        assertEquals(new Note("A3").getName(), cMajorScale.notes()[4].getName());
+        assertEquals(new Note("C4").getName(), cMajorScale.notes()[5].getName());
+    }
+
+    @Test
+    public void majorPentatonicScaleOutbound() {
+        assertThrows(InvalidNoteException.class, () -> new Scale(ScaleType.MAJOR_PENTATONIC, new Note("F7")));
     }
 }
