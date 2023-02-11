@@ -15,5 +15,9 @@ public enum ScaleType {
     /**
      * Scale type for Major Pentatonic Scales.
      */
-    MAJOR_PENTATONIC
+    MAJOR_PENTATONIC,
+    /**
+     * Scale type for Minor Pentatonic Scales.
+     */
+    MINOR_PENTATONIC
 }

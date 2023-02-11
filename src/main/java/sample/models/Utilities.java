@@ -124,8 +124,17 @@ public final class Utilities {
     public static final ArrayList<Integer> MINOR_SCALE_DEGREE_INTERVALS =
             new ArrayList<>(List.of(0, 2, 3, 5, 7, 8, 10, 12));
 
+    /**
+     * List containing the notes interval relative to the root for Mojor Pentatonic scales.
+     */
     public static final ArrayList<Integer> MAJOR_PENTATONIC_SCALE_DEGREE_INTERVALS =
             new ArrayList<>(List.of(0, 2, 4, 7, 9, 12));
+
+    /**
+     * List containing the notes interval relative to the root for Minor Pentatonic scales.
+     */
+    public static final ArrayList<Integer> MINOR_PENTATONIC_SCALE_DEGREE_INTERVALS =
+            new ArrayList<>(List.of(0, 3, 5, 7, 10, 12));
 
     /**
      * list containing all possible Note names

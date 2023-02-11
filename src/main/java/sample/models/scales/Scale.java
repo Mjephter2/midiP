@@ -59,6 +59,9 @@ public class Scale extends Transposable {
             case MAJOR_PENTATONIC -> {
                 return MajorPentatonicScale.generateScale(root);
             }
+            case MINOR_PENTATONIC -> {
+                return MinorPentatonicScale.generateScale(root);
+            }
             default -> throw new Exception("Chord type is unrecognized or not yet implemented!");
         }
     }
