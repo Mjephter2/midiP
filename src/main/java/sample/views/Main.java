@@ -113,7 +113,7 @@ public final class Main extends Application {
         // style center grid and add components
         center.setHgap(5);
         center.setVgap(5);
-        center.setPadding(new Insets(0, 30, 2, 30));
+        center.setPadding(new Insets(0, 50, 2, 50));
         center.setAlignment(Pos.CENTER);
         center.add(mainWelcomeLabel, 0, 0);
         center.add(mainWindowFreePlayButton, 0, 1);
@@ -126,7 +126,8 @@ public final class Main extends Application {
         mainWelcomeLabel.setWrapText(true);
         mainWelcomeLabel.setFont(new Font("aerial", 25));
         GridPane.setHalignment(mainWelcomeLabel, HPos.CENTER);
-
+        GridPane.setHalignment(mainWindowFreePlayButton, HPos.CENTER); // mainWindowFreePlayButton button centered
+        GridPane.setHalignment(mainWindowLearnButton, HPos.CENTER); // mainWindowLearnButton button centered
         // style learn button
         mainWindowLearnButton.setTextAlignment(TextAlignment.CENTER);
         mainWindowLearnButton.setWrapText(true);
