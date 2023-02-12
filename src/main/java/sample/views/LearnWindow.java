@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.models.*;
@@ -59,57 +60,7 @@ public class LearnWindow extends Application {
 
     private ArrayList <Button> button_sequence = new ArrayList<>();
 
-    private void ClearButtonText()
-    {
-
-    }
-
-    private void TextAssignment(ArrayList<String> noteNames,ArrayList<Button> buttons_sequence)
-    {
-
-        for(Button button: buttons_sequence)
-        {
-            for(Button button_on_keyboard: whiteKeys)
-            {
-                button_on_keyboard.setText("");
-                if(button.getTooltip().getText() == button_on_keyboard.getTooltip().getText())
-                {
-
-                    button_on_keyboard.setText(button_on_keyboard.getTooltip().getText());
-                }
-
-
-            }
-
-            for(Button button_on_keyboard2: blackKeys)
-            {
-                button_on_keyboard2.setText("");
-                if(button.getTooltip().getText() == button_on_keyboard2.getTooltip().getText())
-                {
-                    String _text = button_on_keyboard2.getTooltip().getText();
-                    _text.substring(0, _text.length() -1);
-                    button_on_keyboard2.setText(_text);
-                    button_on_keyboard2.setAlignment(Pos.BOTTOM_CENTER);
-                }
-
-            }
-        }
-           button_sequence.removeAll(buttons_sequence);
-//        String text_test = "";
-//        text.setText("          Sequence:\n");
-//        for(int i=0; i < noteNames.size(); i++)
-//        {
-//            if(i==0)
-//                text_test = text_test + noteNames.get(i);
-//            else {
-//                if (i == 3 || i == 6) //test so that the keypane doesnt move (6 is for scales)
-//                    text_test = text_test + "\n-> " + noteNames.get(i);
-//                else
-//                    text_test = text_test + "-> " + noteNames.get(i);
-//            }
-//        }
-//        text.setText(text.getText()+text_test);
-    }
+    private String text_diplay_when_clicked = "";
     private void drawSelectionButtons() {
         //bottom.setGridLinesVisible(true);
         bottom.setStyle("-fx-background-color: darkgray;");
@@ -291,14 +242,18 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-            for (Button button: keyBoard) {
+            for(Button button: keyBoard){
+                button.setText("");
+                button.setAlignment(Pos.BOTTOM_CENTER);
+                if(blackKeys.contains(button))
+                    button.setFont(new Font("aerials", 8));
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
-                    button_sequence.add(button);
+                    text_diplay_when_clicked = button.getTooltip().getText();
+                    text_diplay_when_clicked = text_diplay_when_clicked.substring(0, text_diplay_when_clicked.length() -1);
+                    button.setText(text_diplay_when_clicked);
                 }
             }
-
-            TextAssignment(chordNotesNames, button_sequence);
         });
 
 
@@ -331,13 +286,17 @@ public class LearnWindow extends Application {
             System.out.println(chordNotesNames);
 
             for(Button button: keyBoard){
+                button.setText("");
+                button.setAlignment(Pos.BOTTOM_CENTER);
+                if(blackKeys.contains(button))
+                    button.setFont(new Font("aerials", 8));
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
-                    button_sequence.add(button);
+                    text_diplay_when_clicked = button.getTooltip().getText();
+                    text_diplay_when_clicked = text_diplay_when_clicked.substring(0, text_diplay_when_clicked.length() -1);
+                    button.setText(text_diplay_when_clicked);
                 }
             }
-
-            TextAssignment(chordNotesNames, button_sequence);
         });
 
         major7thButton.setOnMouseClicked(mouseEvent -> {
@@ -367,14 +326,18 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-
-            for (Button button: keyBoard) {
+            for(Button button: keyBoard){
+                button.setText("");
+                button.setAlignment(Pos.BOTTOM_CENTER);
+                if(blackKeys.contains(button))
+                    button.setFont(new Font("aerials", 8));
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
-                    button_sequence.add(button);
+                    text_diplay_when_clicked = button.getTooltip().getText();
+                    text_diplay_when_clicked = text_diplay_when_clicked.substring(0, text_diplay_when_clicked.length() -1);
+                    button.setText(text_diplay_when_clicked);
                 }
             }
-            TextAssignment(chordNotesNames, button_sequence);
         });
 
         minor7thButton.setOnMouseClicked(mouseEvent -> {
@@ -404,14 +367,18 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-            for (Button button: keyBoard) {
+            for(Button button: keyBoard){
+                button.setText("");
+                button.setAlignment(Pos.BOTTOM_CENTER);
+                if(blackKeys.contains(button))
+                    button.setFont(new Font("aerials", 8));
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
-                    button_sequence.add(button);
+                    text_diplay_when_clicked = button.getTooltip().getText();
+                    text_diplay_when_clicked = text_diplay_when_clicked.substring(0, text_diplay_when_clicked.length() -1);
+                    button.setText(text_diplay_when_clicked);
                 }
             }
-
-            TextAssignment(chordNotesNames, button_sequence);
         });
 
         major9thButton.setOnMouseClicked(mouseEvent -> {
@@ -443,12 +410,17 @@ public class LearnWindow extends Application {
             System.out.println(chordNotesNames);
 
             for(Button button: keyBoard){
+                button.setText("");
+                button.setAlignment(Pos.BOTTOM_CENTER);
+                if(blackKeys.contains(button))
+                    button.setFont(new Font("aerials", 8));
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
-                    button_sequence.add(button);
+                    text_diplay_when_clicked = button.getTooltip().getText();
+                    text_diplay_when_clicked = text_diplay_when_clicked.substring(0, text_diplay_when_clicked.length() -1);
+                    button.setText(text_diplay_when_clicked);
                 }
             }
-            TextAssignment(chordNotesNames, button_sequence);
         });
 
         minor9thButton.setOnMouseClicked(mouseEvent -> {
@@ -479,13 +451,18 @@ public class LearnWindow extends Application {
             }
             System.out.println(chordNotesNames);
 
-            for (Button button: keyBoard) {
+            for(Button button: keyBoard){
+                button.setText("");
+                button.setAlignment(Pos.BOTTOM_CENTER);
+                if(blackKeys.contains(button))
+                    button.setFont(new Font("aerials", 8));
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
-                    button_sequence.add(button);
+                    text_diplay_when_clicked = button.getTooltip().getText();
+                    text_diplay_when_clicked = text_diplay_when_clicked.substring(0, text_diplay_when_clicked.length() -1);
+                    button.setText(text_diplay_when_clicked);
                 }
             }
-            TextAssignment(chordNotesNames, button_sequence);
         });
 
         dominant7thButton.setOnMouseClicked(mouseEvent -> {
@@ -516,14 +493,18 @@ public class LearnWindow extends Application {
             }
             System.out.println(chordNotesNames);
 
-            for (Button button: keyBoard) {
-                if(chordNotesNames.contains(button.getTooltip().getText())) {
+            for(Button button: keyBoard){
+                button.setText("");
+                button.setAlignment(Pos.BOTTOM_CENTER);
+                if(blackKeys.contains(button))
+                    button.setFont(new Font("aerials", 8));
+                if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
-                    button_sequence.add(button);
+                    text_diplay_when_clicked = button.getTooltip().getText();
+                    text_diplay_when_clicked = text_diplay_when_clicked.substring(0, text_diplay_when_clicked.length() -1);
+                    button.setText(text_diplay_when_clicked);
                 }
             }
-
-            TextAssignment(chordNotesNames, button_sequence);
         });
 
         dominant9thButton.setOnMouseClicked(mouseEvent -> {
@@ -556,13 +537,18 @@ public class LearnWindow extends Application {
             }
             System.out.println(chordNotesNames);
 
-            for (Button button: keyBoard) {
-                if (chordNotesNames.contains(button.getTooltip().getText())) {
+            for(Button button: keyBoard){
+                button.setText("");
+                button.setAlignment(Pos.BOTTOM_CENTER);
+                if(blackKeys.contains(button))
+                    button.setFont(new Font("aerials", 8));
+                if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
-                    button_sequence.add(button);
+                    text_diplay_when_clicked = button.getTooltip().getText();
+                    text_diplay_when_clicked = text_diplay_when_clicked.substring(0, text_diplay_when_clicked.length() -1);
+                    button.setText(text_diplay_when_clicked);
                 }
             }
-            TextAssignment(chordNotesNames, button_sequence);
         });
 
         majorScaleButton.setOnMouseClicked(mouseEvent -> {
@@ -595,14 +581,18 @@ public class LearnWindow extends Application {
 
             System.out.println(noteNames);
 
-            for (Button button: keyBoard) {
-                if (noteNames.contains(button.getTooltip().getText())) {
+            for(Button button: keyBoard){
+                button.setText("");
+                button.setAlignment(Pos.BOTTOM_CENTER);
+                if(blackKeys.contains(button))
+                    button.setFont(new Font("aerials", 8));
+                if(noteNames.contains(button.getTooltip().getText())){
                     colorButton(button);
-                    button_sequence.add(button);
+                    text_diplay_when_clicked = button.getTooltip().getText();
+                    text_diplay_when_clicked = text_diplay_when_clicked.substring(0, text_diplay_when_clicked.length() -1);
+                    button.setText(text_diplay_when_clicked);
                 }
             }
-
-            TextAssignment(noteNames, button_sequence);
         });
 
         minorScaleButton.setOnMouseClicked(mouseEvent -> {
@@ -635,14 +625,18 @@ public class LearnWindow extends Application {
 
             System.out.println(noteNames);
 
-            for (Button button: keyBoard) {
-                if (noteNames.contains(button.getTooltip().getText())) {
+            for(Button button: keyBoard){
+                button.setText("");
+                button.setAlignment(Pos.BOTTOM_CENTER);
+                if(blackKeys.contains(button))
+                    button.setFont(new Font("aerials", 8));
+                if(noteNames.contains(button.getTooltip().getText())){
                     colorButton(button);
-                    button_sequence.add(button);
+                    text_diplay_when_clicked = button.getTooltip().getText();
+                    text_diplay_when_clicked = text_diplay_when_clicked.substring(0, text_diplay_when_clicked.length() -1);
+                    button.setText(text_diplay_when_clicked);
                 }
             }
-
-            TextAssignment(noteNames, button_sequence);
         });
     }
 
@@ -720,12 +714,14 @@ public class LearnWindow extends Application {
 
     private void resetWhiteKeys() {
         for(Button button: whiteKeys){
+            button.setText("");
             button.setStyle(whiteKeysReleasedCss);
         }
     }
 
     private void resetBlackKeys() {
         for(Button button: blackKeys) {
+            button.setText("");
             button.setStyle(blackKeysReleasedCss);
         }
     }
