@@ -1,4 +1,0 @@
-/**
- * base package.
- */
-package sample;
