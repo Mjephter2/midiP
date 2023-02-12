@@ -20,6 +20,7 @@ import sample.models.scales.Scale;
 import sample.models.scales.ScaleType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,24 +55,60 @@ public class LearnWindow extends Application {
 
     private final Button homeButton = new Button("Home");
 
-    private Text text = new Text("          Sequence: \n\n");
+    private Text text = new Text("");
 
-    private void TextAssignment(ArrayList<String> noteNames)
+    private ArrayList <Button> button_sequence = new ArrayList<>();
+
+    private void ClearButtonText()
     {
-        String text_test = "";
-        text.setText("          Sequence:\n");
-        for(int i=0; i < noteNames.size(); i++)
+
+    }
+
+    private void TextAssignment(ArrayList<String> noteNames,ArrayList<Button> buttons_sequence)
+    {
+
+        for(Button button: buttons_sequence)
         {
-            if(i==0)
-                text_test = text_test + noteNames.get(i);
-            else {
-                if (i == 3 || i == 6) //test so that the keypane doesnt move (6 is for scales)
-                    text_test = text_test + "\n-> " + noteNames.get(i);
-                else
-                    text_test = text_test + "-> " + noteNames.get(i);
+            for(Button button_on_keyboard: whiteKeys)
+            {
+                button_on_keyboard.setText("");
+                if(button.getTooltip().getText() == button_on_keyboard.getTooltip().getText())
+                {
+
+                    button_on_keyboard.setText(button_on_keyboard.getTooltip().getText());
+                }
+
+
+            }
+
+            for(Button button_on_keyboard2: blackKeys)
+            {
+                button_on_keyboard2.setText("");
+                if(button.getTooltip().getText() == button_on_keyboard2.getTooltip().getText())
+                {
+                    String _text = button_on_keyboard2.getTooltip().getText();
+                    _text.substring(0, _text.length() -1);
+                    button_on_keyboard2.setText(_text);
+                    button_on_keyboard2.setAlignment(Pos.BOTTOM_CENTER);
+                }
+
             }
         }
-        text.setText(text.getText()+text_test);
+           button_sequence.removeAll(buttons_sequence);
+//        String text_test = "";
+//        text.setText("          Sequence:\n");
+//        for(int i=0; i < noteNames.size(); i++)
+//        {
+//            if(i==0)
+//                text_test = text_test + noteNames.get(i);
+//            else {
+//                if (i == 3 || i == 6) //test so that the keypane doesnt move (6 is for scales)
+//                    text_test = text_test + "\n-> " + noteNames.get(i);
+//                else
+//                    text_test = text_test + "-> " + noteNames.get(i);
+//            }
+//        }
+//        text.setText(text.getText()+text_test);
     }
     private void drawSelectionButtons() {
         //bottom.setGridLinesVisible(true);
@@ -254,12 +291,14 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-            TextAssignment(chordNotesNames);
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
+                    button_sequence.add(button);
                 }
             }
+
+            TextAssignment(chordNotesNames, button_sequence);
         });
 
 
@@ -290,12 +329,15 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-            TextAssignment(chordNotesNames);
+
             for(Button button: keyBoard){
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
+                    button_sequence.add(button);
                 }
             }
+
+            TextAssignment(chordNotesNames, button_sequence);
         });
 
         major7thButton.setOnMouseClicked(mouseEvent -> {
@@ -325,12 +367,14 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-            TextAssignment(chordNotesNames);
+
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
+                    button_sequence.add(button);
                 }
             }
+            TextAssignment(chordNotesNames, button_sequence);
         });
 
         minor7thButton.setOnMouseClicked(mouseEvent -> {
@@ -360,12 +404,14 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-            TextAssignment(chordNotesNames);
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
+                    button_sequence.add(button);
                 }
             }
+
+            TextAssignment(chordNotesNames, button_sequence);
         });
 
         major9thButton.setOnMouseClicked(mouseEvent -> {
@@ -395,12 +441,14 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-            TextAssignment(chordNotesNames);
+
             for(Button button: keyBoard){
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
+                    button_sequence.add(button);
                 }
             }
+            TextAssignment(chordNotesNames, button_sequence);
         });
 
         minor9thButton.setOnMouseClicked(mouseEvent -> {
@@ -430,12 +478,14 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-            TextAssignment(chordNotesNames);
+
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
+                    button_sequence.add(button);
                 }
             }
+            TextAssignment(chordNotesNames, button_sequence);
         });
 
         dominant7thButton.setOnMouseClicked(mouseEvent -> {
@@ -465,12 +515,15 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-            TextAssignment(chordNotesNames);
+
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())) {
                     colorButton(button);
+                    button_sequence.add(button);
                 }
             }
+
+            TextAssignment(chordNotesNames, button_sequence);
         });
 
         dominant9thButton.setOnMouseClicked(mouseEvent -> {
@@ -502,12 +555,14 @@ public class LearnWindow extends Application {
                 chordNotesNames.add(chordNote.getName());
             }
             System.out.println(chordNotesNames);
-            TextAssignment(chordNotesNames);
+
             for (Button button: keyBoard) {
                 if (chordNotesNames.contains(button.getTooltip().getText())) {
                     colorButton(button);
+                    button_sequence.add(button);
                 }
             }
+            TextAssignment(chordNotesNames, button_sequence);
         });
 
         majorScaleButton.setOnMouseClicked(mouseEvent -> {
@@ -539,12 +594,15 @@ public class LearnWindow extends Application {
             }
 
             System.out.println(noteNames);
-            TextAssignment(noteNames);
+
             for (Button button: keyBoard) {
                 if (noteNames.contains(button.getTooltip().getText())) {
                     colorButton(button);
+                    button_sequence.add(button);
                 }
             }
+
+            TextAssignment(noteNames, button_sequence);
         });
 
         minorScaleButton.setOnMouseClicked(mouseEvent -> {
@@ -576,12 +634,15 @@ public class LearnWindow extends Application {
             }
 
             System.out.println(noteNames);
-            TextAssignment(noteNames);
+
             for (Button button: keyBoard) {
                 if (noteNames.contains(button.getTooltip().getText())) {
                     colorButton(button);
+                    button_sequence.add(button);
                 }
             }
+
+            TextAssignment(noteNames, button_sequence);
         });
     }
 
