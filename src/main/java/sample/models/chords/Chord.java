@@ -1,5 +1,6 @@
 package sample.models.chords;
 
+import sample.models.Invertable;
 import sample.models.Note;
 import sample.models.Transposable;
 import sample.models.chords.generators.dominants.Dominant7th;
@@ -10,12 +11,16 @@ import sample.models.chords.generators.sevenths.Major7th;
 import sample.models.chords.generators.sevenths.Minor7th;
 import sample.models.chords.generators.triads.MajorTriad;
 import sample.models.chords.generators.triads.MinorTriad;
+import sample.models.exceptions.InvalidNoteException;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Class representation of a Chord.
  * A chord is essentially a combination of notes
  */
-public class Chord extends Transposable {
+public class Chord extends Transposable implements Invertable {
     /**
      * the type of the Chord.
      */
@@ -86,5 +91,30 @@ public class Chord extends Transposable {
             rep.append(" ").append(note.noteQuality());
         }
         return rep.toString();
+    }
+
+    /**
+     *
+     * @param index the index of the chord note to start chord from.
+     * @return the chord Notes starting from the index specified
+     */
+    @Override
+    public Note[] invert(int index) {
+        if (index >= chordNotes.length) {
+            return chordNotes;
+        }
+        Note[] firstNotes = Arrays.copyOfRange(chordNotes, index, chordNotes.length);
+        List<Note> lastNotes = Arrays.stream(Arrays.copyOfRange(chordNotes, 0, index)).toList();
+        List<Note> sharpLastNotes = lastNotes.stream().map(note -> {
+            try {
+                return note.sharp(12);
+            } catch (InvalidNoteException e) {
+                throw new RuntimeException(e);
+            }
+        }).toList();
+        Note[] invertedNotes = new Note[chordNotes.length];
+        System.arraycopy(firstNotes, 0, invertedNotes, 0, firstNotes.length);
+        System.arraycopy(sharpLastNotes.toArray(), 0, invertedNotes, firstNotes.length, lastNotes.size());
+        return invertedNotes;
     }
 }
