@@ -25,9 +25,12 @@ import javax.sound.midi.Transmitter;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.MidiMessage;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -127,15 +130,18 @@ public final class FreePlayWindow extends Application {
     {
         for (Button button : whiteKeys)
         {
-            button.setText(button.getTooltip().getText());
+            String text = button.getTooltip().getText();
+            text = text.substring(0, text.length() -1);
+            button.setText(text);
             button.setAlignment(Pos.BOTTOM_CENTER);
         }
 
         for(Button button : blackKeys)
         {
-            String text_generator = button.getTooltip().getText();
-
-            button.setText(text_generator.charAt(0) + "\n" + text_generator.charAt(1) + "\n" + text_generator.charAt(2));
+            String text = button.getTooltip().getText();
+            text = text.substring(0, text.length() -1);
+            button.setFont(new Font("aerials", 8));
+            button.setText(text);
             button.setTextFill(Color.WHITE);
             button.setAlignment(Pos.BOTTOM_LEFT);
         }
@@ -212,6 +218,7 @@ public final class FreePlayWindow extends Application {
         whiteKeyPane.setSpacing(FreePlayWindowConfig.WHITE_KEY_PANE_SPACING);
 
 
+
         // Top pane that will contain show_notes ToggleButton, home button and text of note pressed
         BorderPane top_pane = new BorderPane();
 
@@ -227,11 +234,6 @@ public final class FreePlayWindow extends Application {
         return_home.setVisible(true);
         show_notes.setVisible(true);
 
-        // Pop up text that will be shown then the user presses a key. It will contain the note name
-        Text text = new Text();
-        text.setText("");
-        text.setVisible(true);
-
 
         for (Button button : whiteKeys) {
             button.setTooltip(new Tooltip(button.getText()));
@@ -241,12 +243,10 @@ public final class FreePlayWindow extends Application {
             button.setOnMousePressed(event -> {
                 button.setStyle(whiteKeysPressedCss);
                 button.setTranslateY(2);
-                text.setText("Note Pressed: " + button.getTooltip().getText());
 
             });
 
             button.setOnMouseReleased(event -> {
-                text.setText("");
                 button.setStyle(whiteKeysReleasedCss);
                 button.setTranslateY(0);
             });
@@ -263,12 +263,9 @@ public final class FreePlayWindow extends Application {
                 button.setStyle(blackKeysPressedCSs);
                 button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight() + 2);
                 // This line of code changes the text in top_pane to the value of the note pressed
-                text.setText("Note pressed: " + button.getTooltip().getText());
             });
 
             button.setOnMouseReleased(event -> {
-                // When the user releases mouse from button the text disappears
-                text.setText("");
                 button.setStyle(blackKeysReleasedCss);
                 button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());;
             });
@@ -298,7 +295,6 @@ public final class FreePlayWindow extends Application {
         keyPane.add(whiteKeyPane, 0, 0, 2, 1);
         keyPane.add(blackKeyPane, 0, 0, 2, 1);
         root.setCenter(keyPane);
-        top_pane.setLeft(text);
         root.setTop(top_pane);
 
         Scene scene = new Scene(root, freePlayWindowConfig.getWindowWidth(), freePlayWindowConfig.getWindowHeight());
