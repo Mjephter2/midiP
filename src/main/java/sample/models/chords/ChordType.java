@@ -13,6 +13,14 @@ public enum ChordType {
      */
     MINOR_TRIAD,
     /**
+     * Major 6th Chord Type.
+     */
+    MAJOR_6TH,
+    /**
+     * Minor 6th Chord Type.
+     */
+    MINOR_6TH,
+    /**
      * Major 7th Chord Type.
      */
     MAJOR_7TH,

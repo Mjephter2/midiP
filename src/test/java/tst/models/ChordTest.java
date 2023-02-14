@@ -45,6 +45,26 @@ public class ChordTest {
     }
 
     @Test
+    public void major6thTest() throws Exception {
+        Chord cMajor6th = new Chord(ChordType.MAJOR_6TH, new Note());
+
+        assertEquals("C1", cMajor6th.notes()[0].toString());
+        assertEquals("E1", cMajor6th.notes()[1].toString());
+        assertEquals("G1", cMajor6th.notes()[2].toString());
+        assertEquals("A1", cMajor6th.notes()[3].toString());
+    }
+
+    @Test
+    public void minor6thTest() throws Exception {
+        Chord cMinor6th = new Chord(ChordType.MINOR_6TH, new Note());
+
+        assertEquals("C1", cMinor6th.notes()[0].toString());
+        assertEquals("Eb1", cMinor6th.notes()[1].toString());
+        assertEquals("G1", cMinor6th.notes()[2].toString());
+        assertEquals("A1", cMinor6th.notes()[3].toString());
+    }
+
+    @Test
     public void chord7thTest() throws Exception {
         Chord cMajor7thChord = new Chord(ChordType.MAJOR_7TH, new Note());
         Chord cMinor7thChord = new Chord(ChordType.MINOR_7TH, new Note());
