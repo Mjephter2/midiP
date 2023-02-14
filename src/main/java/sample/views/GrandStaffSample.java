@@ -20,8 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * Sample GUI of a partial Grand Staff
- * starting from Middle C to 2nd F Note.
+ * Sample GUI of a full Grand Staff
  */
 public class GrandStaffSample extends Application {
 
