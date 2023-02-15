@@ -9,6 +9,14 @@ public enum ChordType {
      */
     MAJOR_TRIAD,
     /**
+     * Major Suspended 2nd Chord Type
+     */
+    SUSPENDED_2ND,
+    /**
+     * Minor Suspended 4th Chord Type
+     */
+    SUSPENDED_4TH,
+    /**
      * Minor Triad Chord Type.
      */
     MINOR_TRIAD,

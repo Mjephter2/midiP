@@ -45,6 +45,20 @@ public class ChordTest {
     }
 
     @Test
+    public void suspendedTest() throws Exception {
+        Chord cSuspended2ndChord = new Chord(ChordType.SUSPENDED_2ND, new Note());
+        Chord cSuspended4thChord = new Chord(ChordType.SUSPENDED_4TH, new Note());
+
+        assertEquals("C1", cSuspended2ndChord.notes()[0].toString());
+        assertEquals("D1", cSuspended2ndChord.notes()[1].toString());
+        assertEquals("G1", cSuspended2ndChord.notes()[2].toString());
+
+        assertEquals("C1", cSuspended4thChord.notes()[0].toString());
+        assertEquals("F1", cSuspended4thChord.notes()[1].toString());
+        assertEquals("G1", cSuspended4thChord.notes()[2].toString());
+    }
+
+    @Test
     public void major6thTest() throws Exception {
         Chord cMajor6th = new Chord(ChordType.MAJOR_6TH, new Note());
 
