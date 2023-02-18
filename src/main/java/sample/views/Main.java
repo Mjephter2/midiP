@@ -24,15 +24,10 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 /**
  * GUI for application main window.
  */
 public final class Main extends Application {
-    private static final Logger logger = LogManager.getLogger(Main.class);
-
     /**
      * Top Level pane.
      */
@@ -158,7 +153,7 @@ public final class Main extends Application {
                 primaryStage.close();
                 chordStage.show();
             } catch (Exception ex) {
-                logger.error("Error opening Learn Window!!!");
+                System.out.println("Error opening Learn Window!!!");
                 ex.printStackTrace();
             }
         });
@@ -190,7 +185,7 @@ public final class Main extends Application {
                 primaryStage.close();
                 chordStage.show();
             } catch (Exception ex) {
-                logger.error("Error opening FreePlay Window!!!");
+                System.out.println("Error opening FreePlay Window!!!");
                 ex.printStackTrace();
             }
         });

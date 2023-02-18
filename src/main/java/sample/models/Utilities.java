@@ -14,22 +14,18 @@ import java.util.LinkedList;
 import java.util.List;
 import javafx.scene.control.Button;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public final class Utilities {
-    private static final Logger logger = LogManager.getLogger(Utilities.class);
     private static final String soundZipFilePath = new File("").getAbsolutePath() + "/src/main/java/sample/resources/sounds/piano.zip";
     private static final String s3SoundFileUrl = "https://midip-sounds.s3.amazonaws.com/piano/piano.zip";
 
     // author https://www.digitalocean.com/community/tutorials/java-download-file-url
     public static boolean downloadUsingStream() {
         if (new File(soundZipFilePath).exists()) {
-            logger.warn("Sound File Zip has already been downloaded!");
+            System.out.println("Sound File Zip has already been downloaded!");
             return true;
         }
         try {
-           logger.info("Starting Sound File Zip download!");
+            System.out.println("Starting Sound File Zip download!");
             URL url = new URL(s3SoundFileUrl);
             BufferedInputStream bis = new BufferedInputStream(url.openStream());
             FileOutputStream fis = new FileOutputStream(soundZipFilePath);
@@ -40,7 +36,7 @@ public final class Utilities {
             }
             fis.close();
             bis.close();
-            logger.info("Successfully downloaded Sound File Zip : " + s3SoundFileUrl);
+            System.out.println("Successfully downloaded Sound File Zip : " + s3SoundFileUrl);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
