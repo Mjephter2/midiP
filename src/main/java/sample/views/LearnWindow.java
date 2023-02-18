@@ -22,9 +22,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import static sample.views.Styles.*;
 
 public class LearnWindow extends Application {
+    private static final Logger logger = LogManager.getLogger(LearnWindow.class);
     private static final int NUMBER_OF_KEYS = 27;
     private final LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
     private final LinkedList<Button> whiteKeys = new LinkedList<>();
@@ -231,7 +235,9 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
+
+            logger.info(chordNotesNames);
+
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
@@ -265,7 +271,9 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
+
+            logger.info(chordNotesNames);
+
             for(Button button: keyBoard){
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
@@ -299,7 +307,9 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
+
+            logger.info(chordNotesNames);
+
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
@@ -333,7 +343,9 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
+
+            logger.info(chordNotesNames);
+
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
@@ -367,7 +379,9 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
+
+            logger.info(chordNotesNames);
+
             for(Button button: keyBoard){
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
@@ -401,7 +415,9 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
+
+            logger.info(chordNotesNames);
+
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())){
                     colorButton(button);
@@ -435,7 +451,9 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
+
+            logger.info(chordNotesNames);
+
             for (Button button: keyBoard) {
                 if(chordNotesNames.contains(button.getTooltip().getText())) {
                     colorButton(button);
@@ -469,7 +487,9 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
+
+            logger.info(chordNotesNames);
+
             for (Button button: keyBoard) {
                 if (chordNotesNames.contains(button.getTooltip().getText())) {
                     colorButton(button);
@@ -505,7 +525,8 @@ public class LearnWindow extends Application {
                 noteNames.add(note.getName());
             }
 
-            System.out.println(noteNames);
+            logger.info(noteNames);
+
             for (Button button: keyBoard) {
                 if (noteNames.contains(button.getTooltip().getText())) {
                     colorButton(button);
@@ -541,7 +562,8 @@ public class LearnWindow extends Application {
                 noteNames.add(note.getName());
             }
 
-            System.out.println(noteNames);
+            logger.info(noteNames);
+
             for (Button button: keyBoard) {
                 if (noteNames.contains(button.getTooltip().getText())) {
                     colorButton(button);

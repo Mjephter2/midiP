@@ -24,6 +24,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import static sample.views.Styles.*;
 
 /**
@@ -31,6 +34,8 @@ import static sample.views.Styles.*;
  * allowing for free play without audio feedback.
  */
 public final class FreePlayWindow extends Application {
+    private static final Logger logger = LogManager.getLogger(FreePlayWindow.class);
+
     /**
      * Window configuration.
      */
@@ -115,7 +120,7 @@ public final class FreePlayWindow extends Application {
             try {
                 device = MidiSystem.getMidiDevice(info);
                 int numTrans = device.getTransmitters().size();
-                System.out.println(info + " has " + numTrans + " transmitters");
+                logger.info(info + " has " + numTrans + " transmitters");
                 List<Transmitter> transmitters = device.getTransmitters();
                 for (Transmitter transmitter : transmitters) {
                     transmitter.setReceiver(midiInputReceiver);
@@ -123,7 +128,7 @@ public final class FreePlayWindow extends Application {
                 Transmitter trans = device.getTransmitter();
                 trans.setReceiver(midiInputReceiver);
                 device.open();
-                System.out.println(device.getDeviceInfo() + " Was Opened");
+                logger.info(device.getDeviceInfo() + " Was Opened");
             } catch (MidiUnavailableException e) {
                 e.printStackTrace();
             }
@@ -141,7 +146,7 @@ public final class FreePlayWindow extends Application {
                 device = MidiSystem.getMidiDevice(info);
                 if (device.isOpen()) {
                     device.close();
-                    System.out.println(device.getDeviceInfo() + " Was closed");
+                    logger.info(device.getDeviceInfo() + " Was closed");
                 }
             } catch (MidiUnavailableException e) {
                 e.printStackTrace();
@@ -172,7 +177,7 @@ public final class FreePlayWindow extends Application {
                 freePlay.close();
                 mainStage.show();
             } catch (Exception ex) {
-                System.out.println("Error opening Main Window!!!");
+                logger.info("Error opening Main Window!!!");
                 ex.printStackTrace();
             }
             closeAllTransmitters();
@@ -307,7 +312,7 @@ public final class FreePlayWindow extends Application {
                 lastKeyPressedIndex = aMsg[2];
                 return;
             }
-            System.out.println(
+            logger.info(
                     "Message: " + aMsg[0] + ", " + aMsg[1] + ", " + aMsg[2]
             );
             if (aMsg[1] - 21 < 0) {

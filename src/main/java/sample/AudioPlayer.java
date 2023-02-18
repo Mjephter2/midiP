@@ -10,12 +10,17 @@ import javax.sound.sampled.LineUnavailableException;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Class to play back an audio file
  * using the SourceDataLine in Java Sound API.
  * @author www.codejava.net
  */
 public class AudioPlayer {
+
+    private static final Logger logger = LogManager.getLogger(AudioPlayer.class);
 
     /**
      * size of the byte buffer used to read/write the audio stream.
@@ -41,7 +46,7 @@ public class AudioPlayer {
 
             audioLine.start();
 
-            //System.out.println("Playback started.");
+            //logger.info("Playback started.");
 
             byte[] bytesBuffer = new byte[BUFFER_SIZE];
             int bytesRead = -1;
@@ -54,16 +59,16 @@ public class AudioPlayer {
             audioLine.close();
             audioStream.close();
 
-            //System.out.println("Playback completed.");
+            //logger.info("Playback completed.");
 
         } catch (UnsupportedAudioFileException ex) {
-            System.out.println("The specified audio file is not supported.");
+            logger.error("The specified audio file is not supported.");
             ex.printStackTrace();
         } catch (LineUnavailableException ex) {
-            System.out.println("Audio line for playing back is unavailable.");
+            logger.info("Audio line for playing back is unavailable.");
             ex.printStackTrace();
         } catch (IOException ex) {
-            System.out.println("Error playing the audio file.");
+            logger.info("Error playing the audio file.");
             ex.printStackTrace();
         }
     }

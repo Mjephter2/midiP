@@ -3,10 +3,15 @@ package sample.views;
 import java.awt.Toolkit;
 import java.awt.Dimension;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Class to generating the FreeWindow GUI components dimensions.
  */
 public class FreePlayWindowConfig {
+    private static final Logger logger = LogManager.getLogger(FreePlayWindowConfig.class);
+
     /**
      * Spacing between the white keys.
      * The 'final' ratio values below are from personal observations
@@ -166,7 +171,7 @@ public class FreePlayWindowConfig {
      */
     public static FreePlayWindowConfig customConfig(final Double width, final Double height) {
         if (width < 1200 || height < 200) {
-            System.out.println("Specified Width or height is too small.\nDefaulting to the defaultConfig.");
+            logger.warn("Specified Width or height is too small.\nDefaulting to the defaultConfig.");
             return defaultConfig();
         } else if (width > Toolkit.getDefaultToolkit().getScreenSize().getWidth()) {
             return fullWidthConfig();
