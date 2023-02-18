@@ -6,11 +6,16 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import sample.AudioPlayer;
 import sample.models.FillerButton;
 import sample.models.Utilities;
 
@@ -20,6 +25,12 @@ import javax.sound.midi.Transmitter;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.MidiMessage;
+import javax.sound.sampled.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -68,6 +79,10 @@ public final class FreePlayWindow extends Application {
      */
     private int lastKeyPressedIndex = 0;
 
+    private final Button return_home = new Button("Home");
+    // This button will allow user to view all notes on the piano-button for help!
+    private final ToggleButton show_notes = new ToggleButton("Show Notes");
+
     /**
      * Initializes the components of the UI.
      */
@@ -104,11 +119,40 @@ public final class FreePlayWindow extends Application {
         }
     }
 
+
+    /**
+     * This function assigns the text-note name on the button that is pressed.
+     * On white keys it's simple because they are big. On the black keys the text displays
+     * vertically so that the user can view the whole note name. It is called via show_notes action
+     * listener
+     */
+    private void Display_Notes_help()
+    {
+        for (Button button : whiteKeys)
+        {
+            String text = button.getTooltip().getText();
+            text = text.substring(0, text.length() -1);
+            button.setText(text);
+            button.setAlignment(Pos.BOTTOM_CENTER);
+        }
+
+        for(Button button : blackKeys)
+        {
+            String text = button.getTooltip().getText();
+            text = text.substring(0, text.length() -1);
+            button.setFont(new Font("aerials", 8));
+            button.setText(text);
+            button.setTextFill(Color.WHITE);
+            button.setAlignment(Pos.BOTTOM_LEFT);
+        }
+    }
+
+
     /**
      * Opens all the midi transmitters available in
      * the system.
      */
-    private void openAllTransmitters() {
+    /*private void openAllTransmitters() {
         MidiDevice device;
         MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
         for (MidiDevice.Info info : infos) {
@@ -128,7 +172,7 @@ public final class FreePlayWindow extends Application {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
     /**
      * Closes all the open midi transmitters available in the system.
@@ -160,26 +204,11 @@ public final class FreePlayWindow extends Application {
     @Override
     public void start(final Stage freePlay) {
         initialize();
-        openAllTransmitters();
+        //openAllTransmitters();
+
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
-        root.setPadding(new Insets(0,0,0,0));
-        freePlay.setOnCloseRequest(windowEvent -> {
-            Main mainWindow = new Main();
-            Stage mainStage = new Stage();
-            try {
-                mainWindow.start(mainStage);
-                freePlay.close();
-                mainStage.show();
-            } catch (Exception ex) {
-                System.out.println("Error opening Main Window!!!");
-                ex.printStackTrace();
-            }
-            closeAllTransmitters();
-            midiInputReceiver.close();
-            System.exit(0);
-        });
-
+        root.setPadding(new Insets(10,20,10,20));
         HBox whiteKeyPane = new HBox();
         whiteKeyPane.setPickOnBounds(false);
         HBox blackKeyPane = new HBox();
@@ -187,6 +216,24 @@ public final class FreePlayWindow extends Application {
         blackKeyPane.setPadding(new Insets(0, 0, 0, freePlayWindowConfig.getBlackKeyPaneLeftPadding()));
         blackKeyPane.setSpacing(freePlayWindowConfig.getBlackKeyPaneSpacing());
         whiteKeyPane.setSpacing(FreePlayWindowConfig.WHITE_KEY_PANE_SPACING);
+
+
+
+        // Top pane that will contain show_notes ToggleButton, home button and text of note pressed
+        BorderPane top_pane = new BorderPane();
+
+        // Hbox inside which we put show_notes and home button
+        HBox buttons = new HBox();
+        buttons.setSpacing(10);
+        buttons.getChildren().add(show_notes);
+        buttons.getChildren().add(return_home);
+        // Assign buttons Hbox on the right side of top_pane
+        top_pane.setRight(buttons);
+        top_pane.setStyle("-fx-background-color: #8499ad");
+        top_pane.setPadding(new Insets(10,20,10,20));
+        return_home.setVisible(true);
+        show_notes.setVisible(true);
+
 
         for (Button button : whiteKeys) {
             button.setTooltip(new Tooltip(button.getText()));
@@ -196,12 +243,14 @@ public final class FreePlayWindow extends Application {
             button.setOnMousePressed(event -> {
                 button.setStyle(whiteKeysPressedCss);
                 button.setTranslateY(2);
+
             });
 
             button.setOnMouseReleased(event -> {
                 button.setStyle(whiteKeysReleasedCss);
                 button.setTranslateY(0);
             });
+
             whiteKeyPane.getChildren().add(button);
         }
 
@@ -213,11 +262,12 @@ public final class FreePlayWindow extends Application {
             button.setOnMousePressed(event -> {
                 button.setStyle(blackKeysPressedCSs);
                 button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight() + 2);
+                // This line of code changes the text in top_pane to the value of the note pressed
             });
 
             button.setOnMouseReleased(event -> {
                 button.setStyle(blackKeysReleasedCss);
-                button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
+                button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());;
             });
             blackKeyPane.getChildren().add(button);
         }
@@ -245,7 +295,7 @@ public final class FreePlayWindow extends Application {
         keyPane.add(whiteKeyPane, 0, 0, 2, 1);
         keyPane.add(blackKeyPane, 0, 0, 2, 1);
         root.setCenter(keyPane);
-        keyPane.setAlignment(Pos.CENTER);
+        root.setTop(top_pane);
 
         Scene scene = new Scene(root, freePlayWindowConfig.getWindowWidth(), freePlayWindowConfig.getWindowHeight());
         freePlay.setFullScreen(false);
@@ -253,6 +303,46 @@ public final class FreePlayWindow extends Application {
         freePlay.setTitle("Free Play");
         freePlay.setScene(scene);
         freePlay.show();
+
+        // show_notes, home_button actionListener
+        show_notes.setOnAction(e ->{
+            Display_Notes_help();
+        });
+        return_home.setOnAction(e -> {
+            Main mainWindow = new Main();
+            try {
+                mainWindow.start(new Stage());
+                freePlay.close();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+
+        freePlay.setOnCloseRequest(windowEvent -> {
+            Main mainWindow = new Main();
+            try {
+                mainWindow.start(new Stage());
+                freePlay.close();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            closeAllTransmitters();
+            midiInputReceiver.close();
+        });
+
+
+        show_notes.setOnMouseClicked( e ->{
+            if(show_notes.isSelected())
+                Display_Notes_help();
+            else {
+                for (Button button : whiteKeys)
+                    button.setText("");
+
+                for (Button button : blackKeys)
+                    button.setText("");
+            }
+        });
     }
 
     /**
