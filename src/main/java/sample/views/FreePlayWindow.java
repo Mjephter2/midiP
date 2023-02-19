@@ -143,7 +143,7 @@ public final class FreePlayWindow extends Application {
             button.setFont(new Font("aerials", 8));
             button.setText(text);
             button.setTextFill(Color.WHITE);
-            button.setAlignment(Pos.BOTTOM_LEFT);
+            button.setAlignment(Pos.BOTTOM_CENTER);
         }
     }
 
