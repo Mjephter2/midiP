@@ -113,6 +113,26 @@ public class ChordTest {
     }
 
     @Test
+    public void chord11thTest() throws Exception {
+        Chord cMajor11thChord = new Chord(ChordType.MAJOR_11TH, new Note());
+        Chord cMinor11thChord = new Chord(ChordType.MINOR_11TH, new Note());
+
+        assertEquals("C1", cMajor11thChord.notes()[0].getName());
+        assertEquals("E1", cMajor11thChord.notes()[1].getName());
+        assertEquals("G1", cMajor11thChord.notes()[2].getName());
+        assertEquals("B1", cMajor11thChord.notes()[3].getName());
+        assertEquals("D2", cMajor11thChord.notes()[4].getName());
+        assertEquals("F2", cMajor11thChord.notes()[5].getName());
+
+        assertEquals("C1", cMinor11thChord.notes()[0].getName());
+        assertEquals("Eb1", cMinor11thChord.notes()[1].getName());
+        assertEquals("G1", cMinor11thChord.notes()[2].getName());
+        assertEquals("Bb1", cMinor11thChord.notes()[3].getName());
+        assertEquals("D2", cMinor11thChord.notes()[4].getName());
+        assertEquals("F2", cMinor11thChord.notes()[5].getName());
+    }
+
+    @Test
     public void dominantChordTest() throws Exception {
         Chord cDominant7thChord = new Chord(ChordType.DOMINANT_7TH, new Note());
         Chord cDominant9thChord = new Chord(ChordType.DOMINANT_9TH, new Note());
