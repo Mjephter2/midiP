@@ -14,15 +14,22 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
+import sample.models.Note;
+import sample.models.Utilities;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Sample GUI of a full Grand Staff
  */
 public class GrandStaffSample extends Application {
+    public static HashMap<String, Line> noteLines = new HashMap<>();
+    public static Circle[] noteCircles = new Circle[52];
+    public static Text[] noteTexts = new Text[52];
 
     public static void main(String[] args) {
         launch(args);
@@ -40,11 +47,13 @@ public class GrandStaffSample extends Application {
         for (int i = 0; i < 21; i++) {
             lines[i] = new Line(initialStartX, initialY + 10 * i, initialEndX, initialY + 10 * i);
             lines[i].setStrokeWidth(2);
+            lines[i].setStroke(Color.TRANSPARENT);
 
             circles[i] = new Circle(lines[i].getStartX(), lines[i].getStartY(), 5);
             circles[i].setFill(Paint.valueOf("gray"));
             circles[i].setVisible(true);
             circles[i].setTranslateX(100);
+            circles[i].setFill(Color.TRANSPARENT);
             texts[i] = new Text();
             if (i == 0 || i == 13 || i == 20) {
                 texts[i].setText("" + i);
@@ -60,10 +69,12 @@ public class GrandStaffSample extends Application {
         for (int i = 21; i < lines.length; i++) {
             lines[i] = new Line(initialStartX, fClefStartY + 10 * i, initialEndX, fClefStartY + 10 * i);
             lines[i].setStrokeWidth(1.5);
+            lines[i].setStroke(Color.TRANSPARENT);
 
             circles[i] = new Circle(lines[i].getStartX(), lines[i].getStartY(), 5);
             circles[i].setFill(Paint.valueOf("gray"));
             circles[i].setVisible(true);
+            circles[i].setFill(Color.TRANSPARENT);
             circles[i].setTranslateX(100);
             texts[i] = new Text();
             if (i == lines.length - 1 || i == 24 || i == 27) {
@@ -76,22 +87,31 @@ public class GrandStaffSample extends Application {
             texts[i].setVisible(true);
         }
 
-        for (int i : new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 19, 20, 21}) {
-            lines[i].setStroke(Color.TRANSPARENT);
-            circles[i].setFill(Color.TRANSPARENT);
-        }
-
-        for (int i : new int[]{10, 11, 12, 13, 14, 15, 16, 17, 18, 22, 23, 24, 25, 26, 27, 28, 29, 30}) {
-            if (i % 2 != 0) {
-                lines[i].setStroke(Color.TRANSPARENT);
-                circles[i].setTranslateX(50);
-//                circles[i].setFill(Color.TRANSPARENT);
-            }
+        for (int i : new int[]{11, 13, 15, 17, 19, 22, 24, 26, 28, 30}) {
+            lines[i].setStroke(Color.RED);
+            circles[i].setTranslateX(50);
+//            circles[i].setFill(Color.TRANSPARENT);
         }
 
         for (int i = 31; i <= 51; i++) {
             lines[i].setStroke(Color.TRANSPARENT);
             circles[i].setFill(Color.TRANSPARENT);
+        }
+
+        // order notes on staff from bottom to top
+        int i = 51;
+        List<String> whiteNotesNames = Utilities.WHITE_NOTE_NAMES;
+        for (int j = 0; j < 52; j++) {
+            String noteName = whiteNotesNames.get(j);
+            noteLines.put(noteName, lines[i-j]);
+            noteCircles[j] = circles[i-j];
+            noteTexts[j] = texts[i-j];
+            texts[i-j].setVisible(true);
+            texts[i-j].setText(whiteNotesNames.get(j));
+        }
+
+        for(String noteName: whiteNotesNames) {
+            System.out.println(noteName + " " + noteLines.get(noteName));
         }
 
         Line verticalLine = new Line(initialStartX, initialY, initialStartX, initialY + 10 * 22);
