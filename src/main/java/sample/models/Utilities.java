@@ -9,9 +9,12 @@ import java.io.File;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import javafx.scene.control.Button;
 
 public final class Utilities {
@@ -141,6 +144,8 @@ public final class Utilities {
      * in order.
      */
     public static final LinkedList<String> NOTE_NAMES = generateNames();
+
+    public static final List<String> WHITE_NOTE_NAMES = NOTE_NAMES.stream().filter(name -> !name.contains("b")).toList();
 
     private static LinkedList<String> generateNames() {
         int _A_to_C = 3;
