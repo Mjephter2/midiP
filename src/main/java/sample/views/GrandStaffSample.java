@@ -87,16 +87,26 @@ public class GrandStaffSample extends Application {
             texts[i].setVisible(true);
         }
 
-        for (int i : new int[]{11, 13, 15, 17, 19, 22, 24, 26, 28, 30}) {
+        for (int i : new int[]{11, 13, 15, 17, 19, 23, 25, 27, 29, 31}) {
             lines[i].setStroke(Color.RED);
             circles[i].setTranslateX(50);
 //            circles[i].setFill(Color.TRANSPARENT);
         }
 
-        for (int i = 31; i <= 51; i++) {
+        for (int i = 32; i <= 51; i++) {
             lines[i].setStroke(Color.TRANSPARENT);
             circles[i].setFill(Color.TRANSPARENT);
         }
+
+        // center middle C
+        lines[21].setStartY(lines[21].getStartY() - 10);
+        lines[21].setEndY(lines[21].getEndY() - 10);
+        lines[21].setStartX(lines[21].getStartX() + 425);
+        lines[21].setEndX(lines[21].getEndX() - 225);
+        lines[21].setVisible(true);
+        lines[21].setStroke(Color.BLACK);
+        texts[21].setY(texts[21].getY() - 10);
+
 
         // order notes on staff from bottom to top
         int i = 51;
@@ -114,10 +124,10 @@ public class GrandStaffSample extends Application {
             System.out.println(noteName + " " + noteLines.get(noteName));
         }
 
-        Line verticalLine = new Line(initialStartX, initialY, initialStartX, initialY + 10 * 22);
+        Line verticalLine = new Line(initialStartX, initialY + 10, initialStartX, initialY + 10 * 23);
         verticalLine.setStrokeWidth(2);
         verticalLine.setTranslateX((initialStartX - initialEndX) / 2.0);
-        verticalLine.setTranslateY(-55);
+        verticalLine.setTranslateY(-45);
 
 
         InputStream stream = null;
@@ -132,9 +142,9 @@ public class GrandStaffSample extends Application {
         trebleClef.setX(10);
         trebleClef.setY(10);
         trebleClef.setFitWidth(75);
-        trebleClef.setFitHeight(160);
+        trebleClef.setFitHeight(135);
         trebleClef.setTranslateX(-305);
-        trebleClef.setTranslateY(-127);
+        trebleClef.setTranslateY(-110);
 
         stream = null;
         try {
@@ -150,7 +160,7 @@ public class GrandStaffSample extends Application {
         bassClef.setFitWidth(75);
         bassClef.setFitHeight(70);
         bassClef.setTranslateX(-305);
-        bassClef.setTranslateY(6.5);
+        bassClef.setTranslateY(18);
 
         stream = null;
         try {
@@ -166,7 +176,7 @@ public class GrandStaffSample extends Application {
         leftBrace.setFitWidth(30);
         leftBrace.setFitHeight(225);
         leftBrace.setTranslateX(-367);
-        leftBrace.setTranslateY(-56);
+        leftBrace.setTranslateY(-46);
 
         //Create a Group object for lines
         Group lineGroup = new Group(lines);
