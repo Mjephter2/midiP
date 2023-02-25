@@ -103,7 +103,7 @@ public class GrandStaffSample extends Application {
         lines[21].setEndY(lines[21].getEndY() - 10);
         lines[21].setStartX(lines[21].getStartX() + 425);
         lines[21].setEndX(lines[21].getEndX() - 225);
-        lines[21].setVisible(true);
+        lines[21].setVisible(false);
         lines[21].setStroke(Color.BLACK);
         texts[21].setY(texts[21].getY() - 10);
 
@@ -116,7 +116,7 @@ public class GrandStaffSample extends Application {
             noteLines.put(noteName, lines[i-j]);
             noteCircles[j] = circles[i-j];
             noteTexts[j] = texts[i-j];
-            texts[i-j].setVisible(true);
+            texts[i-j].setVisible(false);
             texts[i-j].setText(whiteNotesNames.get(j));
         }
 
