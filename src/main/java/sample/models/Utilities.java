@@ -7,31 +7,31 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.File;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javafx.scene.control.Button;
 
 public final class Utilities {
-    private static final String soundZipFilePath = new File("").getAbsolutePath() + "/src/main/java/sample/resources/sounds/piano.zip";
-    private static final String s3SoundFileUrl = "https://midip-sounds.s3.amazonaws.com/piano/piano.zip";
+    private static final String SOUNDS_FOLDER_PATH = new File("").getAbsolutePath() + "/src/downloads/sounds";
+    private static final String S3_PIANO_SOUNDS_URL = "https://midip-sounds.s3.amazonaws.com/piano/piano.zip";
 
     // author https://www.digitalocean.com/community/tutorials/java-download-file-url
-    public static boolean downloadUsingStream() {
-        if (new File(soundZipFilePath).exists()) {
+    public static boolean downloadPianoSampleSounds() {
+
+        if (new File(SOUNDS_FOLDER_PATH + "/piano.zip").exists()) {
             System.out.println("Sound File Zip has already been downloaded!");
             return true;
         }
+
         try {
-            System.out.println("Starting Sound File Zip download!");
-            URL url = new URL(s3SoundFileUrl);
+            new File(SOUNDS_FOLDER_PATH).mkdirs();
+            URL url = new URL(S3_PIANO_SOUNDS_URL);
+            System.out.println("Downloading Piano Sample Zip File from S3!");
             BufferedInputStream bis = new BufferedInputStream(url.openStream());
-            FileOutputStream fis = new FileOutputStream(soundZipFilePath);
+            FileOutputStream fis = new FileOutputStream(SOUNDS_FOLDER_PATH + "/piano.zip");
             byte[] buffer = new byte[1024];
             int count = 0;
             while ((count = bis.read(buffer, 0, 1024)) != -1) {
@@ -39,15 +39,32 @@ public final class Utilities {
             }
             fis.close();
             bis.close();
-            System.out.println("Successfully downloaded Sound File Zip : " + s3SoundFileUrl);
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
+
+        System.out.println("Successfully downloaded Sample Zip file.");
+        return decompress(SOUNDS_FOLDER_PATH + "/piano.zip", SOUNDS_FOLDER_PATH);
     }
 
-    private Utilities() {
+    public static void main(String[] args) {
+        downloadPianoSampleSounds();
+    }
+
+    public static boolean decompress(String compressedFilePath, String decompressedFilePath) {
+        try {
+            new File(decompressedFilePath).mkdirs();
+            ProcessBuilder pb = new ProcessBuilder("unzip", compressedFilePath, "-d", decompressedFilePath);
+            System.out.println("Starting Decompression!");
+            Process p = pb.start();
+            p.waitFor();
+            System.out.println("Decompression Complete!");
+            return true;
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
