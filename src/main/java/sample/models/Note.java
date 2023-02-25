@@ -87,7 +87,7 @@ public final class Note {
     public void play() {
         System.out.println("Playing " + this.name);
         String path = getSoundFilePath(this.name);
-        new Thread(() -> new AudioPlayer().play(path)).start();
+        new Thread(() -> new AudioPlayer().play(this)).start();
     }
 
     /**
