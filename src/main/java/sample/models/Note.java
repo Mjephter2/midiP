@@ -1,6 +1,5 @@
 package sample.models;
 
-import sample.AudioPlayer;
 import sample.models.exceptions.InvalidNoteException;
 
 /**
@@ -79,25 +78,6 @@ public final class Note {
             throw new InvalidNoteException("Invalid Note created: " + name);
         }
         return new Note(Utilities.NOTE_NAMES.get(index - n));
-    }
-
-    /**
-     * TODO.
-     */
-    public void play() {
-        System.out.println("Playing " + this.name);
-        String path = getSoundFilePath(this.name);
-        new Thread(() -> new AudioPlayer().play(this)).start();
-    }
-
-    /**
-      * retrieve the filePath of the Note's corresponding sound.
-     * @param noteName the full name of the note
-     * @return the sound file name corresponding to the note name
-      */
-    private String getSoundFilePath(final String noteName) {
-        // TODO
-        return "PATH TO SOUND FILE OF: " + noteName;
     }
 
     /**

@@ -50,7 +50,7 @@ public class AudioPlayer {
 
             audioLine.start();
 
-            System.out.println("Playback started.");
+            System.out.println(String.format("Playing %s.", note));
 
             byte[] bytesBuffer = new byte[BUFFER_SIZE];
             int bytesRead;
