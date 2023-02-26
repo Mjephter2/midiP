@@ -1,5 +1,8 @@
 package sample.models;
 
+import javafx.concurrent.Task;
+import org.w3c.dom.ls.LSOutput;
+import sample.AudioPlayer;
 import sample.models.exceptions.InvalidNoteException;
 
 import java.io.BufferedInputStream;
@@ -11,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
 
 import javafx.scene.control.Button;
 
@@ -48,10 +52,6 @@ public final class Utilities {
         return decompress(SOUNDS_FOLDER_PATH + "/piano.zip", SOUNDS_FOLDER_PATH);
     }
 
-    public static void main(String[] args) {
-        downloadPianoSampleSounds();
-    }
-
     public static boolean decompress(String compressedFilePath, String decompressedFilePath) {
         try {
             new File(decompressedFilePath).mkdirs();
@@ -65,6 +65,14 @@ public final class Utilities {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static AudioPlayer[] createAudioPlayers(final Note[] notes) {
+        AudioPlayer[] audioPlayers = new AudioPlayer[notes.length];
+        for (int i = 0; i < notes.length; i++) {
+            audioPlayers[i] = new AudioPlayer(notes[i]);
+        }
+        return audioPlayers;
     }
 
     /**

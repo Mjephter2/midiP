@@ -20,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import sample.AudioPlayer;
 import sample.models.Utilities;
 import sample.models.FillerButton;
 import sample.models.Note;
@@ -65,6 +66,7 @@ public class LearnWindow extends Application {
     private final Button resetButton = new Button("RESET");
 
     private final Button homeButton = new Button("Home");
+    private AudioPlayer[] audioPlayers;
 
     private void drawSelectionButtons() {
         //bottom.setGridLinesVisible(true);
@@ -180,27 +182,54 @@ public class LearnWindow extends Application {
             black_keyPane.getChildren().add(button);
             keyBoard.add(button);
         }
-        for(Button button: whiteKeys){
-            button.setOnMousePressed(event -> {
-                button.setStyle(whiteKeysPressedCss);
-                button.setPrefSize(40,150);
-            });
 
-            button.setOnMouseReleased(event -> {
-                button.setStyle(whiteKeysReleasedCss);
-                button.setPrefSize(40,140);
-            });
-        }
-        for(Button button: blackKeys){
-            button.setOnMousePressed(event -> {
-                button.setStyle(blackKeysPressedCSs);
-                button.setPrefSize(30,82);
-            });
+        audioPlayers = Utilities.createAudioPlayers(keyBoard.stream().map(button -> {
+            try {
+                return new Note(button.getTooltip().getText());
+            } catch (InvalidNoteException e) {
+                throw new RuntimeException(e);
+            }
+        }).toArray(Note[]::new));
 
-            button.setOnMouseReleased(event -> {
-                button.setStyle(blackKeysReleasedCss);
-                button.setPrefSize(30,80);
-            });
+        for(int i = 0; i < keyBoard.size(); i++) {
+            Button currentButton = keyBoard.get(i);
+            int finalI = i;
+
+            if(whiteKeys.contains(currentButton)) {
+                currentButton.setOnMousePressed(event -> {
+                    audioPlayers[finalI].start();
+                    currentButton.setStyle(whiteKeysPressedCss);
+                    currentButton.setPrefSize(40, 150);
+                });
+
+                currentButton.setOnMouseReleased(event -> {
+                    audioPlayers[finalI].stopPlaying();
+                    currentButton.setStyle(whiteKeysReleasedCss);
+                    currentButton.setPrefSize(40, 140);
+                    try {
+                        audioPlayers[finalI] = new AudioPlayer(new Note(currentButton.getTooltip().getText()));
+                    } catch (InvalidNoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            } else {
+                currentButton.setOnMousePressed(event -> {
+                    currentButton.setStyle(blackKeysPressedCSs);
+                    currentButton.setPrefSize(30,82);
+                    audioPlayers[finalI].start();
+                });
+
+                currentButton.setOnMouseReleased(event -> {
+                    currentButton.setStyle(blackKeysReleasedCss);
+                    currentButton.setPrefSize(30,80);
+                    audioPlayers[finalI].stopPlaying();
+                    try {
+                        audioPlayers[finalI] = new AudioPlayer(new Note(currentButton.getTooltip().getText()));
+                    } catch (InvalidNoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
         }
 
         keyBoard.sort(Utilities.KEY_NOTE_COMPARATOR);
