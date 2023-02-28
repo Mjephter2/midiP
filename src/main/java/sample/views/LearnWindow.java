@@ -33,12 +33,15 @@ import sample.models.scales.ScaleType;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import java.util.logging.Logger;
+
 import static sample.views.Styles.whiteKeysReleasedCss;
 import static sample.views.Styles.whiteKeysPressedCss;
 import static sample.views.Styles.blackKeysReleasedCss;
 import static sample.views.Styles.blackKeysPressedCSs;
 
 public class LearnWindow extends Application {
+    private static final Logger logger = Logger.getLogger(LearnWindow.class.getName());
     private static final int NUMBER_OF_KEYS = 27;
     private final LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
     private final LinkedList<Button> whiteKeys = new LinkedList<>();
@@ -280,7 +283,7 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
+            logger.info(chordNotesNames.toString());
             for(Button button: keyBoard){
                 button.setText("");
                 button.setAlignment(Pos.BOTTOM_CENTER);
@@ -320,8 +323,7 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
-
+            logger.info(chordNotesNames.toString());
             for(Button button: keyBoard){
                 button.setText("");
                 button.setAlignment(Pos.BOTTOM_CENTER);
@@ -360,7 +362,7 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
+            logger.info(chordNotesNames.toString());
             for(Button button: keyBoard){
                 button.setText("");
                 button.setAlignment(Pos.BOTTOM_CENTER);
@@ -399,7 +401,7 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
+            logger.info(chordNotesNames.toString());
             for(Button button: keyBoard){
                 button.setText("");
                 button.setAlignment(Pos.BOTTOM_CENTER);
@@ -438,8 +440,7 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
-
+            logger.info(chordNotesNames.toString());
             for(Button button: keyBoard){
                 button.setText("");
                 button.setAlignment(Pos.BOTTOM_CENTER);
@@ -478,8 +479,7 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
-
+            logger.info(chordNotesNames.toString());
             for(Button button: keyBoard){
                 button.setText("");
                 button.setAlignment(Pos.BOTTOM_CENTER);
@@ -518,8 +518,7 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
-
+            logger.info(chordNotesNames.toString());
             for(Button button: keyBoard){
                 button.setText("");
                 button.setAlignment(Pos.BOTTOM_CENTER);
@@ -560,8 +559,7 @@ public class LearnWindow extends Application {
             for (Note chordNote : chordNotes) {
                 chordNotesNames.add(chordNote.getName());
             }
-            System.out.println(chordNotesNames);
-
+            logger.info(chordNotesNames.toString());
             for(Button button: keyBoard){
                 button.setText("");
                 button.setAlignment(Pos.BOTTOM_CENTER);
@@ -601,9 +599,7 @@ public class LearnWindow extends Application {
             for (Note note: scaleNotes) {
                 noteNames.add(note.getName());
             }
-
-            System.out.println(noteNames);
-
+            logger.info(noteNames.toString());
             for(Button button: keyBoard){
                 button.setText("");
                 button.setAlignment(Pos.BOTTOM_CENTER);
@@ -643,9 +639,7 @@ public class LearnWindow extends Application {
             for (Note note: scaleNotes) {
                 noteNames.add(note.getName());
             }
-
-            System.out.println(noteNames);
-
+            logger.info(noteNames.toString());
             for(Button button: keyBoard){
                 button.setText("");
                 button.setAlignment(Pos.BOTTOM_CENTER);
@@ -689,7 +683,7 @@ public class LearnWindow extends Application {
                 learn.close();
                 mainStage.show();
             } catch (Exception ex) {
-                System.out.println("Error opening Main Window!!!");
+                logger.info("Error opening Main Window!!!");
                 ex.printStackTrace();
             }
         });
