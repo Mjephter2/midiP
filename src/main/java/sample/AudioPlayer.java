@@ -13,12 +13,15 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 
+import java.util.logging.Logger;
+
 /**
  * Class to play back an audio file
  * using the SourceDataLine in Java Sound API.
  * @author www.codejava.net
  */
 public class AudioPlayer extends Thread implements Runnable {
+    private static final Logger LOGGER = Logger.getLogger(AudioPlayer.class.getName());
 
     private boolean isPlaying = false;
 
@@ -58,7 +61,7 @@ public class AudioPlayer extends Thread implements Runnable {
 
             audioLine.start();
 
-            System.out.println(String.format("Playing %s.", note));
+            LOGGER.info(String.format("Playing %s.", note));
 
             byte[] bytesBuffer = new byte[BUFFER_SIZE];
             int bytesRead;
@@ -75,13 +78,13 @@ public class AudioPlayer extends Thread implements Runnable {
             audioStream.close();
 
         } catch (UnsupportedAudioFileException ex) {
-            System.out.println("The specified audio file is not supported.");
+            LOGGER.info(String.format("The specified audio file is not supported. %s", ex.getMessage()));
             ex.printStackTrace();
         } catch (LineUnavailableException ex) {
-            System.out.println("Audio line for playing back is unavailable.");
+            LOGGER.info(String.format("Audio line for playing back is unavailable. %s", ex.getMessage()));
             ex.printStackTrace();
         } catch (InterruptedIOException ex) {
-            System.out.println("Playback Interrupted.");
+            LOGGER.info(String.format("Playback Interrupted. %s", ex.getMessage()));
             ex.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
