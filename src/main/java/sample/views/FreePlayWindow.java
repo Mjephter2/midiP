@@ -25,6 +25,7 @@ import javax.sound.midi.Receiver;
 import javax.sound.midi.MidiMessage;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 import static sample.views.Styles.whiteKeysReleasedCss;
 import static sample.views.Styles.whiteKeysPressedCss;
@@ -36,6 +37,7 @@ import static sample.views.Styles.blackKeysPressedCSs;
  * allowing for free play without audio feedback.
  */
 public final class FreePlayWindow extends Application {
+    public static final Logger LOGGER = Logger.getLogger(FreePlayWindow.class.getName());
     /**
      * Window configuration.
      */
@@ -152,7 +154,7 @@ public final class FreePlayWindow extends Application {
             try {
                 device = MidiSystem.getMidiDevice(info);
                 int numTrans = device.getTransmitters().size();
-                System.out.println(info + " has " + numTrans + " transmitters");
+                LOGGER.info(info + " has " + numTrans + " transmitters");
                 List<Transmitter> transmitters = device.getTransmitters();
                 for (Transmitter transmitter : transmitters) {
                     transmitter.setReceiver(midiInputReceiver);
@@ -160,7 +162,7 @@ public final class FreePlayWindow extends Application {
                 Transmitter trans = device.getTransmitter();
                 trans.setReceiver(midiInputReceiver);
                 device.open();
-                System.out.println(device.getDeviceInfo() + " Was Opened");
+                LOGGER.info(device.getDeviceInfo() + " Was Opened");
             } catch (MidiUnavailableException e) {
                 e.printStackTrace();
             }
@@ -178,7 +180,7 @@ public final class FreePlayWindow extends Application {
                 device = MidiSystem.getMidiDevice(info);
                 if (device.isOpen()) {
                     device.close();
-                    System.out.println(device.getDeviceInfo() + " Was closed");
+                    LOGGER.info(device.getDeviceInfo() + " Was closed");
                 }
             } catch (MidiUnavailableException e) {
                 e.printStackTrace();
@@ -384,9 +386,7 @@ public final class FreePlayWindow extends Application {
                 lastKeyPressedIndex = aMsg[2];
                 return;
             }
-            System.out.println(
-                    "Message: " + aMsg[0] + ", " + aMsg[1] + ", " + aMsg[2]
-            );
+            LOGGER.info("Message: " + aMsg[0] + ", " + aMsg[1] + ", " + aMsg[2]);
             if (aMsg[1] - 21 < 0) {
                 return;
             }
