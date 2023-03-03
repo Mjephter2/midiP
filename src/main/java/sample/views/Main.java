@@ -23,11 +23,13 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 /**
  * GUI for application main window.
  */
 public final class Main extends Application {
+    public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     /**
      * Top Level pane.
      */
@@ -155,7 +157,7 @@ public final class Main extends Application {
                 primaryStage.close();
                 chordStage.show();
             } catch (Exception ex) {
-                System.out.println("Error opening Learn Window!!!");
+                LOGGER.info("Error opening Learn Window!!!");
                 ex.printStackTrace();
             }
         });
@@ -187,7 +189,7 @@ public final class Main extends Application {
                 primaryStage.close();
                 chordStage.show();
             } catch (Exception ex) {
-                System.out.println("Error opening FreePlay Window!!!");
+                LOGGER.info("Error opening FreePlay Window!!!");
                 ex.printStackTrace();
             }
         });
