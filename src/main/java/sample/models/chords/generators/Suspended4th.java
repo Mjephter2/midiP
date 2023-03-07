@@ -6,7 +6,7 @@ import sample.models.exceptions.InvalidNoteException;
 /**
  * Utility Class for generating Suspended 4th Chords.
  */
-public class Suspende4th {
+public class Suspended4th {
     /**
      * largest interval in a Minor Triad Chord.
      */
@@ -17,7 +17,7 @@ public class Suspende4th {
      */
     private static final int ROOT_TO_THIRD = 5;
 
-    private Suspende4th() { }
+    private Suspended4th() { }
 
     /**
      * Generate the Notes of the Suspended 4th Chord rooted

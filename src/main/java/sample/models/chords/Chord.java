@@ -5,7 +5,7 @@ import sample.models.Note;
 import sample.models.Transposable;
 import sample.models.chords.generators.Major6th;
 import sample.models.chords.generators.Minor6th;
-import sample.models.chords.generators.Suspende4th;
+import sample.models.chords.generators.Suspended4th;
 import sample.models.chords.generators.Suspended2nd;
 import sample.models.chords.generators.dominants.Dominant7th;
 import sample.models.chords.generators.dominants.Dominant9th;
@@ -88,7 +88,7 @@ public class Chord extends Transposable implements Invertable {
         } else if (this.type == ChordType.SUSPENDED_2ND) {
             return Suspended2nd.generateScale(root);
         } else if (this.type == ChordType.SUSPENDED_4TH) {
-            return Suspende4th.generateScale(root);
+            return Suspended4th.generateScale(root);
         } else if (this.type == ChordType.MAJOR_11TH) {
             return Major11th.generateScale(root);
         } else if (this.type == ChordType.MINOR_11TH) {
