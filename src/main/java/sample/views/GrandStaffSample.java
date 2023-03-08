@@ -14,7 +14,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
-import sample.models.Note;
 import sample.models.Utilities;
 
 import java.io.FileInputStream;

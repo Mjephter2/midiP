@@ -1,7 +1,5 @@
 package sample.models;
 
-import javafx.concurrent.Task;
-import org.w3c.dom.ls.LSOutput;
 import sample.AudioPlayer;
 import sample.models.exceptions.InvalidNoteException;
 
@@ -14,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Timer;
 
 import javafx.scene.control.Button;
 
