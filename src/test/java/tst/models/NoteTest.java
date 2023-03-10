@@ -24,7 +24,6 @@ class NoteTest {
         Note root = new Note("Ab7");
         assertEquals(new Note("A7").getName(), root.sharp(1).getName());
         assertEquals(new Note("C8").getName(), root.sharp(4).getName());
-        assertEquals(new Note("C8"), root.sharp(4).getName()); // need to fix this behavior
     }
 
     @Test

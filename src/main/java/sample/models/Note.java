@@ -48,13 +48,6 @@ public final class Note {
     }
 
     /**
-     * @return a string representation of the Note
-     */
-    public String toString() {
-        return name;
-    }
-
-    /**
      * sharpens a Note @param n times.
      * @param n number of times to sharpen the Note
      * @return a new Note n half notes above the current one
