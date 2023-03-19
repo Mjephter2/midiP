@@ -67,6 +67,9 @@ public class Scale extends Transposable implements Invertable {
             case MINOR_PENTATONIC -> {
                 return MinorPentatonicScale.generateScale(root);
             }
+            case WHOLE_TONE -> {
+                return WholeToneScale.generateScale(root);
+            }
             default -> throw new Exception("Chord type is unrecognized or not yet implemented!");
         }
     }
