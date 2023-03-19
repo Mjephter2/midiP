@@ -1,7 +1,8 @@
 package sample.models.scales;
 
 import sample.models.Note;
-import sample.models.Utilities;
+
+import static sample.models.Utilities.MAJOR_SCALE_DEGREE_INTERVALS;
 
 /**
  * Utility Class for generating Major Scales.
@@ -17,9 +18,9 @@ public final class MajorScale {
      * or not yet implemented.
      */
     public static Note[] generateScale(final Note root) throws Exception {
-        Note[] notes = new Note[Utilities.MAJOR_SCALE_DEGREE_INTERVALS.size()];
+        Note[] notes = new Note[MAJOR_SCALE_DEGREE_INTERVALS.size()];
         int position = 0;
-        for (Integer interval: Utilities.MAJOR_SCALE_DEGREE_INTERVALS) {
+        for (Integer interval: MAJOR_SCALE_DEGREE_INTERVALS) {
             notes[position++] = root.sharp(interval);
         }
         return notes;

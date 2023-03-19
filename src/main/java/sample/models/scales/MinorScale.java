@@ -1,8 +1,8 @@
 package sample.models.scales;
 
 import sample.models.Note;
-import sample.models.Utilities;
-import sample.models.exceptions.InvalidNoteException;
+
+import static sample.models.Utilities.MINOR_SCALE_DEGREE_INTERVALS;
 
 /**
  * Utility class for generating Minor Scales.
@@ -18,9 +18,9 @@ public final class MinorScale {
      * or not yet implemented.
      */
     public static Note[] generateScale(final Note root) throws Exception {
-        Note[] notes = new Note[Utilities.MINOR_SCALE_DEGREE_INTERVALS.size()];
+        Note[] notes = new Note[MINOR_SCALE_DEGREE_INTERVALS.size()];
         int position = 0;
-        for (Integer interval: Utilities.MINOR_SCALE_DEGREE_INTERVALS) {
+        for (Integer interval: MINOR_SCALE_DEGREE_INTERVALS) {
             notes[position++] = root.sharp(interval);
         }
         return notes;
