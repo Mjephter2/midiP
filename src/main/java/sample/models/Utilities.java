@@ -168,6 +168,12 @@ public final class Utilities {
             new ArrayList<>(List.of(0, 2, 4, 6, 8, 10, 12));
 
     /**
+     * List containing the notes intervals relative to the root for the Chinese scale.
+     */
+    public static final ArrayList<Integer> CHINESE_SCALE_DEGREE_INTERVALS =
+            new ArrayList<>(List.of(0, 4, 6, 7, 11, 12));
+
+    /**
      * list containing all possible Note names
      * in order.
      */

@@ -23,5 +23,9 @@ public enum ScaleType {
     /**
      * Scale type for Whole Tone Scales.
      */
-    WHOLE_TONE
+    WHOLE_TONE,
+    /**
+     * Scale type for Chinese Scales.
+     */
+    CHINESE_SCALE
 }

@@ -164,4 +164,15 @@ class ScaleTest {
         assertEquals("Bb3", cWholeToneScale.notes()[5].getName());
         assertEquals("C4", cWholeToneScale.notes()[6].getName());
     }
+
+    @Test
+    public void chineseScaleTest() throws Exception {
+        Scale chineseScale = new Scale(ScaleType.CHINESE_SCALE, new Note("C3"));
+        assertEquals("C3", chineseScale.notes()[0].getName());
+        assertEquals("E3", chineseScale.notes()[1].getName());
+        assertEquals("Gb3", chineseScale.notes()[2].getName());
+        assertEquals("G3", chineseScale.notes()[3].getName());
+        assertEquals("B3", chineseScale.notes()[4].getName());
+        assertEquals("C4", chineseScale.notes()[5].getName());
+    }
 }
