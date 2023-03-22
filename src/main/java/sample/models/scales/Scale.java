@@ -73,6 +73,9 @@ public class Scale extends Transposable implements Invertable {
             case CHINESE_SCALE -> {
                 return ChineseScale.generateScale(root);
             }
+            case CHROMATIC_SCALE -> {
+                return ChromaticScale.generateScale(root);
+            }
             default -> throw new Exception("Chord type is unrecognized or not yet implemented!");
         }
     }

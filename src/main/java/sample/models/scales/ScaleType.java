@@ -27,5 +27,9 @@ public enum ScaleType {
     /**
      * Scale type for Chinese Scales.
      */
-    CHINESE_SCALE
+    CHINESE_SCALE,
+    /**
+     * Scale type for Chromatic Scales.
+     */
+    CHROMATIC_SCALE
 }

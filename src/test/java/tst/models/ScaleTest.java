@@ -175,4 +175,21 @@ class ScaleTest {
         assertEquals("B3", chineseScale.notes()[4].getName());
         assertEquals("C4", chineseScale.notes()[5].getName());
     }
+
+    @Test
+    public void chromaticScaleTest() throws Exception {
+        Scale chromaticScale = new Scale(ScaleType.CHROMATIC_SCALE, new Note("C3"));
+        assertEquals("C3", chromaticScale.notes()[0].getName());
+        assertEquals("Db3", chromaticScale.notes()[1].getName());
+        assertEquals("D3", chromaticScale.notes()[2].getName());
+        assertEquals("Eb3", chromaticScale.notes()[3].getName());
+        assertEquals("E3", chromaticScale.notes()[4].getName());
+        assertEquals("F3", chromaticScale.notes()[5].getName());
+        assertEquals("Gb3", chromaticScale.notes()[6].getName());
+        assertEquals("G3", chromaticScale.notes()[7].getName());
+        assertEquals("Ab3", chromaticScale.notes()[8].getName());
+        assertEquals("A3", chromaticScale.notes()[9].getName());
+        assertEquals("Bb3", chromaticScale.notes()[10].getName());
+        assertEquals("B3", chromaticScale.notes()[11].getName());
+    }
 }
