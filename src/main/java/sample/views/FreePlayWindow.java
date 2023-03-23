@@ -91,7 +91,7 @@ public final class FreePlayWindow extends Application {
             blackIndex.add(6);
             blackIndex.add(9);
             blackIndex.add(11);
-            Button button = new Button(Utilities.NOTE_NAMES.get(i));
+            Button button = new Button(Utilities.NOTE_NAMES_FLAT.get(i));
             if (blackIndex.contains(i % 12)) {
                 blackKeys.add(button);
             } else {

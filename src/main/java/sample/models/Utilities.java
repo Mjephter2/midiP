@@ -98,8 +98,8 @@ public final class Utilities {
             if (note1Num != note2Num) {
                 return note1Num - note2Num;
             }
-            return NOTE_QUALITIES.indexOf(note1.noteQuality())
-                    - NOTE_QUALITIES.indexOf(note2.noteQuality());
+            return NOTE_QUALITIES_FLAT.indexOf(note1.noteQuality())
+                    - NOTE_QUALITIES_FLAT.indexOf(note2.noteQuality());
         }
     };
 
@@ -120,9 +120,9 @@ public final class Utilities {
     };
 
     /**
-     * list containing all possible Note qualities.
+     * list containing all possible Note qualities in flat mode.
      */
-    public static final ArrayList<String> NOTE_QUALITIES = new ArrayList<>(
+    public static final ArrayList<String> NOTE_QUALITIES_FLAT = new ArrayList<>(
             List.of(
                     "A",
                     "Bb",
@@ -136,6 +136,24 @@ public final class Utilities {
                     "Gb",
                     "G",
                     "Ab"));
+
+    /**
+     * list containing all possible Note qualities in sharp mode.
+     */
+    public static final ArrayList<String> NOTE_QUALITIES_SHARP = new ArrayList<>(
+            List.of(
+                    "A",
+                    "A#",
+                    "B",
+                    "C",
+                    "C#",
+                    "D",
+                    "D#",
+                    "E",
+                    "F",
+                    "F#",
+                    "G",
+                    "G#"));
 
     /**
      * List containing the notes interval relative to the root for Major scales.
@@ -174,14 +192,20 @@ public final class Utilities {
             new ArrayList<>(List.of(0, 4, 6, 7, 11, 12));
 
     /**
-     * list containing all possible Note names
+     * list containing all possible Note names in flat mode
      * in order.
      */
-    public static final LinkedList<String> NOTE_NAMES = generateNames();
+    public static final LinkedList<String> NOTE_NAMES_FLAT = generateNamesFlat();
 
-    public static final List<String> WHITE_NOTE_NAMES = NOTE_NAMES.stream().filter(name -> !name.contains("b")).toList();
+    /**
+     * list containing all possible Note names in sharp mode
+     * in order.
+     */
+    public static final LinkedList<String> NOTE_NAMES_SHARP = generateNamesSharp();
 
-    private static LinkedList<String> generateNames() {
+    public static final List<String> WHITE_NOTE_NAMES = NOTE_NAMES_FLAT.stream().filter(name -> !name.contains("b")).toList();
+
+    private static LinkedList<String> generateNamesFlat() {
         int _A_to_C = 3;
         LinkedList<String> list = new LinkedList<>();
         list.add("A0");
@@ -189,7 +213,23 @@ public final class Utilities {
         list.add("B0");
         for (int i = 1; i < NUMBER_OF_UNALTERED_NOTES; i++) {
             for (int j = 0; j < NUM_NOTE_QUALITIES; j++) {
-                String str = NOTE_QUALITIES.get((j + _A_to_C) % 12) + i;
+                String str = NOTE_QUALITIES_FLAT.get((j + _A_to_C) % 12) + i;
+                list.add(str);
+            }
+        }
+        list.add("C8");
+        return list;
+    }
+
+    private static LinkedList<String> generateNamesSharp() {
+        int _A_to_C = 3;
+        LinkedList<String> list = new LinkedList<>();
+        list.add("A0");
+        list.add("A#0");
+        list.add("B0");
+        for (int i = 1; i < NUMBER_OF_UNALTERED_NOTES; i++) {
+            for (int j = 0; j < NUM_NOTE_QUALITIES; j++) {
+                String str = NOTE_QUALITIES_SHARP.get((j + _A_to_C) % 12) + i;
                 list.add(str);
             }
         }

@@ -58,7 +58,7 @@ public class LearnWindow extends Application {
     private final ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
     private final RadioButton selectChord = new RadioButton("CHORD");
     private final RadioButton selectScale = new RadioButton("SCALE");
-    private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(Utilities.NOTE_QUALITIES));
+    private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(Utilities.NOTE_QUALITIES_FLAT));
     private final GridPane bottom = new GridPane();
     private final ToggleGroup selectChordOrScale = new ToggleGroup();
     private final ToggleGroup scaleType = new ToggleGroup();
@@ -149,7 +149,7 @@ public class LearnWindow extends Application {
     }
 
     private void drawKeyboard() {
-        int start = Utilities.NOTE_NAMES.indexOf("C3");
+        int start = Utilities.NOTE_NAMES_FLAT.indexOf("C3");
         ArrayList<Integer> blackIndex = new ArrayList<>();
         blackIndex.add(1);
         blackIndex.add(4);
@@ -158,9 +158,9 @@ public class LearnWindow extends Application {
         blackIndex.add(11);
         for(int i = start; i < start + NUMBER_OF_KEYS; i++){
             if(blackIndex.contains(i % 12)){
-                blackKeys.add(new Button(Utilities.NOTE_NAMES.get(i)));
+                blackKeys.add(new Button(Utilities.NOTE_NAMES_FLAT.get(i)));
             }else{
-                whiteKeys.add(new Button(Utilities.NOTE_NAMES.get(i)));
+                whiteKeys.add(new Button(Utilities.NOTE_NAMES_FLAT.get(i)));
             }
         }
         white_keyPane.setPickOnBounds(false);

@@ -37,7 +37,7 @@ public final class Note {
      * @return true if the Note is valid, false otherwise
      */
     private boolean isValidNote(final String noteName) {
-        return Utilities.NOTE_NAMES.contains(noteName);
+        return Utilities.NOTE_NAMES_FLAT.contains(noteName);
     }
 
     /**
@@ -53,11 +53,11 @@ public final class Note {
      * @return a new Note n half notes above the current one
      */
     public Note sharp(final int n) throws InvalidNoteException {
-        int index = Utilities.NOTE_NAMES.indexOf(this.name);
+        int index = Utilities.NOTE_NAMES_FLAT.indexOf(this.name);
         if (index + n > Utilities.NUMBER_OF_KEYS_88 - 1) {
             throw new InvalidNoteException("Invalid Note created: " + name);
         }
-        return new Note(Utilities.NOTE_NAMES.get(index + n));
+        return new Note(Utilities.NOTE_NAMES_FLAT.get(index + n));
     }
 
     /**
@@ -66,11 +66,11 @@ public final class Note {
      * @return a new Note @param n notes below the current one
      */
     public Note flat(final int n) throws InvalidNoteException {
-        int index = Utilities.NOTE_NAMES.indexOf(name);
+        int index = Utilities.NOTE_NAMES_FLAT.indexOf(name);
         if (index - n < 0) {
             throw new InvalidNoteException("Invalid Note created: " + name);
         }
-        return new Note(Utilities.NOTE_NAMES.get(index - n));
+        return new Note(Utilities.NOTE_NAMES_FLAT.get(index - n));
     }
 
     /**
