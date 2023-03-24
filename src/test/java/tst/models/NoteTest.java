@@ -1,12 +1,17 @@
 package tst.models;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import sample.models.Note;
+import sample.models.NotesNamingMode;
 import sample.models.exceptions.InvalidNoteException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class NoteTest {
+
+    @Mock
+    private Note note;
 
     @Test
     public void invalidNoteTest() {
@@ -37,5 +42,16 @@ class NoteTest {
     void noteQualityTest() throws InvalidNoteException {
         Note note = new Note("Gb1");
         assertEquals("Gb", note.noteQuality());
+    }
+
+    @Test
+    public void noteNamingModeTest() throws InvalidNoteException {
+        Note note = new Note("Ab1");
+        assertEquals("Ab1", note.getName());
+        assertEquals(NotesNamingMode.FLAT_MODE, note.notesNamingMode);
+
+        note.notesNamingMode = NotesNamingMode.SHARP_MODE;
+        Note note2 = new Note("Ab1");
+        assertEquals("G#1", note2.getName());
     }
 }

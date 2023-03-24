@@ -213,7 +213,7 @@ public final class Utilities {
         list.add("B0");
         for (int i = 1; i < NUMBER_OF_UNALTERED_NOTES; i++) {
             for (int j = 0; j < NUM_NOTE_QUALITIES; j++) {
-                String str = NOTE_QUALITIES_FLAT.get((j + _A_to_C) % 12) + i;
+                String str = NoteNames.FLAT_MODE_NAMES[(j + _A_to_C) % 12] + i;
                 list.add(str);
             }
         }
@@ -229,7 +229,7 @@ public final class Utilities {
         list.add("B0");
         for (int i = 1; i < NUMBER_OF_UNALTERED_NOTES; i++) {
             for (int j = 0; j < NUM_NOTE_QUALITIES; j++) {
-                String str = NOTE_QUALITIES_SHARP.get((j + _A_to_C) % 12) + i;
+                String str = NoteNames.SHARP_MODE_NAMES[(j + _A_to_C) % 12] + i;
                 list.add(str);
             }
         }
