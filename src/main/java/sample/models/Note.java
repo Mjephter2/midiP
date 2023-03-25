@@ -2,9 +2,6 @@ package sample.models;
 
 import sample.models.exceptions.InvalidNoteException;
 
-import static sample.models.NoteNames.FLAT_MODE_NAMES;
-import static sample.models.NoteNames.SHARP_MODE_NAMES;
-
 import static sample.models.NotesNamingMode.FLAT_MODE;
 import static sample.models.NotesNamingMode.SHARP_MODE;
 import static sample.models.Utilities.NOTE_NAMES_FLAT;
@@ -74,11 +71,11 @@ public final class Note {
      * @return a new Note n half notes above the current one
      */
     public Note sharp(final int n) throws InvalidNoteException {
-        int index = NOTE_NAMES_FLAT.indexOf(this.name);
+        int index = notesNamingMode == FLAT_MODE ? NOTE_NAMES_FLAT.indexOf(this.name) : NOTE_NAMES_SHARP.indexOf(this.name);
         if (index + n > Utilities.NUMBER_OF_KEYS_88 - 1) {
             throw new InvalidNoteException("Invalid Note created: " + name);
         }
-        return new Note(NOTE_NAMES_FLAT.get(index + n));
+        return new Note(notesNamingMode == FLAT_MODE ? NOTE_NAMES_FLAT.get(index + n) : NOTE_NAMES_SHARP.get(index + n));
     }
 
     /**
@@ -87,11 +84,11 @@ public final class Note {
      * @return a new Note @param n notes below the current one
      */
     public Note flat(final int n) throws InvalidNoteException {
-        int index = NOTE_NAMES_FLAT.indexOf(name);
+        int index = notesNamingMode == FLAT_MODE ? NOTE_NAMES_FLAT.indexOf(this.name) : NOTE_NAMES_SHARP.indexOf(this.name);
         if (index - n < 0) {
             throw new InvalidNoteException("Invalid Note created: " + name);
         }
-        return new Note(NOTE_NAMES_FLAT.get(index - n));
+        return new Note(notesNamingMode == FLAT_MODE ? NOTE_NAMES_FLAT.get(index - n) : NOTE_NAMES_SHARP.get(index - n));
     }
 
     /**

@@ -29,6 +29,7 @@ import sample.models.chords.ChordType;
 import sample.models.exceptions.InvalidNoteException;
 import sample.models.scales.Scale;
 import sample.models.scales.ScaleType;
+import static sample.models.NotesNamingMode.FLAT_MODE;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -58,7 +59,8 @@ public class LearnWindow extends Application {
     private final ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
     private final RadioButton selectChord = new RadioButton("CHORD");
     private final RadioButton selectScale = new RadioButton("SCALE");
-    private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(Utilities.NOTE_QUALITIES_FLAT));
+    private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(
+            Note.notesNamingMode == FLAT_MODE ? Utilities.NOTE_QUALITIES_FLAT : Utilities.NOTE_QUALITIES_SHARP));
     private final GridPane bottom = new GridPane();
     private final ToggleGroup selectChordOrScale = new ToggleGroup();
     private final ToggleGroup scaleType = new ToggleGroup();
@@ -86,7 +88,7 @@ public class LearnWindow extends Application {
         bottom.add(selectScale,1,1);
 
         bottom.add(keyBox,0,0,1,2);
-        keyBox.setValue("Ab");
+        keyBox.setValue(keyBox.getItems().get(0));
 
         majorScaleButton.setToggleGroup(scaleType);
         minorScaleButton.setToggleGroup(scaleType);
@@ -157,10 +159,11 @@ public class LearnWindow extends Application {
         blackIndex.add(9);
         blackIndex.add(11);
         for(int i = start; i < start + NUMBER_OF_KEYS; i++){
+            String noteName = Note.notesNamingMode == FLAT_MODE ? Utilities.NOTE_NAMES_FLAT.get(i) : Utilities.NOTE_NAMES_SHARP.get(i);
             if(blackIndex.contains(i % 12)){
-                blackKeys.add(new Button(Utilities.NOTE_NAMES_FLAT.get(i)));
+                blackKeys.add(new Button(noteName));
             }else{
-                whiteKeys.add(new Button(Utilities.NOTE_NAMES_FLAT.get(i)));
+                whiteKeys.add(new Button(noteName));
             }
         }
         white_keyPane.setPickOnBounds(false);

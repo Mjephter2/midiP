@@ -47,6 +47,7 @@ class NoteTest {
     @Test
     public void noteNamingModeTest() throws InvalidNoteException {
         Note note = new Note("Ab1");
+        note.notesNamingMode = NotesNamingMode.FLAT_MODE;
         assertEquals("Ab1", note.getName());
         assertEquals(NotesNamingMode.FLAT_MODE, note.notesNamingMode);
 
