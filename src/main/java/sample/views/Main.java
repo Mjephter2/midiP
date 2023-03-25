@@ -8,9 +8,7 @@ import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -19,10 +17,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.logging.Logger;
 
 /**
@@ -39,6 +33,8 @@ public final class Main extends Application {
      * Center Pane.
      */
     private final GridPane center = new GridPane();
+
+    private final MenuBar menuBar = new CommonMenu();
 
     /**
      * VBox for the top portion of window.
@@ -84,34 +80,9 @@ public final class Main extends Application {
         primaryStage.setTitle("midiP");
         primaryStage.setScene(scene);
 
-        // create a menubar and add it to the top of root
-        MenuBar mb = new MenuBar();
-        mb.setUseSystemMenuBar(true);
+        // Add menu bar to the top of root
         root.setTop(top);
-        // create a menu
-        Menu m = new Menu("Menu");
-        // create menuitems and add actions
-        MenuItem aboutMidiP = new MenuItem("About midiP");
-        aboutMidiP.setOnAction(action -> {
-            try {
-                Desktop.getDesktop().browse(
-                        new URL("https://github.com/Mjephter2/midiP").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        MenuItem quitMidiP = new MenuItem("Quit midiP");
-        quitMidiP.setOnAction(action -> {
-            System.exit(0);
-        });
-        // add menu items to menu
-        m.getItems().add(aboutMidiP);
-        m.getItems().add(quitMidiP);
-        // add menu to menubar
-        mb.getMenus().add(m);
-        //Add style on menu bar so that it is visible from the user
-        mb.setStyle("-fx-background-color: #77838f");
-        top.getChildren().add(mb);
+        top.getChildren().add(menuBar);
         // style center grid and add components
         center.setHgap(5);
         center.setVgap(5);
