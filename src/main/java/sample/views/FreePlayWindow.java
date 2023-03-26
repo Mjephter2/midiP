@@ -14,7 +14,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.control.MenuBar;
 import sample.models.FillerButton;
+import sample.models.Note;
+import sample.models.NotesNamingMode;
 import sample.models.Utilities;
 
 import javax.sound.midi.MidiDevice;
@@ -27,6 +30,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
+import static sample.models.Note.notesNamingMode;
+
+import static sample.models.NotesNamingMode.FLAT_MODE;
+import static sample.models.NotesNamingMode.SHARP_MODE;
 import static sample.views.Styles.whiteKeysReleasedCss;
 import static sample.views.Styles.whiteKeysPressedCss;
 import static sample.views.Styles.blackKeysReleasedCss;
@@ -56,6 +63,8 @@ public final class FreePlayWindow extends Application {
      * List of black keys on the piano in order.
      */
     private final LinkedList<Button> blackKeys = new LinkedList<>();
+
+    private final MenuBar menuBar = new CommonMenu();
 
     /**
      * Default Button style to help
@@ -91,7 +100,7 @@ public final class FreePlayWindow extends Application {
             blackIndex.add(6);
             blackIndex.add(9);
             blackIndex.add(11);
-            Button button = new Button(Utilities.NOTE_NAMES_FLAT.get(i));
+            Button button = new Button(notesNamingMode ==  FLAT_MODE ? Utilities.NOTE_NAMES_FLAT.get(i) : Utilities.NOTE_NAMES_SHARP.get(i));
             if (blackIndex.contains(i % 12)) {
                 blackKeys.add(button);
             } else {
@@ -121,7 +130,7 @@ public final class FreePlayWindow extends Application {
      * vertically so that the user can view the whole note name. It is called via show_notes action
      * listener
      */
-    private void Display_Notes_help()
+    private void displayNotesNames()
     {
         for (Button button : whiteKeys)
         {
@@ -212,7 +221,7 @@ public final class FreePlayWindow extends Application {
         blackKeyPane.setSpacing(freePlayWindowConfig.getBlackKeyPaneSpacing());
         whiteKeyPane.setSpacing(FreePlayWindowConfig.WHITE_KEY_PANE_SPACING);
 
-        // Top pane that will contain show_notes ToggleButton, home button and text of note pressed
+        // Top pane that will contain show_notes ToggleButton and home button
         BorderPane topPane = new BorderPane();
 
         // Hbox inside which we put show_notes and home button
@@ -226,6 +235,8 @@ public final class FreePlayWindow extends Application {
         topPane.setPadding(new Insets(10,20,10,20));
         homButton.setVisible(true);
         showNotesButton.setVisible(true);
+        // add menu bar
+        topPane.setTop(menuBar);
 
         for (Button button : whiteKeys) {
             button.setTooltip(new Tooltip(button.getText()));
@@ -297,7 +308,7 @@ public final class FreePlayWindow extends Application {
 
         // showNotesButton, homeButton actionListener
         showNotesButton.setOnAction(e ->{
-            Display_Notes_help();
+            displayNotesNames();
         });
         homButton.setOnAction(e -> {
             Main mainWindow = new Main();
@@ -323,7 +334,7 @@ public final class FreePlayWindow extends Application {
 
         showNotesButton.setOnMouseClicked(e ->{
             if(showNotesButton.isSelected())
-                Display_Notes_help();
+                displayNotesNames();
             else {
                 for (Button button : whiteKeys)
                     button.setText("");
