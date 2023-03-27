@@ -163,4 +163,15 @@ public class Scale extends Transposable implements Invertable {
         System.arraycopy(sharpLastNotes.toArray(), 0, invertedNotes, firstNotes.length, lastNotes.size());
         return invertedNotes;
     }
+
+    public String toString() {
+        StringBuilder rep = new StringBuilder("[ ");
+
+        for (Note note : scaleNotes) {
+            rep.append(note.getName()).append(" ");
+        }
+
+        rep.append("]");
+        return rep.toString();
+    }
 }

@@ -97,4 +97,16 @@ public final class Note {
     public String noteQuality() {
         return this.getName().substring(0, this.getName().length() - 1);
     }
+
+    /**
+     * Prints a set of notes.
+     */
+    public static String toString(final Note[] notes) {
+        StringBuilder sb = new StringBuilder("[ ");
+        for (Note note : notes) {
+            sb.append(note.getName()).append(" ");
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }
