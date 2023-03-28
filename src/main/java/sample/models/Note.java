@@ -3,7 +3,6 @@ package sample.models;
 import sample.models.exceptions.InvalidNoteException;
 
 import static sample.models.NotesNamingMode.FLAT_MODE;
-import static sample.models.NotesNamingMode.SHARP_MODE;
 import static sample.models.Utilities.NOTE_NAMES_FLAT;
 import static sample.models.Utilities.NOTE_NAMES_SHARP;
 

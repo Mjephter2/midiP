@@ -2,6 +2,7 @@ package sample.models.scales;
 
 import javafx.util.Pair;
 import sample.models.Note;
+import sample.models.NotesNamingMode;
 import sample.models.Utilities;
 import sample.models.exceptions.InvalidNoteException;
 
@@ -31,7 +32,8 @@ public final class KeySignatureStore {
     private static List<Pair<String, String[]>> generateAccidentals() throws InvalidNoteException {
         List<Pair<String, String[]>> accidentals = new ArrayList<>();
 
-        List<Note> scaleRoots = Utilities.NOTE_QUALITIES_FLAT
+        List<Note> scaleRoots = (Note.notesNamingMode == NotesNamingMode.FLAT_MODE
+                ? Utilities.NOTE_QUALITIES_FLAT : Utilities.NOTE_QUALITIES_SHARP)
                 .subList(0, Utilities.NOTE_QUALITIES_FLAT.size())
                 .stream().map(noteName -> {
             try {
