@@ -32,8 +32,10 @@ import sample.models.scales.ScaleType;
 import static sample.models.NotesNamingMode.FLAT_MODE;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 import static sample.views.Styles.whiteKeysReleasedCss;
@@ -116,31 +118,25 @@ public class LearnWindow extends Application {
             Node node = (Node) toggle;
             node.setDisable(true);
         });
-        selectChord.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                chordType.getToggles().forEach(toggle -> {
-                    Node node = (Node) toggle;
-                    node.setDisable(false);
-                });
-                scaleType.getToggles().forEach(toggle -> {
-                    Node node = (Node) toggle;
-                    node.setDisable(true);
-                });
-            }
+        selectChord.setOnAction(actionEvent -> {
+            chordType.getToggles().forEach(toggle -> {
+                Node node = (Node) toggle;
+                node.setDisable(false);
+            });
+            scaleType.getToggles().forEach(toggle -> {
+                Node node = (Node) toggle;
+                node.setDisable(true);
+            });
         });
-        selectScale.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                scaleType.getToggles().forEach(toggle -> {
-                    Node node = (Node) toggle;
-                    node.setDisable(false);
-                });
-                chordType.getToggles().forEach(toggle -> {
-                    Node node = (Node) toggle;
-                    node.setDisable(true);
-                });
-            }
+        selectScale.setOnAction(actionEvent -> {
+            scaleType.getToggles().forEach(toggle -> {
+                Node node = (Node) toggle;
+                node.setDisable(false);
+            });
+            chordType.getToggles().forEach(toggle -> {
+                Node node = (Node) toggle;
+                node.setDisable(true);
+            });
         });
 
         bottom.add(new FillerButton(60,10), 7 , 0);
@@ -260,320 +256,56 @@ public class LearnWindow extends Application {
     }
 
     private void addActionsToSelectionButtons() {
-        majorTriadButton.setOnMouseClicked(mouseEvent -> {
-            resetButtons();
-            Note root = null;
-            try {
-                root = new Note("C3");
-            } catch (InvalidNoteException e) {
-                e.printStackTrace();
-            }
-            while(!root.noteQuality().equals(keyBox.getValue())){
+        Map<ToggleButton, ChordType> buttonChordTypeMap = new HashMap<>();
+        buttonChordTypeMap.put(minorTriadButton, ChordType.MINOR_TRIAD);
+        buttonChordTypeMap.put(majorTriadButton, ChordType.MAJOR_TRIAD);
+        buttonChordTypeMap.put(minor7thButton, ChordType.MINOR_7TH);
+        buttonChordTypeMap.put(major7thButton, ChordType.MAJOR_7TH);
+        buttonChordTypeMap.put(major9thButton, ChordType.MAJOR_9TH);
+        buttonChordTypeMap.put(minor9thButton, ChordType.MINOR_9TH);
+        buttonChordTypeMap.put(dominant7thButton, ChordType.DOMINANT_7TH);
+        buttonChordTypeMap.put(dominant9thButton, ChordType.DOMINANT_9TH);
+
+        for (ToggleButton button : buttonChordTypeMap.keySet()) {
+            button.setOnMouseClicked(mouseEvent -> {
+                resetButtons();
+                Note root = null;
                 try {
-                    root = root.sharp(1);
+                    root = new Note("C3");
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-            }
-            Chord chord = null;
-            try {
-                chord = new Chord(ChordType.MAJOR_TRIAD, root);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Note[] chordNotes = chord.notes();
-            ArrayList<String> chordNotesNames = new ArrayList<>();
-            for (Note chordNote : chordNotes) {
-                chordNotesNames.add(chordNote.getName());
-            }
-            logger.info(chordNotesNames.toString());
-            for(Button button: keyBoard){
-                button.setText("");
-                button.setAlignment(Pos.BOTTOM_CENTER);
-                if(blackKeys.contains(button))
-                    button.setFont(new Font("aerials", 8));
-                if(chordNotesNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                    showButtonNoteName(button);
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    try {
+                        root = root.sharp(1);
+                    } catch (InvalidNoteException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
-
-
-        minorTriadButton.setOnMouseClicked(mouseEvent -> {
-            resetButtons();
-            Note root = null;
-            try {
-                root = new Note("C3");
-            } catch (InvalidNoteException e) {
-                e.printStackTrace();
-            }
-            while(!root.noteQuality().equals(keyBox.getValue())){
+                Chord chord = null;
                 try {
-                    root = root.sharp(1);
-                } catch (InvalidNoteException e) {
+                    chord = new Chord(buttonChordTypeMap.get(button), root);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            Chord chord = null;
-            try {
-                chord = new Chord(ChordType.MINOR_TRIAD, root);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Note[] chordNotes = chord.notes();
-            ArrayList<String> chordNotesNames = new ArrayList<>();
-            for (Note chordNote : chordNotes) {
-                chordNotesNames.add(chordNote.getName());
-            }
-            logger.info(chordNotesNames.toString());
-            for(Button button: keyBoard){
-                button.setText("");
-                button.setAlignment(Pos.BOTTOM_CENTER);
-                if(blackKeys.contains(button))
-                    button.setFont(new Font("aerials", 8));
-                if(chordNotesNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                    showButtonNoteName(button);
+                Note[] chordNotes = chord.notes();
+                ArrayList<String> chordNotesNames = new ArrayList<>();
+                for (Note chordNote : chordNotes) {
+                    chordNotesNames.add(chordNote.getName());
                 }
-            }
-        });
-
-        major7thButton.setOnMouseClicked(mouseEvent -> {
-            resetButtons();
-            Note root = null;
-            try {
-                root = new Note("C3");
-            } catch (InvalidNoteException e) {
-                e.printStackTrace();
-            }
-            while(!root.noteQuality().equals(keyBox.getValue())){
-                try {
-                    root = root.sharp(1);
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
+                logger.info(chordNotesNames.toString());
+                for(Button button1: keyBoard){
+                    button1.setText("");
+                    button1.setAlignment(Pos.BOTTOM_CENTER);
+                    if(blackKeys.contains(button1))
+                        button1.setFont(new Font("aerials", 8));
+                    if(chordNotesNames.contains(button1.getTooltip().getText())){
+                        colorButton(button1);
+                        showButtonNoteName(button1);
+                    }
                 }
-            }
-            Chord chord = null;
-            try {
-                chord = new Chord(ChordType.MAJOR_7TH, root);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Note[] chordNotes = chord.notes();
-            ArrayList<String> chordNotesNames = new ArrayList<>();
-            for (Note chordNote : chordNotes) {
-                chordNotesNames.add(chordNote.getName());
-            }
-            logger.info(chordNotesNames.toString());
-            for(Button button: keyBoard){
-                button.setText("");
-                button.setAlignment(Pos.BOTTOM_CENTER);
-                if(blackKeys.contains(button))
-                    button.setFont(new Font("aerials", 8));
-                if(chordNotesNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                    showButtonNoteName(button);
-                }
-            }
-        });
-
-        minor7thButton.setOnMouseClicked(mouseEvent -> {
-            resetButtons();
-            Note root = null;
-            try {
-                root = new Note("C3");
-            } catch (InvalidNoteException e) {
-                e.printStackTrace();
-            }
-            while(!root.noteQuality().equals(keyBox.getValue())){
-                try {
-                    root = root.sharp(1);
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
-                }
-            }
-            Chord chord = null;
-            try {
-                chord = new Chord(ChordType.MINOR_7TH, root);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Note[] chordNotes = chord.notes();
-            ArrayList<String> chordNotesNames = new ArrayList<>();
-            for (Note chordNote : chordNotes) {
-                chordNotesNames.add(chordNote.getName());
-            }
-            logger.info(chordNotesNames.toString());
-            for(Button button: keyBoard){
-                button.setText("");
-                button.setAlignment(Pos.BOTTOM_CENTER);
-                if(blackKeys.contains(button))
-                    button.setFont(new Font("aerials", 8));
-                if(chordNotesNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                    showButtonNoteName(button);
-                }
-            }
-        });
-
-        major9thButton.setOnMouseClicked(mouseEvent -> {
-            resetButtons();
-            Note root = null;
-            try {
-                root = new Note("C3");
-            } catch (InvalidNoteException e) {
-                e.printStackTrace();
-            }
-            while(!root.noteQuality().equals(keyBox.getValue())){
-                try {
-                    root = root.sharp(1);
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
-                }
-            }
-            Chord chord = null;
-            try {
-                chord = new Chord(ChordType.MAJOR_9TH, root);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Note[] chordNotes = chord.notes();
-            ArrayList<String> chordNotesNames = new ArrayList<>();
-            for (Note chordNote : chordNotes) {
-                chordNotesNames.add(chordNote.getName());
-            }
-            logger.info(chordNotesNames.toString());
-            for(Button button: keyBoard){
-                button.setText("");
-                button.setAlignment(Pos.BOTTOM_CENTER);
-                if(blackKeys.contains(button))
-                    button.setFont(new Font("aerials", 8));
-                if(chordNotesNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                    showButtonNoteName(button);
-                }
-            }
-        });
-
-        minor9thButton.setOnMouseClicked(mouseEvent -> {
-            resetButtons();
-            Note root = null;
-            try {
-                root = new Note("C3");
-            } catch (InvalidNoteException e) {
-                e.printStackTrace();
-            }
-            while(!root.noteQuality().equals(keyBox.getValue())){
-                try {
-                    root = root.sharp(1);
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
-                }
-            }
-            Chord chord = null;
-            try {
-                chord = new Chord(ChordType.MINOR_9TH, root);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Note[] chordNotes = chord.notes();
-            ArrayList<String> chordNotesNames = new ArrayList<>();
-            for (Note chordNote : chordNotes) {
-                chordNotesNames.add(chordNote.getName());
-            }
-            logger.info(chordNotesNames.toString());
-            for(Button button: keyBoard){
-                button.setText("");
-                button.setAlignment(Pos.BOTTOM_CENTER);
-                if(blackKeys.contains(button))
-                    button.setFont(new Font("aerials", 8));
-                if(chordNotesNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                    showButtonNoteName(button);
-                }
-            }
-        });
-
-        dominant7thButton.setOnMouseClicked(mouseEvent -> {
-            resetButtons();
-            Note root = null;
-            try {
-                root = new Note("C3");
-            } catch (InvalidNoteException e) {
-                e.printStackTrace();
-            }
-            while(!root.noteQuality().equals(keyBox.getValue())){
-                try {
-                    root = root.sharp(1);
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
-                }
-            }
-            Chord chord = null;
-            try {
-                chord = new Chord(ChordType.DOMINANT_7TH, root);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Note[] chordNotes = chord.notes();
-            ArrayList<String> chordNotesNames = new ArrayList<>();
-            for (Note chordNote : chordNotes) {
-                chordNotesNames.add(chordNote.getName());
-            }
-            logger.info(chordNotesNames.toString());
-            for(Button button: keyBoard){
-                button.setText("");
-                button.setAlignment(Pos.BOTTOM_CENTER);
-                if(blackKeys.contains(button))
-                    button.setFont(new Font("aerials", 8));
-                if(chordNotesNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                    showButtonNoteName(button);
-                }
-            }
-        });
-
-        dominant9thButton.setOnMouseClicked(mouseEvent -> {
-            resetButtons();
-            Note root = null;
-            try {
-                root = new Note("C3");
-                majorScaleButton.setSelected(false);
-                minorScaleButton.setSelected(false);
-            } catch (InvalidNoteException e1) {
-                e1.printStackTrace();
-            }
-            while(!root.noteQuality().equals(keyBox.getValue())) {
-                try {
-                    root = root.sharp(1);
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
-                }
-            }
-            Chord chord = null;
-            try {
-                chord = new Chord(ChordType.DOMINANT_9TH, root);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Note[] chordNotes = chord.notes();
-            ArrayList<String> chordNotesNames = new ArrayList<>();
-            for (Note chordNote : chordNotes) {
-                chordNotesNames.add(chordNote.getName());
-            }
-            logger.info(chordNotesNames.toString());
-            for(Button button: keyBoard){
-                button.setText("");
-                button.setAlignment(Pos.BOTTOM_CENTER);
-                if(blackKeys.contains(button))
-                    button.setFont(new Font("aerials", 8));
-                if(chordNotesNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                    showButtonNoteName(button);
-                }
-            }
-        });
+            });
+        }
 
         majorScaleButton.setOnMouseClicked(mouseEvent -> {
             resetButtons();
