@@ -2,8 +2,6 @@ package sample.views;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -307,85 +305,50 @@ public class LearnWindow extends Application {
             });
         }
 
-        majorScaleButton.setOnMouseClicked(mouseEvent -> {
-            resetButtons();
-            Note root = null;
-            try {
-                root = new Note("C3");
-            } catch (InvalidNoteException e) {
-                e.printStackTrace();
-            }
-            while (!root.noteQuality().equals(keyBox.getValue())) {
+        Map<ToggleButton, ScaleType> buttonScaleTypeMap = new HashMap<>();
+        buttonScaleTypeMap.put(majorScaleButton, ScaleType.MAJOR_SCALE);
+        buttonScaleTypeMap.put(minorScaleButton, ScaleType.MINOR_SCALE);
+
+        for (ToggleButton button : buttonScaleTypeMap.keySet()) {
+            button.setOnMouseClicked(mouseEvent -> {
+                resetButtons();
+                Note root = null;
                 try {
-                    root = root.sharp(1);
+                    root = new Note("C3");
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-            }
-
-            Scale majorScale = null;
-            try {
-                majorScale = new Scale(ScaleType.MAJOR_SCALE, root);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Note[] scaleNotes = majorScale.notes();
-            ArrayList<String> noteNames = new ArrayList<>();
-            for (Note note: scaleNotes) {
-                noteNames.add(note.getName());
-            }
-            logger.info(noteNames.toString());
-            for(Button button: keyBoard){
-                button.setText("");
-                button.setAlignment(Pos.BOTTOM_CENTER);
-                if(blackKeys.contains(button))
-                    button.setFont(new Font("aerials", 8));
-                if(noteNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                    showButtonNoteName(button);
+                while(!root.noteQuality().equals(keyBox.getValue())){
+                    try {
+                        root = root.sharp(1);
+                    } catch (InvalidNoteException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        });
-
-        minorScaleButton.setOnMouseClicked(mouseEvent -> {
-            resetButtons();
-            Note root = null;
-            try {
-                root = new Note("C3");
-            } catch (InvalidNoteException e) {
-                e.printStackTrace();
-            }
-            while (!root.noteQuality().equals(keyBox.getValue())) {
+                Scale scale = null;
                 try {
-                    root = root.sharp(1);
-                } catch (InvalidNoteException e) {
+                    scale = new Scale(buttonScaleTypeMap.get(button), root);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-
-            Scale minorScale = null;
-            try {
-                minorScale = new Scale(ScaleType.MINOR_SCALE, root);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Note[] scaleNotes = minorScale.notes();
-            ArrayList<String> noteNames = new ArrayList<>();
-            for (Note note: scaleNotes) {
-                noteNames.add(note.getName());
-            }
-            logger.info(noteNames.toString());
-            for(Button button: keyBoard){
-                button.setText("");
-                button.setAlignment(Pos.BOTTOM_CENTER);
-                if(blackKeys.contains(button))
-                    button.setFont(new Font("aerials", 8));
-                if(noteNames.contains(button.getTooltip().getText())){
-                    colorButton(button);
-                    showButtonNoteName(button);
+                Note[] scaleNotes = scale.notes();
+                ArrayList<String> scaleNotesNames = new ArrayList<>();
+                for (Note scaleNote : scaleNotes) {
+                    scaleNotesNames.add(scaleNote.getName());
                 }
-            }
-        });
+                logger.info(scaleNotesNames.toString());
+                for(Button button1: keyBoard){
+                    button1.setText("");
+                    button1.setAlignment(Pos.BOTTOM_CENTER);
+                    if(blackKeys.contains(button1))
+                        button1.setFont(new Font("aerials", 8));
+                    if(scaleNotesNames.contains(button1.getTooltip().getText())){
+                        colorButton(button1);
+                        showButtonNoteName(button1);
+                    }
+                }
+            });
+        }
     }
 
     private void colorButton(Button button){
