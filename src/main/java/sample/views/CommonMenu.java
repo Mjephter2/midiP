@@ -3,6 +3,8 @@ package sample.views;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import sample.models.Note;
+import sample.models.NotesNamingMode;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -13,8 +15,8 @@ public class CommonMenu extends MenuBar {
     public CommonMenu() {
         super();
         this.setUseSystemMenuBar(true);
-        // create a menu
-        Menu m = new Menu("Menu");
+
+        Menu m = new Menu("midiP");
         // create menu items and add actions
         MenuItem aboutMidiP = new MenuItem("About midiP");
         aboutMidiP.setOnAction(action -> {
@@ -32,8 +34,24 @@ public class CommonMenu extends MenuBar {
         // add menu items to menu
         m.getItems().add(aboutMidiP);
         m.getItems().add(quitMidiP);
-        // add menu to menu bar
+
+        Menu config = new Menu("Config");
+        Menu setNoteNamingModeItem = new Menu("Set Note Naming Mode");
+        config.getItems().add(setNoteNamingModeItem);
+        MenuItem flatModeItem = new MenuItem("Flat Mode: b");
+        flatModeItem.setOnAction(action -> {
+            Note.notesNamingMode = NotesNamingMode.FLAT_MODE;
+        });
+        MenuItem sharpModeItem = new MenuItem("Sharp Mode: #");
+        sharpModeItem.setOnAction(action -> {
+            Note.notesNamingMode = NotesNamingMode.SHARP_MODE;
+        });
+        setNoteNamingModeItem.getItems().add(flatModeItem);
+        setNoteNamingModeItem.getItems().add(sharpModeItem);
+
+        // add menus to menu bar
         this.getMenus().add(m);
+        this.getMenus().add(config);
         //Add style on menu bar so that it is visible from the user
         this.setStyle("-fx-background-color: #77838f");
     };
