@@ -31,13 +31,10 @@ public class CommonMenu extends MenuBar {
         quitMidiP.setOnAction(action -> {
             System.exit(0);
         });
-        // add menu items to menu
-        m.getItems().add(aboutMidiP);
-        m.getItems().add(quitMidiP);
 
-        Menu config = new Menu("Config");
+        Menu preferenceSub = new Menu("Preferences");
         Menu setNoteNamingModeItem = new Menu("Set Note Naming Mode");
-        config.getItems().add(setNoteNamingModeItem);
+        preferenceSub.getItems().add(setNoteNamingModeItem);
         MenuItem flatModeItem = new MenuItem("Flat Mode: b");
         flatModeItem.setOnAction(action -> {
             Note.notesNamingMode = NotesNamingMode.FLAT_MODE;
@@ -49,9 +46,13 @@ public class CommonMenu extends MenuBar {
         setNoteNamingModeItem.getItems().add(flatModeItem);
         setNoteNamingModeItem.getItems().add(sharpModeItem);
 
+        // add menu items to menu
+        m.getItems().add(aboutMidiP);
+        m.getItems().add(preferenceSub);
+        m.getItems().add(quitMidiP);
+
         // add menus to menu bar
         this.getMenus().add(m);
-        this.getMenus().add(config);
         //Add style on menu bar so that it is visible from the user
         this.setStyle("-fx-background-color: #77838f");
     };
