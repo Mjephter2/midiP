@@ -1,5 +1,6 @@
 package sample.models;
 
+import lombok.NonNull;
 import sample.models.exceptions.InvalidNoteException;
 
 import static sample.models.NotesNamingMode.FLAT_MODE;
@@ -14,6 +15,7 @@ public final class Note {
     /**
      * variable to store the full name of a Note, for example 'Db1'.
      */
+    @NonNull
     private final String name;
 
     /**

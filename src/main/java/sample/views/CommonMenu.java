@@ -28,21 +28,15 @@ public class CommonMenu extends MenuBar {
             }
         });
         MenuItem quitMidiP = new MenuItem("Quit midiP");
-        quitMidiP.setOnAction(action -> {
-            System.exit(0);
-        });
+        quitMidiP.setOnAction(action -> System.exit(0));
 
         Menu preferenceSub = new Menu("Preferences");
         Menu setNoteNamingModeItem = new Menu("Set Note Naming Mode");
         preferenceSub.getItems().add(setNoteNamingModeItem);
         MenuItem flatModeItem = new MenuItem("Flat Mode: b");
-        flatModeItem.setOnAction(action -> {
-            Note.notesNamingMode = NotesNamingMode.FLAT_MODE;
-        });
+        flatModeItem.setOnAction(action -> Note.notesNamingMode = NotesNamingMode.FLAT_MODE);
         MenuItem sharpModeItem = new MenuItem("Sharp Mode: #");
-        sharpModeItem.setOnAction(action -> {
-            Note.notesNamingMode = NotesNamingMode.SHARP_MODE;
-        });
+        sharpModeItem.setOnAction(action -> Note.notesNamingMode = NotesNamingMode.SHARP_MODE);
         setNoteNamingModeItem.getItems().add(flatModeItem);
         setNoteNamingModeItem.getItems().add(sharpModeItem);
 
@@ -55,5 +49,5 @@ public class CommonMenu extends MenuBar {
         this.getMenus().add(m);
         //Add style on menu bar so that it is visible from the user
         this.setStyle("-fx-background-color: #77838f");
-    };
+    }
 }

@@ -16,8 +16,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.control.MenuBar;
 import sample.models.FillerButton;
-import sample.models.Note;
-import sample.models.NotesNamingMode;
 import sample.models.Utilities;
 
 import javax.sound.midi.MidiDevice;
@@ -33,7 +31,6 @@ import java.util.logging.Logger;
 import static sample.models.Note.notesNamingMode;
 
 import static sample.models.NotesNamingMode.FLAT_MODE;
-import static sample.models.NotesNamingMode.SHARP_MODE;
 import static sample.views.Styles.whiteKeysReleasedCss;
 import static sample.views.Styles.whiteKeysPressedCss;
 import static sample.views.Styles.blackKeysReleasedCss;
@@ -44,11 +41,14 @@ import static sample.views.Styles.blackKeysPressedCSs;
  * allowing for free play without audio feedback.
  */
 public final class FreePlayWindow extends Application {
+    /**
+     * Logger for this class.
+     */
     public static final Logger LOGGER = Logger.getLogger(FreePlayWindow.class.getName());
     /**
      * Window configuration.
      */
-    public FreePlayWindowConfig freePlayWindowConfig = FreePlayWindowConfig.defaultConfig();
+    private final FreePlayWindowConfig freePlayWindowConfig = FreePlayWindowConfig.defaultConfig();
     /**
      * Array of Button representing the keys on the piano.
      */
@@ -64,6 +64,9 @@ public final class FreePlayWindow extends Application {
      */
     private final LinkedList<Button> blackKeys = new LinkedList<>();
 
+    /**
+     * Top Level Menu Bar.
+     */
     private final MenuBar menuBar = new CommonMenu();
 
     /**
@@ -84,8 +87,14 @@ public final class FreePlayWindow extends Application {
      */
     private int lastKeyPressedIndex = 0;
 
+    /**
+     * Home button to return to the Main View.
+     */
     private final Button homButton = new Button("Home");
-    // This button will allow user to view all notes on the piano-button for help!
+
+    /**
+     * Button to show all Note names on the piano.
+     */
     private final ToggleButton showNotesButton = new ToggleButton("Show Notes Names");
 
     /**
@@ -130,20 +139,17 @@ public final class FreePlayWindow extends Application {
      * vertically so that the user can view the whole note name. It is called via show_notes action
      * listener
      */
-    private void displayNotesNames()
-    {
-        for (Button button : whiteKeys)
-        {
+    private void displayNotesNames() {
+        for (Button button : whiteKeys) {
             String text = button.getTooltip().getText();
-            text = text.substring(0, text.length() -1);
+            text = text.substring(0, text.length() - 1);
             button.setText(text);
             button.setAlignment(Pos.BOTTOM_CENTER);
         }
 
-        for(Button button : blackKeys)
-        {
+        for (Button button : blackKeys) {
             String text = button.getTooltip().getText();
-            text = text.substring(0, text.length() -1);
+            text = text.substring(0, text.length() - 1);
             button.setFont(new Font("aerials", 8));
             button.setText(text);
             button.setTextFill(Color.WHITE);
@@ -152,10 +158,10 @@ public final class FreePlayWindow extends Application {
     }
 
 
-    /**
-     * Opens all the midi transmitters available in
-     * the system.
-     */
+//    /**
+//     * Opens all the midi transmitters available in
+//     * the system.
+//     */
     /* private void openAllTransmitters() {
         MidiDevice device;
         MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
@@ -212,7 +218,7 @@ public final class FreePlayWindow extends Application {
 
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
-        root.setPadding(new Insets(10,20,10,20));
+        root.setPadding(new Insets(10, 20, 10, 20));
         HBox whiteKeyPane = new HBox();
         whiteKeyPane.setPickOnBounds(false);
         HBox blackKeyPane = new HBox();
@@ -232,7 +238,7 @@ public final class FreePlayWindow extends Application {
         // Assign buttons Hbox on the right side of topPane
         topPane.setRight(buttons);
         topPane.setBackground(Background.fill(Color.TRANSPARENT));
-        topPane.setPadding(new Insets(10,20,10,20));
+        topPane.setPadding(new Insets(10, 20, 10, 20));
         homButton.setVisible(true);
         showNotesButton.setVisible(true);
         // add menu bar
@@ -242,7 +248,7 @@ public final class FreePlayWindow extends Application {
             button.setTooltip(new Tooltip(button.getText()));
             button.setText("");
             button.setPrefSize(freePlayWindowConfig.getWhiteKeysPrefWidth(), freePlayWindowConfig.getWhiteKeysPrefHeight());
-            button.setPadding(new Insets(0,0,0,0));
+            button.setPadding(new Insets(0, 0, 0, 0));
             button.setOnMousePressed(event -> {
                 button.setStyle(whiteKeysPressedCss);
                 button.setTranslateY(2);
@@ -269,7 +275,7 @@ public final class FreePlayWindow extends Application {
 
             button.setOnMouseReleased(event -> {
                 button.setStyle(blackKeysReleasedCss);
-                button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());;
+                button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
             });
             blackKeyPane.getChildren().add(button);
         }
@@ -307,9 +313,7 @@ public final class FreePlayWindow extends Application {
         freePlay.show();
 
         // showNotesButton, homeButton actionListener
-        showNotesButton.setOnAction(e ->{
-            displayNotesNames();
-        });
+        showNotesButton.setOnAction(e -> displayNotesNames());
         homButton.setOnAction(e -> {
             Main mainWindow = new Main();
             try {
@@ -332,15 +336,17 @@ public final class FreePlayWindow extends Application {
             midiInputReceiver.close();
         });
 
-        showNotesButton.setOnMouseClicked(e ->{
-            if(showNotesButton.isSelected())
+        showNotesButton.setOnMouseClicked(e -> {
+            if (showNotesButton.isSelected()) {
                 displayNotesNames();
-            else {
-                for (Button button : whiteKeys)
+            } else {
+                for (Button button : whiteKeys) {
                     button.setText("");
+                }
 
-                for (Button button : blackKeys)
+                for (Button button : blackKeys) {
                     button.setText("");
+                }
             }
         });
     }

@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import static sample.views.Styles.whiteKeysReleasedCss;
@@ -243,9 +244,7 @@ public class LearnWindow extends Application {
         keyPane.setPadding(new Insets(0,0,10,0));
         keyPane.add(white_keyPane,0,0,2,1);
         keyPane.add(black_keyPane,0,0,2,1);
-        resetButton.setOnMouseClicked(mouseEvent -> {
-            resetButtons();
-        });
+        resetButton.setOnMouseClicked(mouseEvent -> resetButtons());
     }
 
     void showButtonNoteName(Button button) {
@@ -273,7 +272,7 @@ public class LearnWindow extends Application {
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-                while(!root.noteQuality().equals(keyBox.getValue())){
+                while(!Objects.requireNonNull(root).noteQuality().equals(keyBox.getValue())){
                     try {
                         root = root.sharp(1);
                     } catch (InvalidNoteException e) {
@@ -286,7 +285,7 @@ public class LearnWindow extends Application {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Note[] chordNotes = chord.notes();
+                Note[] chordNotes = Objects.requireNonNull(chord).notes();
                 ArrayList<String> chordNotesNames = new ArrayList<>();
                 for (Note chordNote : chordNotes) {
                     chordNotesNames.add(chordNote.getName());
@@ -318,7 +317,7 @@ public class LearnWindow extends Application {
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
                 }
-                while(!root.noteQuality().equals(keyBox.getValue())){
+                while(!Objects.requireNonNull(root).noteQuality().equals(keyBox.getValue())){
                     try {
                         root = root.sharp(1);
                     } catch (InvalidNoteException e) {
@@ -331,7 +330,7 @@ public class LearnWindow extends Application {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Note[] scaleNotes = scale.notes();
+                Note[] scaleNotes = Objects.requireNonNull(scale).notes();
                 ArrayList<String> scaleNotesNames = new ArrayList<>();
                 for (Note scaleNote : scaleNotes) {
                     scaleNotesNames.add(scaleNote.getName());

@@ -3,6 +3,7 @@ package sample.models.scales;
 import sample.models.Invertable;
 import sample.models.Note;
 import sample.models.Transposable;
+import sample.models.Utilities;
 import sample.models.exceptions.InvalidNoteException;
 
 import java.util.Arrays;
@@ -42,6 +43,9 @@ public class Scale extends Transposable implements Invertable {
         return scaleNotes;
     }
 
+    /**
+     * @return the type of the Scale.
+     */
     public ScaleType getScaleType() {
         return type;
     }
@@ -144,7 +148,7 @@ public class Scale extends Transposable implements Invertable {
      * @return the Scale Notes starting from the index specified
      */
     @Override
-    public Note[] invert(int index) {
+    public Note[] invert(final int index) {
         if (index >= scaleNotes.length) {
             return scaleNotes;
         }
@@ -153,7 +157,7 @@ public class Scale extends Transposable implements Invertable {
         List<Note> lastNotes = Arrays.stream(Arrays.copyOfRange(uniqueNotes, 0, index - 1)).toList();
         List<Note> sharpLastNotes = lastNotes.stream().map(note -> {
             try {
-                return note.sharp(12);
+                return note.sharp(Utilities.NUM_NOTE_QUALITIES);
             } catch (InvalidNoteException e) {
                 throw new RuntimeException(e);
             }
@@ -164,6 +168,9 @@ public class Scale extends Transposable implements Invertable {
         return invertedNotes;
     }
 
+    /**
+     * @return the String representation of the Scale
+     */
     public String toString() {
         StringBuilder rep = new StringBuilder("[ ");
 

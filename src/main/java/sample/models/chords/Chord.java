@@ -1,5 +1,6 @@
 package sample.models.chords;
 
+import lombok.NonNull;
 import sample.models.Invertable;
 import sample.models.Note;
 import sample.models.Transposable;
@@ -30,11 +31,13 @@ public class Chord extends Transposable implements Invertable {
     /**
      * the type of the Chord.
      */
+    @NonNull
     public final ChordType type;
 
     /**
      * Array of Notes making the Chord.
      */
+    @NonNull
     private final Note[] chordNotes;
 
     /**
@@ -104,7 +107,7 @@ public class Chord extends Transposable implements Invertable {
         StringBuilder rep = new StringBuilder();
         rep.append(chordNotes[0].noteQuality())
                 .append(" ")
-                .append(this.type.toString());
+                .append(this.type);
         for (Note note: chordNotes) {
             rep.append(" ").append(note.noteQuality());
         }
