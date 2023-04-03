@@ -218,7 +218,7 @@ public final class FreePlayWindow extends Application {
 
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
-        root.setPadding(new Insets(10, 20, 10, 20));
+//        root.setPadding(new Insets(10, 20, 10, 20));
         HBox whiteKeyPane = new HBox();
         whiteKeyPane.setPickOnBounds(false);
         HBox blackKeyPane = new HBox();
