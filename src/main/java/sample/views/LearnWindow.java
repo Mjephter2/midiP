@@ -37,6 +37,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import static sample.models.NotesNamingMode.SHARP_MODE;
+import static sample.models.Utilities.NOTE_QUALITIES_FLAT;
+import static sample.models.Utilities.NOTE_QUALITIES_SHARP;
 import static sample.views.Styles.whiteKeysReleasedCss;
 import static sample.views.Styles.whiteKeysPressedCss;
 import static sample.views.Styles.blackKeysReleasedCss;
@@ -44,6 +47,7 @@ import static sample.views.Styles.blackKeysPressedCSs;
 
 public class LearnWindow extends Application {
     private static final Logger logger = Logger.getLogger(LearnWindow.class.getName());
+    private static final CommonMenu menu = new CommonMenu();
     private static final int NUMBER_OF_KEYS = 27;
     private final LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
     private final LinkedList<Button> whiteKeys = new LinkedList<>();
@@ -61,7 +65,7 @@ public class LearnWindow extends Application {
     private final RadioButton selectChord = new RadioButton("CHORD");
     private final RadioButton selectScale = new RadioButton("SCALE");
     private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(
-            Note.notesNamingMode == FLAT_MODE ? Utilities.NOTE_QUALITIES_FLAT : Utilities.NOTE_QUALITIES_SHARP));
+            Note.notesNamingMode == FLAT_MODE ? NOTE_QUALITIES_FLAT : NOTE_QUALITIES_SHARP));
     private final GridPane bottom = new GridPane();
     private final ToggleGroup selectChordOrScale = new ToggleGroup();
     private final ToggleGroup scaleType = new ToggleGroup();
@@ -365,6 +369,27 @@ public class LearnWindow extends Application {
         addActionsToSelectionButtons();
     }
 
+    private void switchNoteNamingMode() {
+        if (Note.notesNamingMode == FLAT_MODE) {
+            keyBox.getItems().clear();
+            keyBox.setItems(FXCollections.observableArrayList(NOTE_QUALITIES_FLAT));
+            keyBox.setValue(NOTE_QUALITIES_SHARP.get(0));
+        } else {
+            keyBox.getItems().clear();
+            keyBox.setItems(FXCollections.observableArrayList(NOTE_QUALITIES_SHARP));
+            keyBox.setValue(NOTE_QUALITIES_SHARP.get(0));
+        }
+        for (Button button : keyBoard) {
+            try {
+                String existingTooltip = button.getTooltip().getText();
+                button.setTooltip(new Tooltip(new Note(existingTooltip).getName()));
+            } catch (InvalidNoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        resetButtons();
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -388,6 +413,17 @@ public class LearnWindow extends Application {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
         root.setPadding(new Insets(10,10,10,10));
+
+        menu.flatModeItem.setOnAction(e -> {
+            Note.notesNamingMode = FLAT_MODE;
+            switchNoteNamingMode();
+        });
+        menu.sharpModeItem.setOnAction(e -> {
+            Note.notesNamingMode = SHARP_MODE;
+            switchNoteNamingMode();
+        });
+
+        root.setTop(menu);
         root.setBottom(bottom);
         GridPane.setHalignment(bottom, HPos.CENTER);
         root.setCenter(keyPane);
