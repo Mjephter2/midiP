@@ -16,7 +16,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.control.MenuBar;
 import sample.models.FillerButton;
+import sample.models.Note;
 import sample.models.Utilities;
+import sample.models.exceptions.InvalidNoteException;
 
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
@@ -30,7 +32,9 @@ import java.util.logging.Logger;
 
 import static sample.models.Note.notesNamingMode;
 
+
 import static sample.models.NotesNamingMode.FLAT_MODE;
+import static sample.models.NotesNamingMode.SHARP_MODE;
 import static sample.views.Styles.whiteKeysReleasedCss;
 import static sample.views.Styles.whiteKeysPressedCss;
 import static sample.views.Styles.blackKeysReleasedCss;
@@ -48,7 +52,7 @@ public final class FreePlayWindow extends Application {
     /**
      * Window configuration.
      */
-    private final FreePlayWindowConfig freePlayWindowConfig = FreePlayWindowConfig.defaultConfig();
+    private final FreePlayWindowConfig freePlayWindowConfig = FreePlayWindowConfig.fullWidthConfig();
     /**
      * Array of Button representing the keys on the piano.
      */
@@ -67,7 +71,7 @@ public final class FreePlayWindow extends Application {
     /**
      * Top Level Menu Bar.
      */
-    private final MenuBar menuBar = new CommonMenu();
+    private final CommonMenu menu = new CommonMenu();
 
     /**
      * Default Button style to help
@@ -96,6 +100,18 @@ public final class FreePlayWindow extends Application {
      * Button to show all Note names on the piano.
      */
     private final ToggleButton showNotesButton = new ToggleButton("Show Notes Names");
+
+    private void switchNotesNamingMode() {
+
+        for (Button button: keyBoard) {
+            String existingTooltip = button.getTooltip().getText();
+            try {
+                button.setTooltip(new Tooltip(new Note(existingTooltip).getName()));
+            } catch (InvalidNoteException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
     /**
      * Initializes the components of the UI.
@@ -216,6 +232,15 @@ public final class FreePlayWindow extends Application {
         initialize();
         //openAllTransmitters();
 
+        menu.flatModeItem.setOnAction(e -> {
+            Note.notesNamingMode = FLAT_MODE;
+            switchNotesNamingMode();
+        });
+        menu.sharpModeItem.setOnAction(e -> {
+            Note.notesNamingMode = SHARP_MODE;
+            switchNotesNamingMode();
+        });
+
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
 //        root.setPadding(new Insets(10, 20, 10, 20));
@@ -242,7 +267,7 @@ public final class FreePlayWindow extends Application {
         homButton.setVisible(true);
         showNotesButton.setVisible(true);
         // add menu bar
-        topPane.setTop(menuBar);
+        topPane.setTop(menu);
 
         for (Button button : whiteKeys) {
             button.setTooltip(new Tooltip(button.getText()));
@@ -314,8 +339,6 @@ public final class FreePlayWindow extends Application {
         freePlay.setScene(scene);
         freePlay.show();
 
-        // showNotesButton, homeButton actionListener
-        showNotesButton.setOnAction(e -> displayNotesNames());
         homButton.setOnAction(e -> {
             Main mainWindow = new Main();
             try {
