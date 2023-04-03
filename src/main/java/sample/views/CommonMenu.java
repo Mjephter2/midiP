@@ -12,6 +12,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class CommonMenu extends MenuBar {
+    public MenuItem flatModeItem = new MenuItem("Flat Mode: b");
+    public MenuItem sharpModeItem = new MenuItem("Sharp Mode: #");
+
     public CommonMenu() {
         super();
         this.setUseSystemMenuBar(true);
@@ -33,10 +36,7 @@ public class CommonMenu extends MenuBar {
         Menu preferenceSub = new Menu("Preferences");
         Menu setNoteNamingModeItem = new Menu("Set Note Naming Mode");
         preferenceSub.getItems().add(setNoteNamingModeItem);
-        MenuItem flatModeItem = new MenuItem("Flat Mode: b");
-        flatModeItem.setOnAction(action -> Note.notesNamingMode = NotesNamingMode.FLAT_MODE);
-        MenuItem sharpModeItem = new MenuItem("Sharp Mode: #");
-        sharpModeItem.setOnAction(action -> Note.notesNamingMode = NotesNamingMode.SHARP_MODE);
+
         setNoteNamingModeItem.getItems().add(flatModeItem);
         setNoteNamingModeItem.getItems().add(sharpModeItem);
 
