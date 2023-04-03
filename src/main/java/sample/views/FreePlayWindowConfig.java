@@ -119,7 +119,7 @@ public class FreePlayWindowConfig {
         this.windowWidth = width;
         this.windowHeight = height;
 
-        this.whiteKeysPrefWidth = WHITE_KEY_WIDTH_RATIO * windowWidth;
+        this.whiteKeysPrefWidth = WHITE_KEY_WIDTH_RATIO * (windowWidth - 20);
         this.blackKeysPrefWidth = this.whiteKeysPrefWidth - BW_KEYS_WIDTH_DIFF;
 
         this.whiteKeysPrefHeight = WHITE_KEY_HEIGHT_RATIO * height;

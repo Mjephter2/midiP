@@ -302,7 +302,9 @@ public final class FreePlayWindow extends Application {
         GridPane keyPane = new GridPane();
         keyPane.add(whiteKeyPane, 0, 0, 2, 1);
         keyPane.add(blackKeyPane, 0, 0, 2, 1);
+        keyPane.setPadding(new Insets(0, 0, 0, 12.5));
         root.setCenter(keyPane);
+        BorderPane.setAlignment(keyPane, Pos.CENTER);
         root.setTop(topPane);
 
         Scene scene = new Scene(root, freePlayWindowConfig.getWindowWidth(), freePlayWindowConfig.getWindowHeight());
