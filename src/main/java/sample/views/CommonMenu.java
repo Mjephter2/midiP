@@ -3,8 +3,6 @@ package sample.views;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import sample.models.Note;
-import sample.models.NotesNamingMode;
 
 import java.awt.Desktop;
 import java.io.IOException;
