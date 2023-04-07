@@ -64,6 +64,7 @@ public class LearnWindow extends Application {
     private final ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
     private final ToggleButton chineseScaleButton = new ToggleButton("Chinese Scale");
     private final ToggleButton majorPentatonicScaleButton = new ToggleButton("Major Pentatonic Scale");
+    private final ToggleButton minorPentatonicScaleButton = new ToggleButton("Minor Pentatonic Scale");
     private final RadioButton selectChord = new RadioButton("CHORD");
     private final RadioButton selectScale = new RadioButton("SCALE");
     private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(
@@ -101,10 +102,12 @@ public class LearnWindow extends Application {
         minorScaleButton.setToggleGroup(scaleType);
         chineseScaleButton.setToggleGroup(scaleType);
         majorPentatonicScaleButton.setToggleGroup(scaleType);
+        minorPentatonicScaleButton.setToggleGroup(scaleType);
         bottom.add(majorScaleButton,2,0);
         bottom.add(minorScaleButton,2,1);
         bottom.add(chineseScaleButton,2,2);
         bottom.add(majorPentatonicScaleButton,2,3);
+        bottom.add(minorPentatonicScaleButton,2,4);
 
         majorTriadButton.setToggleGroup(chordType);
         minorTriadButton.setToggleGroup(chordType);
@@ -319,6 +322,7 @@ public class LearnWindow extends Application {
         buttonScaleTypeMap.put(minorScaleButton, ScaleType.MINOR_SCALE);
         buttonScaleTypeMap.put(chineseScaleButton, ScaleType.CHINESE_SCALE);
         buttonScaleTypeMap.put(majorPentatonicScaleButton, ScaleType.MAJOR_PENTATONIC);
+        buttonScaleTypeMap.put(minorPentatonicScaleButton, ScaleType.MINOR_PENTATONIC);
 
         for (ToggleButton button : buttonScaleTypeMap.keySet()) {
             button.setOnMouseClicked(mouseEvent -> {
