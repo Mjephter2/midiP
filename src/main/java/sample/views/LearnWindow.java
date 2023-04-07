@@ -65,6 +65,7 @@ public class LearnWindow extends Application {
     private final ToggleButton chineseScaleButton = new ToggleButton("Chinese Scale");
     private final ToggleButton majorPentatonicScaleButton = new ToggleButton("Major Pentatonic Scale");
     private final ToggleButton minorPentatonicScaleButton = new ToggleButton("Minor Pentatonic Scale");
+    private final ToggleButton wholeToneScaleButton = new ToggleButton("Whole Tone Scale");
     private final RadioButton selectChord = new RadioButton("CHORD");
     private final RadioButton selectScale = new RadioButton("SCALE");
     private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(
@@ -103,11 +104,13 @@ public class LearnWindow extends Application {
         chineseScaleButton.setToggleGroup(scaleType);
         majorPentatonicScaleButton.setToggleGroup(scaleType);
         minorPentatonicScaleButton.setToggleGroup(scaleType);
+        wholeToneScaleButton.setToggleGroup(scaleType);
         bottom.add(majorScaleButton,2,0);
         bottom.add(minorScaleButton,2,1);
         bottom.add(chineseScaleButton,2,2);
         bottom.add(majorPentatonicScaleButton,2,3);
         bottom.add(minorPentatonicScaleButton,2,4);
+        bottom.add(wholeToneScaleButton,2,5);
 
         majorTriadButton.setToggleGroup(chordType);
         minorTriadButton.setToggleGroup(chordType);
@@ -323,6 +326,7 @@ public class LearnWindow extends Application {
         buttonScaleTypeMap.put(chineseScaleButton, ScaleType.CHINESE_SCALE);
         buttonScaleTypeMap.put(majorPentatonicScaleButton, ScaleType.MAJOR_PENTATONIC);
         buttonScaleTypeMap.put(minorPentatonicScaleButton, ScaleType.MINOR_PENTATONIC);
+        buttonScaleTypeMap.put(wholeToneScaleButton, ScaleType.WHOLE_TONE);
 
         for (ToggleButton button : buttonScaleTypeMap.keySet()) {
             button.setOnMouseClicked(mouseEvent -> {
@@ -440,7 +444,7 @@ public class LearnWindow extends Application {
         GridPane.setHalignment(bottom, HPos.CENTER);
         root.setCenter(keyPane);
 
-        Scene scene = new Scene(root,1000,350);
+        Scene scene = new Scene(root,1000,400);
         learn.setFullScreen(false);
         learn.setResizable(false);
         learn.setTitle("Learn Chords and Scales");
