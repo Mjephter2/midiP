@@ -60,6 +60,8 @@ public class LearnWindow extends Application {
     private final ToggleButton minor9thButton = new ToggleButton("Minor 9th");
     private final ToggleButton dominant7thButton = new ToggleButton("Dominant 7th");
     private final ToggleButton dominant9thButton = new ToggleButton("Dominant 9th");
+    private final ToggleButton major6thButton = new ToggleButton("Major 6th");
+    private final ToggleButton minor6thButton = new ToggleButton("Minor 6th");
     private final ToggleButton majorScaleButton = new ToggleButton("Major Scale");
     private final ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
     private final ToggleButton chineseScaleButton = new ToggleButton("Chinese Scale");
@@ -120,8 +122,12 @@ public class LearnWindow extends Application {
         minor9thButton.setToggleGroup(chordType);
         dominant7thButton.setToggleGroup(chordType);
         dominant9thButton.setToggleGroup(chordType);
+        major6thButton.setToggleGroup(chordType);
+        minor6thButton.setToggleGroup(chordType);
         bottom.add(majorTriadButton,3,0);
         bottom.add(minorTriadButton,3,1);
+        bottom.add(major6thButton,3,2);
+        bottom.add(minor6thButton,3,3);
         bottom.add(major7thButton,4,0);
         bottom.add(minor7thButton,4,1);
         bottom.add(major9thButton,5,0);
@@ -272,6 +278,8 @@ public class LearnWindow extends Application {
         Map<ToggleButton, ChordType> buttonChordTypeMap = new HashMap<>();
         buttonChordTypeMap.put(minorTriadButton, ChordType.MINOR_TRIAD);
         buttonChordTypeMap.put(majorTriadButton, ChordType.MAJOR_TRIAD);
+        buttonChordTypeMap.put(major6thButton, ChordType.MAJOR_6TH);
+        buttonChordTypeMap.put(minor6thButton, ChordType.MINOR_6TH);
         buttonChordTypeMap.put(minor7thButton, ChordType.MINOR_7TH);
         buttonChordTypeMap.put(major7thButton, ChordType.MAJOR_7TH);
         buttonChordTypeMap.put(major9thButton, ChordType.MAJOR_9TH);
