@@ -48,7 +48,7 @@ import static sample.views.Styles.blackKeysPressedCSs;
 public class LearnWindow extends Application {
     private static final Logger logger = Logger.getLogger(LearnWindow.class.getName());
     private static final CommonMenu menu = new CommonMenu();
-    private static final int NUMBER_OF_KEYS = 27;
+    private static final int NUMBER_OF_KEYS = 29;
     private final LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
     private final LinkedList<Button> whiteKeys = new LinkedList<>();
     private final LinkedList<Button> blackKeys = new LinkedList<>();
@@ -58,6 +58,8 @@ public class LearnWindow extends Application {
     private final ToggleButton minor7thButton = new ToggleButton(("Minor 7th"));
     private final ToggleButton major9thButton = new ToggleButton("Major 9th");
     private final ToggleButton minor9thButton = new ToggleButton("Minor 9th");
+    private final ToggleButton major11thButton = new ToggleButton("Major 11th");
+    private final ToggleButton minor11thButton = new ToggleButton("Minor 11th");
     private final ToggleButton dominant7thButton = new ToggleButton("Dominant 7th");
     private final ToggleButton dominant9thButton = new ToggleButton("Dominant 9th");
     private final ToggleButton major6thButton = new ToggleButton("Major 6th");
@@ -124,6 +126,8 @@ public class LearnWindow extends Application {
         dominant9thButton.setToggleGroup(chordType);
         major6thButton.setToggleGroup(chordType);
         minor6thButton.setToggleGroup(chordType);
+        major11thButton.setToggleGroup(chordType);
+        minor11thButton.setToggleGroup(chordType);
         bottom.add(majorTriadButton,3,0);
         bottom.add(minorTriadButton,3,1);
         bottom.add(major6thButton,3,2);
@@ -132,6 +136,8 @@ public class LearnWindow extends Application {
         bottom.add(minor7thButton,4,1);
         bottom.add(major9thButton,5,0);
         bottom.add(minor9thButton,5,1);
+        bottom.add(major11thButton,5,2);
+        bottom.add(minor11thButton,5,3);
         bottom.add(dominant7thButton,6,0);
         bottom.add(dominant9thButton,6,1);
 
@@ -286,6 +292,8 @@ public class LearnWindow extends Application {
         buttonChordTypeMap.put(minor9thButton, ChordType.MINOR_9TH);
         buttonChordTypeMap.put(dominant7thButton, ChordType.DOMINANT_7TH);
         buttonChordTypeMap.put(dominant9thButton, ChordType.DOMINANT_9TH);
+        buttonChordTypeMap.put(major11thButton, ChordType.MAJOR_11TH);
+        buttonChordTypeMap.put(minor11thButton, ChordType.MINOR_11TH);
 
         for (ToggleButton button : buttonChordTypeMap.keySet()) {
             button.setOnMouseClicked(mouseEvent -> {
@@ -452,7 +460,7 @@ public class LearnWindow extends Application {
         GridPane.setHalignment(bottom, HPos.CENTER);
         root.setCenter(keyPane);
 
-        Scene scene = new Scene(root,1000,400);
+        Scene scene = new Scene(root,1000,420);
         learn.setFullScreen(false);
         learn.setResizable(false);
         learn.setTitle("Learn Chords and Scales");
