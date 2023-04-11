@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Background;
@@ -19,14 +20,19 @@ import sample.models.Note;
 import sample.models.Utilities;
 import sample.models.exceptions.InvalidNoteException;
 
+import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.MidiMessage;
+import javax.sound.midi.Synthesizer;
+import javax.sound.midi.Transmitter;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Vector;
 import java.util.logging.Logger;
 
 import static sample.models.Note.notesNamingMode;
@@ -89,6 +95,8 @@ public final class FreePlayWindow extends Application {
      * as captured from a physical midi device.
      */
     private int lastKeyPressedIndex = 0;
+
+    private MidiChannel midiChannel;
 
     /**
      * Home button to return to the Main View.
@@ -173,31 +181,28 @@ public final class FreePlayWindow extends Application {
     }
 
 
-//    /**
-//     * Opens all the midi transmitters available in
-//     * the system.
-//     */
-    /* private void openAllTransmitters() {
-        MidiDevice device;
+    /**
+     * Opens all the midi transmitters available in
+     * the system.
+     */
+    private void openAllTransmitters() {
+        Vector<MidiDevice.Info> synthInfos = new Vector<>();
+        MidiDevice device = null;
         MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
         for (MidiDevice.Info info : infos) {
             try {
                 device = MidiSystem.getMidiDevice(info);
-                int numTrans = device.getTransmitters().size();
-                LOGGER.info(info + " has " + numTrans + " transmitters");
-                List<Transmitter> transmitters = device.getTransmitters();
-                for (Transmitter transmitter : transmitters) {
-                    transmitter.setReceiver(midiInputReceiver);
-                }
-                Transmitter trans = device.getTransmitter();
-                trans.setReceiver(midiInputReceiver);
-                device.open();
-                LOGGER.info(device.getDeviceInfo() + " Was Opened");
             } catch (MidiUnavailableException e) {
                 e.printStackTrace();
             }
+            if (device instanceof Synthesizer) {
+                synthInfos.add(info);
+            }
         }
-    }*/
+        for (MidiDevice.Info info : synthInfos) {
+            menu.selectMidiInput.getItems().add(new MenuItem(info.getName() + " --- " +info.getDescription()));
+        }
+    }
 
     /**
      * Closes all the open midi transmitters available in the system.
@@ -229,7 +234,7 @@ public final class FreePlayWindow extends Application {
     @Override
     public void start(final Stage freePlay) {
         initialize();
-        //openAllTransmitters();
+        openAllTransmitters();
 
         menu.flatModeItem.setOnAction(e -> {
             Note.notesNamingMode = FLAT_MODE;

@@ -12,6 +12,7 @@ import java.net.URL;
 public class CommonMenu extends MenuBar {
     public MenuItem flatModeItem = new MenuItem("Flat Mode: b");
     public MenuItem sharpModeItem = new MenuItem("Sharp Mode: #");
+    public Menu selectMidiInput = new Menu("Select Midi Input");
 
     public CommonMenu() {
         super();
@@ -45,6 +46,7 @@ public class CommonMenu extends MenuBar {
 
         // add menus to menu bar
         this.getMenus().add(m);
+        this.getMenus().add(selectMidiInput);
         //Add style on menu bar so that it is visible from the user
         this.setStyle("-fx-background-color: #77838f");
     }
