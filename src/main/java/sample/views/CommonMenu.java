@@ -14,7 +14,7 @@ public class CommonMenu extends MenuBar {
     public MenuItem sharpModeItem = new MenuItem("Sharp Mode: #");
     public Menu selectMidiInput = new Menu("Select Midi Input");
 
-    public CommonMenu() {
+    public CommonMenu(final boolean showMidiList) {
         super();
         this.setUseSystemMenuBar(true);
 
@@ -46,7 +46,9 @@ public class CommonMenu extends MenuBar {
 
         // add menus to menu bar
         this.getMenus().add(m);
-        this.getMenus().add(selectMidiInput);
+        if (showMidiList) {
+            this.getMenus().add(selectMidiInput);
+        }
         //Add style on menu bar so that it is visible from the user
         this.setStyle("-fx-background-color: #77838f");
     }

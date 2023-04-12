@@ -34,7 +34,7 @@ public final class Main extends Application {
      */
     private final GridPane center = new GridPane();
 
-    private final MenuBar menuBar = new CommonMenu();
+    private final MenuBar menuBar = new CommonMenu(false);
 
     /**
      * VBox for the top portion of window.

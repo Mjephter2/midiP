@@ -76,7 +76,7 @@ public final class FreePlayWindow extends Application {
     /**
      * Top Level Menu Bar.
      */
-    private final CommonMenu menu = new CommonMenu();
+    private final CommonMenu menu = new CommonMenu(true);
 
     /**
      * Default Button style to help
