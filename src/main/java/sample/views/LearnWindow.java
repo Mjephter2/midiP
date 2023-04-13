@@ -47,7 +47,7 @@ import static sample.views.Styles.blackKeysPressedCSs;
 
 public class LearnWindow extends Application {
     private static final Logger logger = Logger.getLogger(LearnWindow.class.getName());
-    private static final CommonMenu menu = new CommonMenu(true);
+    private final CommonMenu menu = new CommonMenu(false);
     private static final int NUMBER_OF_KEYS = 29;
     private final LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
     private final LinkedList<Button> whiteKeys = new LinkedList<>();
