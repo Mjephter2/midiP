@@ -70,6 +70,8 @@ public class LearnWindow extends Application {
     private final ToggleButton majorPentatonicScaleButton = new ToggleButton("Major Pentatonic Scale");
     private final ToggleButton minorPentatonicScaleButton = new ToggleButton("Minor Pentatonic Scale");
     private final ToggleButton wholeToneScaleButton = new ToggleButton("Whole Tone Scale");
+    private final ToggleButton suspended2ndButton = new ToggleButton("Suspended 2nd");
+    private final ToggleButton suspended4thButton = new ToggleButton("Suspended 4th");
     private final RadioButton selectChord = new RadioButton("CHORD");
     private final RadioButton selectScale = new RadioButton("SCALE");
     private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(
@@ -128,10 +130,14 @@ public class LearnWindow extends Application {
         minor6thButton.setToggleGroup(chordType);
         major11thButton.setToggleGroup(chordType);
         minor11thButton.setToggleGroup(chordType);
+        suspended2ndButton.setToggleGroup(chordType);
+        suspended4thButton.setToggleGroup(chordType);
         bottom.add(majorTriadButton,3,0);
         bottom.add(minorTriadButton,3,1);
         bottom.add(major6thButton,3,2);
         bottom.add(minor6thButton,3,3);
+        bottom.add(suspended2ndButton,3,4);
+        bottom.add(suspended4thButton,3,5);
         bottom.add(major7thButton,4,0);
         bottom.add(minor7thButton,4,1);
         bottom.add(major9thButton,5,0);
@@ -284,6 +290,8 @@ public class LearnWindow extends Application {
         Map<ToggleButton, ChordType> buttonChordTypeMap = new HashMap<>();
         buttonChordTypeMap.put(minorTriadButton, ChordType.MINOR_TRIAD);
         buttonChordTypeMap.put(majorTriadButton, ChordType.MAJOR_TRIAD);
+        buttonChordTypeMap.put(suspended2ndButton, ChordType.SUSPENDED_2ND);
+        buttonChordTypeMap.put(suspended4thButton, ChordType.SUSPENDED_4TH);
         buttonChordTypeMap.put(major6thButton, ChordType.MAJOR_6TH);
         buttonChordTypeMap.put(minor6thButton, ChordType.MINOR_6TH);
         buttonChordTypeMap.put(minor7thButton, ChordType.MINOR_7TH);
