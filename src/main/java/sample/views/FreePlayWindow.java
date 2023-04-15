@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
@@ -244,6 +245,13 @@ public final class FreePlayWindow extends Application {
             Note.notesNamingMode = SHARP_MODE;
             switchNotesNamingMode();
         });
+
+        Menu keyboardSize = new Menu("Keyboard Size");
+        MenuItem keyboard88 = new MenuItem("88 Keys");
+        MenuItem keyboard61 = new MenuItem("61 Keys");
+        MenuItem keyboard49 = new MenuItem("49 Keys");
+        keyboardSize.getItems().addAll(keyboard88, keyboard61, keyboard49);
+        menu.getMenus().add(keyboardSize);
 
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
