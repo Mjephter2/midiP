@@ -29,10 +29,8 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Synthesizer;
-import javax.sound.midi.Transmitter;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Vector;
 import java.util.logging.Logger;
 
@@ -73,6 +71,12 @@ public final class FreePlayWindow extends Application {
      * List of black keys on the piano in order.
      */
     private final LinkedList<Button> blackKeys = new LinkedList<>();
+
+    HBox blackKeyPane = new HBox();
+
+    HBox whiteKeyPane = new HBox();
+
+    BorderPane root = new BorderPane();
 
     /**
      * Top Level Menu Bar.
@@ -154,6 +158,65 @@ public final class FreePlayWindow extends Application {
                     button.setStyle(BUTTON_ORIGINAL_STYLE);
                 }
             });
+        }
+
+        populatedKeyPanes();
+    }
+
+    private void populatedKeyPanes() {
+        for (Button button : whiteKeys) {
+            button.setTooltip(new Tooltip(button.getText()));
+            button.setText("");
+            button.setPrefSize(freePlayWindowConfig.getWhiteKeysPrefWidth(), freePlayWindowConfig.getWhiteKeysPrefHeight());
+            button.setPadding(new Insets(0, 0, 0, 0));
+            button.setOnMousePressed(event -> {
+                button.setStyle(whiteKeysPressedCss);
+                button.setTranslateY(2);
+            });
+
+            button.setOnMouseReleased(event -> {
+                button.setStyle(whiteKeysReleasedCss);
+                button.setTranslateY(0);
+            });
+
+            whiteKeyPane.getChildren().add(button);
+        }
+
+        for (Button button : blackKeys) {
+            button.setTooltip(new Tooltip(button.getText()));
+            button.setText("");
+            button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
+            button.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
+            button.setOnMousePressed(event -> {
+                button.setStyle(blackKeysPressedCSs);
+                button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight() + 2);
+                // This line of code changes the text in topPane to the value of the note pressed
+            });
+
+            button.setOnMouseReleased(event -> {
+                button.setStyle(blackKeysReleasedCss);
+                button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
+            });
+            blackKeyPane.getChildren().add(button);
+        }
+        FillerButton filler = new FillerButton((int) freePlayWindowConfig.getBlackKeysPrefWidth(), (int) freePlayWindowConfig.getBlackKeysPrefHeight());
+        filler.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
+        blackKeyPane.getChildren().add(1, filler);
+        int i = 1;
+        while (i < blackKeyPane.getChildren().size() - 1) {
+            FillerButton fillerButton1 = new FillerButton(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
+            FillerButton fillerButton2 = new FillerButton(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
+            fillerButton1.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
+            fillerButton2.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
+            blackKeyPane.getChildren().add(i + 3, fillerButton1);
+            blackKeyPane.getChildren().add(i + 7, fillerButton2);
+            i = i + 7;
+        }
+        for (Button button: blackKeys) {
+            button.setStyle(blackKeysReleasedCss);
+        }
+        for (Button button: whiteKeys) {
+            button.setStyle(whiteKeysReleasedCss);
         }
     }
 
@@ -253,12 +316,9 @@ public final class FreePlayWindow extends Application {
         keyboardSize.getItems().addAll(keyboard88, keyboard61, keyboard49);
         menu.getMenus().add(keyboardSize);
 
-        BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
 //        root.setPadding(new Insets(10, 20, 10, 20));
-        HBox whiteKeyPane = new HBox();
         whiteKeyPane.setPickOnBounds(false);
-        HBox blackKeyPane = new HBox();
         blackKeyPane.setPickOnBounds(false);
         blackKeyPane.setPadding(new Insets(0, 0, 0, freePlayWindowConfig.getBlackKeyPaneLeftPadding()));
         blackKeyPane.setSpacing(freePlayWindowConfig.getBlackKeyPaneSpacing());
@@ -280,61 +340,6 @@ public final class FreePlayWindow extends Application {
         showNotesButton.setVisible(true);
         // add menu bar
         topPane.setTop(menu);
-
-        for (Button button : whiteKeys) {
-            button.setTooltip(new Tooltip(button.getText()));
-            button.setText("");
-            button.setPrefSize(freePlayWindowConfig.getWhiteKeysPrefWidth(), freePlayWindowConfig.getWhiteKeysPrefHeight());
-            button.setPadding(new Insets(0, 0, 0, 0));
-            button.setOnMousePressed(event -> {
-                button.setStyle(whiteKeysPressedCss);
-                button.setTranslateY(2);
-            });
-
-            button.setOnMouseReleased(event -> {
-                button.setStyle(whiteKeysReleasedCss);
-                button.setTranslateY(0);
-            });
-
-            whiteKeyPane.getChildren().add(button);
-        }
-
-        for (Button button : blackKeys) {
-            button.setTooltip(new Tooltip(button.getText()));
-            button.setText("");
-            button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
-            button.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
-            button.setOnMousePressed(event -> {
-                button.setStyle(blackKeysPressedCSs);
-                button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight() + 2);
-                // This line of code changes the text in topPane to the value of the note pressed
-            });
-
-            button.setOnMouseReleased(event -> {
-                button.setStyle(blackKeysReleasedCss);
-                button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
-            });
-            blackKeyPane.getChildren().add(button);
-        }
-        FillerButton filler = new FillerButton((int) freePlayWindowConfig.getBlackKeysPrefWidth(), (int) freePlayWindowConfig.getBlackKeysPrefHeight());
-        filler.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
-        blackKeyPane.getChildren().add(1, filler);
-        int i = 1;
-        while (i < blackKeyPane.getChildren().size() - 1) {
-            FillerButton fillerButton1 = new FillerButton(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
-            FillerButton fillerButton2 = new FillerButton(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
-            fillerButton1.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
-            fillerButton2.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
-            blackKeyPane.getChildren().add(i + 3, fillerButton1);
-            blackKeyPane.getChildren().add(i + 7, fillerButton2);
-            i = i + 7;
-        }
-        for (Button button: blackKeys) {
-            button.setStyle(blackKeysReleasedCss);
-        }
-        for (Button button: whiteKeys) {
-            button.setStyle(whiteKeysReleasedCss);
-        }
 
         GridPane keyPane = new GridPane();
         keyPane.add(whiteKeyPane, 0, 0, 2, 1);
