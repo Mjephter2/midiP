@@ -190,7 +190,6 @@ public final class FreePlayWindow extends Application {
             button.setOnMousePressed(event -> {
                 button.setStyle(blackKeysPressedCSs);
                 button.setPrefSize(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight() + 2);
-                // This line of code changes the text in topPane to the value of the note pressed
             });
 
             button.setOnMouseReleased(event -> {
@@ -317,12 +316,13 @@ public final class FreePlayWindow extends Application {
         menu.getMenus().add(keyboardSize);
 
         root.setStyle("-fx-background-color: #E6BF83");
-//        root.setPadding(new Insets(10, 20, 10, 20));
+
         whiteKeyPane.setPickOnBounds(false);
+        whiteKeyPane.setSpacing(FreePlayWindowConfig.WHITE_KEY_PANE_SPACING);
+
         blackKeyPane.setPickOnBounds(false);
         blackKeyPane.setPadding(new Insets(0, 0, 0, freePlayWindowConfig.getBlackKeyPaneLeftPadding()));
         blackKeyPane.setSpacing(freePlayWindowConfig.getBlackKeyPaneSpacing());
-        whiteKeyPane.setSpacing(FreePlayWindowConfig.WHITE_KEY_PANE_SPACING);
 
         // Top pane that will contain show_notes ToggleButton and home button
         BorderPane topPane = new BorderPane();
@@ -338,6 +338,7 @@ public final class FreePlayWindow extends Application {
         topPane.setPadding(new Insets(10, 20, 10, 20));
         homButton.setVisible(true);
         showNotesButton.setVisible(true);
+
         // add menu bar
         topPane.setTop(menu);
 
