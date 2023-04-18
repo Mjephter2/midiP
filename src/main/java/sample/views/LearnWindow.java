@@ -134,18 +134,18 @@ public class LearnWindow extends Application {
         suspended4thButton.setToggleGroup(chordType);
         bottom.add(majorTriadButton,3,0);
         bottom.add(minorTriadButton,3,1);
-        bottom.add(major6thButton,3,2);
-        bottom.add(minor6thButton,3,3);
-        bottom.add(suspended2ndButton,3,4);
-        bottom.add(suspended4thButton,3,5);
+        bottom.add(suspended2ndButton,3,2);
+        bottom.add(suspended4thButton,3,3);
+        bottom.add(major6thButton,3,4);
+        bottom.add(minor6thButton,3,5);
         bottom.add(major7thButton,4,0);
         bottom.add(minor7thButton,4,1);
+        bottom.add(dominant7thButton,4,2);
         bottom.add(major9thButton,5,0);
         bottom.add(minor9thButton,5,1);
-        bottom.add(major11thButton,5,2);
-        bottom.add(minor11thButton,5,3);
-        bottom.add(dominant7thButton,6,0);
-        bottom.add(dominant9thButton,6,1);
+        bottom.add(dominant9thButton,5,2);
+        bottom.add(major11thButton,6,0);
+        bottom.add(minor11thButton,6,1);
 
         scaleType.getToggles().forEach(toggle -> {
             Node node = (Node) toggle;
