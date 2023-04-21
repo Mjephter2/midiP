@@ -9,15 +9,17 @@ import sample.models.exceptions.InvalidVoicingException;
 
 import java.util.Arrays;
 
-public class MajorTriadVoicing {
+public class TriadVoicing {
 
     private final Note root;
+    private final ChordType chordType;
 
-    public MajorTriadVoicing(final Note root, final String version) throws Exception {
+    public TriadVoicing(final Note root, ChordType chordType, final String version) throws Exception {
         if (Arrays.stream(ChordVoicingVersionEnum.values()).noneMatch(v -> v.name().equals(version))) {
             throw new InvalidVoicingException("Invalid voicing version provided");
         }
         this.root = root;
+        this.chordType = chordType;
     }
 
     public Note[] generateLeftHand() throws InvalidNoteException {
@@ -25,6 +27,12 @@ public class MajorTriadVoicing {
     }
 
     public Note[] generateRightHand() throws Exception {
-        return new Chord(ChordType.MAJOR_TRIAD, root.sharp(24)).notes();
+        if (chordType == ChordType.MAJOR_TRIAD) {
+            return new Chord(ChordType.MAJOR_TRIAD, root.sharp(24)).notes();
+        }  else if (chordType == ChordType.MINOR_TRIAD) {
+            return new Chord(ChordType.MINOR_TRIAD, root.sharp(24)).notes();
+        } else {
+            throw new InvalidVoicingException("Voicing not implemented for given ChordType ");
+        }
     }
 }

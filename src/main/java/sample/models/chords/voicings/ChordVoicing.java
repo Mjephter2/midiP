@@ -2,7 +2,7 @@ package sample.models.chords.voicings;
 
 import sample.models.Note;
 import sample.models.chords.ChordType;
-import sample.models.chords.voicings.generators.triads.MajorTriadVoicing;
+import sample.models.chords.voicings.generators.triads.TriadVoicing;
 import sample.models.exceptions.InvalidVoicingException;
 
 public class ChordVoicing {
@@ -16,8 +16,8 @@ public class ChordVoicing {
         this.version = version;
         this.root = root;
 
-        if (chordType == ChordType.MAJOR_TRIAD) {
-            MajorTriadVoicing voicing = new MajorTriadVoicing(root, version.name());
+        if (chordType == ChordType.MAJOR_TRIAD || chordType == ChordType.MINOR_TRIAD) {
+            TriadVoicing voicing = new TriadVoicing(root, chordType, version.name());
             leftHand = voicing.generateLeftHand();
             rightHand = voicing.generateRightHand();
         } else {
