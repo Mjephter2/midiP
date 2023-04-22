@@ -3,13 +3,14 @@ package sample.models.chords.voicings.generators.triads;
 import sample.models.Note;
 import sample.models.chords.Chord;
 import sample.models.chords.ChordType;
+import sample.models.chords.voicings.ChordVoicing;
 import sample.models.chords.voicings.ChordVoicingVersionEnum;
 import sample.models.exceptions.InvalidNoteException;
 import sample.models.exceptions.InvalidVoicingException;
 
 import java.util.Arrays;
 
-public class TriadVoicing {
+public class TriadVoicing implements ChordVoicing {
 
     private final Note root;
     private final ChordType chordType;
@@ -26,13 +27,20 @@ public class TriadVoicing {
         return new Note[] {root, root.sharp(12)};
     }
 
-    public Note[] generateRightHand() throws Exception {
+    public Note[] generateRightHand() throws InvalidNoteException, InvalidVoicingException {
         if (chordType == ChordType.MAJOR_TRIAD) {
-            return new Chord(ChordType.MAJOR_TRIAD, root.sharp(24)).notes();
+            try {
+                return new Chord(ChordType.MAJOR_TRIAD, root.sharp(24)).notes();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }  else if (chordType == ChordType.MINOR_TRIAD) {
-            return new Chord(ChordType.MINOR_TRIAD, root.sharp(24)).notes();
-        } else {
-            throw new InvalidVoicingException("Voicing not implemented for given ChordType ");
+            try {
+                return new Chord(ChordType.MINOR_TRIAD, root.sharp(24)).notes();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        throw new InvalidVoicingException("Invalid voicing version provided");
     }
 }
