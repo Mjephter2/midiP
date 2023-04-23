@@ -86,7 +86,6 @@ public class LearnWindow extends Application {
     private final Button resetButton = new Button("RESET");
 
     private final Button homeButton = new Button("Home");
-    private AudioPlayer[] audioPlayers;
 
     private void drawSelectionButtons() {
         //bottom.setGridLinesVisible(true);
@@ -218,51 +217,26 @@ public class LearnWindow extends Application {
             keyBoard.add(button);
         }
 
-        audioPlayers = Utilities.createAudioPlayers(keyBoard.stream().map(button -> {
-            try {
-                return new Note(button.getTooltip().getText());
-            } catch (InvalidNoteException e) {
-                throw new RuntimeException(e);
-            }
-        }).toArray(Note[]::new));
-
-        for(int i = 0; i < keyBoard.size(); i++) {
-            Button currentButton = keyBoard.get(i);
-            int finalI = i;
-
-            if(whiteKeys.contains(currentButton)) {
+        for (Button currentButton : keyBoard) {
+            if (whiteKeys.contains(currentButton)) {
                 currentButton.setOnMousePressed(event -> {
-                    audioPlayers[finalI].start();
                     currentButton.setStyle(whiteKeysPressedCss);
                     currentButton.setPrefSize(40, 150);
                 });
 
                 currentButton.setOnMouseReleased(event -> {
-                    audioPlayers[finalI].stopPlaying();
                     currentButton.setStyle(whiteKeysReleasedCss);
                     currentButton.setPrefSize(40, 140);
-                    try {
-                        audioPlayers[finalI] = new AudioPlayer(new Note(currentButton.getTooltip().getText()));
-                    } catch (InvalidNoteException e) {
-                        throw new RuntimeException(e);
-                    }
                 });
             } else {
                 currentButton.setOnMousePressed(event -> {
                     currentButton.setStyle(blackKeysPressedCSs);
-                    currentButton.setPrefSize(30,82);
-                    audioPlayers[finalI].start();
+                    currentButton.setPrefSize(30, 82);
                 });
 
                 currentButton.setOnMouseReleased(event -> {
                     currentButton.setStyle(blackKeysReleasedCss);
-                    currentButton.setPrefSize(30,80);
-                    audioPlayers[finalI].stopPlaying();
-                    try {
-                        audioPlayers[finalI] = new AudioPlayer(new Note(currentButton.getTooltip().getText()));
-                    } catch (InvalidNoteException e) {
-                        throw new RuntimeException(e);
-                    }
+                    currentButton.setPrefSize(30, 80);
                 });
             }
         }
