@@ -29,8 +29,8 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Synthesizer;
-import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Logger;
 
@@ -57,10 +57,14 @@ public final class FreePlayWindow extends Application {
      * Window configuration.
      */
     private final FreePlayWindowConfig freePlayWindowConfig = FreePlayWindowConfig.fullWidthConfig();
+
+    private int numKeys = 76;
+    private int firstKey = 0;
+
     /**
      * Array of Button representing the keys on the piano.
      */
-    private final Button[] keyBoard = new Button[Utilities.NUMBER_OF_KEYS_88];
+    private final Button[] keyBoard = new Button[numKeys];
 
     /**
      * List of white keys on the piano in order.
@@ -129,22 +133,36 @@ public final class FreePlayWindow extends Application {
      * Initializes the components of the UI.
      */
     private void initialize() {
-        int i = 0;
-        while (i < Utilities.NUMBER_OF_KEYS_88) {
-            ArrayList<Integer> blackIndex = new ArrayList<>();
-            blackIndex.add(1);
-            blackIndex.add(4);
-            blackIndex.add(6);
-            blackIndex.add(9);
-            blackIndex.add(11);
-            Button button = new Button(notesNamingMode ==  FLAT_MODE ? Utilities.NOTE_NAMES_FLAT.get(i) : Utilities.NOTE_NAMES_SHARP.get(i));
-            if (blackIndex.contains(i % 12)) {
+//        int i = 0;
+//        while (i < numKeys) {
+//            ArrayList<Integer> blackIndex = new ArrayList<>();
+//            blackIndex.add(1);
+//            blackIndex.add(4);
+//            blackIndex.add(6);
+//            blackIndex.add(9);
+//            blackIndex.add(11);
+//            Button button = new Button(notesNamingMode ==  FLAT_MODE ? Utilities.NOTE_NAMES_FLAT.get(i) : Utilities.NOTE_NAMES_SHARP.get(i));
+//            if (blackIndex.contains(i % 12)) {
+//                blackKeys.add(button);
+//            } else {
+//                whiteKeys.add(button);
+//            }
+//            keyBoard[i] = button;
+//            i++;
+//        }
+
+        int start = Utilities.NOTE_NAMES_FLAT.indexOf("A0");
+        List<Integer> blackIndex = List.of(1, 4, 6, 9, 11);
+
+        for(int i = start; i < start + numKeys; i++){
+            String noteName = Note.notesNamingMode == FLAT_MODE ? Utilities.NOTE_NAMES_FLAT.get(i) : Utilities.NOTE_NAMES_SHARP.get(i);
+            Button button = new Button(noteName);
+            if(blackIndex.contains(i % 12)){
                 blackKeys.add(button);
-            } else {
+            }else{
                 whiteKeys.add(button);
             }
             keyBoard[i] = button;
-            i++;
         }
 
         for (Button button : keyBoard) {
@@ -201,7 +219,11 @@ public final class FreePlayWindow extends Application {
         FillerButton filler = new FillerButton((int) freePlayWindowConfig.getBlackKeysPrefWidth(), (int) freePlayWindowConfig.getBlackKeysPrefHeight());
         filler.setPadding(new Insets(0, freePlayWindowConfig.getBlackKeysPaddingRight(), 0, 0));
         blackKeyPane.getChildren().add(1, filler);
-        int i = 1;
+        int i = switch (numKeys) {
+            case 88,76 -> 1;
+            case 61,49 -> 0;
+            default -> throw new IllegalStateException("Unexpected value: " + numKeys);
+        };
         while (i < blackKeyPane.getChildren().size() - 1) {
             FillerButton fillerButton1 = new FillerButton(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
             FillerButton fillerButton2 = new FillerButton(freePlayWindowConfig.getBlackKeysPrefWidth(), freePlayWindowConfig.getBlackKeysPrefHeight());
