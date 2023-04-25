@@ -34,9 +34,6 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Logger;
 
-import static sample.models.Note.notesNamingMode;
-
-
 import static sample.models.NotesNamingMode.FLAT_MODE;
 import static sample.models.NotesNamingMode.SHARP_MODE;
 import static sample.views.Styles.whiteKeysReleasedCss;
@@ -58,8 +55,7 @@ public final class FreePlayWindow extends Application {
      */
     private final FreePlayWindowConfig freePlayWindowConfig = FreePlayWindowConfig.fullWidthConfig();
 
-    private int numKeys = 76;
-    private int firstKey = 0;
+    private static int numKeys = 88;
 
     /**
      * Array of Button representing the keys on the piano.
@@ -112,6 +108,10 @@ public final class FreePlayWindow extends Application {
      */
     private final Button homButton = new Button("Home");
 
+    private final MenuItem keyboard88 = new MenuItem("88 Keys");
+    private final MenuItem keyboard61 = new MenuItem("61 Keys");
+    private final MenuItem keyboard49 = new MenuItem("49 Keys");
+
     /**
      * Button to show all Note names on the piano.
      */
@@ -133,23 +133,6 @@ public final class FreePlayWindow extends Application {
      * Initializes the components of the UI.
      */
     private void initialize() {
-//        int i = 0;
-//        while (i < numKeys) {
-//            ArrayList<Integer> blackIndex = new ArrayList<>();
-//            blackIndex.add(1);
-//            blackIndex.add(4);
-//            blackIndex.add(6);
-//            blackIndex.add(9);
-//            blackIndex.add(11);
-//            Button button = new Button(notesNamingMode ==  FLAT_MODE ? Utilities.NOTE_NAMES_FLAT.get(i) : Utilities.NOTE_NAMES_SHARP.get(i));
-//            if (blackIndex.contains(i % 12)) {
-//                blackKeys.add(button);
-//            } else {
-//                whiteKeys.add(button);
-//            }
-//            keyBoard[i] = button;
-//            i++;
-//        }
 
         int start = Utilities.NOTE_NAMES_FLAT.indexOf("A0");
         List<Integer> blackIndex = List.of(1, 4, 6, 9, 11);
@@ -239,6 +222,16 @@ public final class FreePlayWindow extends Application {
         for (Button button: whiteKeys) {
             button.setStyle(whiteKeysReleasedCss);
         }
+    }
+
+    private void resizeKeyboard(final int numKeys) {
+        FreePlayWindow.numKeys = numKeys;
+        blackKeyPane.getChildren().clear();
+        whiteKeyPane.getChildren().clear();
+        whiteKeys.clear();
+        blackKeys.clear();
+
+        initialize();
     }
 
     /**
@@ -331,10 +324,10 @@ public final class FreePlayWindow extends Application {
         });
 
         Menu keyboardSize = new Menu("Keyboard Size");
-        MenuItem keyboard88 = new MenuItem("88 Keys");
-        MenuItem keyboard61 = new MenuItem("61 Keys");
-        MenuItem keyboard49 = new MenuItem("49 Keys");
         keyboardSize.getItems().addAll(keyboard88, keyboard61, keyboard49);
+        keyboard49.setOnAction(e -> resizeKeyboard(49));
+        keyboard61.setOnAction(e -> resizeKeyboard(61));
+        keyboard88.setOnAction(e -> resizeKeyboard(88));
         menu.getMenus().add(keyboardSize);
 
         root.setStyle("-fx-background-color: #E6BF83");
@@ -346,31 +339,31 @@ public final class FreePlayWindow extends Application {
         blackKeyPane.setPadding(new Insets(0, 0, 0, freePlayWindowConfig.getBlackKeyPaneLeftPadding()));
         blackKeyPane.setSpacing(freePlayWindowConfig.getBlackKeyPaneSpacing());
 
-        // Top pane that will contain show_notes ToggleButton and home button
-        BorderPane topPane = new BorderPane();
+        // Pane that will contain show_notes ToggleButton and home button
+        BorderPane bottomPane = new BorderPane();
 
         // Hbox inside which we put show_notes and home button
         HBox buttons = new HBox();
         buttons.setSpacing(10);
         buttons.getChildren().add(showNotesButton);
         buttons.getChildren().add(homButton);
-        // Assign buttons Hbox on the right side of topPane
-        topPane.setRight(buttons);
-        topPane.setBackground(Background.fill(Color.TRANSPARENT));
-        topPane.setPadding(new Insets(10, 20, 10, 20));
+        // Assign buttons Hbox on the right side of bottomPane
+        buttons.setAlignment(Pos.CENTER);
+        bottomPane.setCenter(buttons);
+        bottomPane.setBackground(Background.fill(Color.TRANSPARENT));
+        bottomPane.setPadding(new Insets(0, 0, 20, 0));
         homButton.setVisible(true);
         showNotesButton.setVisible(true);
 
         // add menu bar
-        topPane.setTop(menu);
+        bottomPane.setTop(menu);
+        root.setBottom(bottomPane);
 
         GridPane keyPane = new GridPane();
+        keyPane.setAlignment(Pos.CENTER);
         keyPane.add(whiteKeyPane, 0, 0, 2, 1);
         keyPane.add(blackKeyPane, 0, 0, 2, 1);
-        keyPane.setPadding(new Insets(0, 0, 0, 12.5));
         root.setCenter(keyPane);
-        BorderPane.setAlignment(keyPane, Pos.CENTER);
-        root.setTop(topPane);
 
         Scene scene = new Scene(root, freePlayWindowConfig.getWindowWidth(), freePlayWindowConfig.getWindowHeight());
         freePlay.setFullScreen(false);
