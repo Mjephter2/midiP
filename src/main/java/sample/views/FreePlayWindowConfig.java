@@ -143,7 +143,7 @@ public class FreePlayWindowConfig {
      */
     public static FreePlayWindowConfig fullWidthConfig() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return new FreePlayWindowConfig(screenSize.getWidth(), screenSize.getHeight() * 0.35);
+        return new FreePlayWindowConfig(screenSize.getWidth(), screenSize.getHeight() * 0.3);
     }
 
     /**
