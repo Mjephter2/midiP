@@ -109,6 +109,7 @@ public final class FreePlayWindow extends Application {
     private final Button homButton = new Button("Home");
 
     private final MenuItem keyboard88 = new MenuItem("88 Keys");
+    private final MenuItem keyboard76 = new MenuItem("76 Keys");
     private final MenuItem keyboard61 = new MenuItem("61 Keys");
     private final MenuItem keyboard49 = new MenuItem("49 Keys");
 
@@ -134,10 +135,9 @@ public final class FreePlayWindow extends Application {
      */
     private void initialize() {
 
-        int start = Utilities.NOTE_NAMES_FLAT.indexOf("A0");
         List<Integer> blackIndex = List.of(1, 4, 6, 9, 11);
 
-        for(int i = start; i < start + numKeys; i++){
+        for(int i = 0; i < numKeys; i++){
             String noteName = Note.notesNamingMode == FLAT_MODE ? Utilities.NOTE_NAMES_FLAT.get(i) : Utilities.NOTE_NAMES_SHARP.get(i);
             Button button = new Button(noteName);
             if(blackIndex.contains(i % 12)){
@@ -324,9 +324,10 @@ public final class FreePlayWindow extends Application {
         });
 
         Menu keyboardSize = new Menu("Keyboard Size");
-        keyboardSize.getItems().addAll(keyboard88, keyboard61, keyboard49);
+        keyboardSize.getItems().addAll(keyboard88,keyboard76, keyboard61, keyboard49);
         keyboard49.setOnAction(e -> resizeKeyboard(49));
         keyboard61.setOnAction(e -> resizeKeyboard(61));
+        keyboard76.setOnAction(e -> resizeKeyboard(76));
         keyboard88.setOnAction(e -> resizeKeyboard(88));
         menu.getMenus().add(keyboardSize);
 
