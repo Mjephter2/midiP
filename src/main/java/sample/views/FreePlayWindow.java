@@ -29,10 +29,14 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Synthesizer;
+import java.util.AbstractMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static sample.models.NotesNamingMode.FLAT_MODE;
 import static sample.models.NotesNamingMode.SHARP_MODE;
@@ -56,6 +60,13 @@ public final class FreePlayWindow extends Application {
     private final FreePlayWindowConfig freePlayWindowConfig = FreePlayWindowConfig.fullWidthConfig();
 
     private static int numKeys = 88;
+
+    Map<Integer, String> numKeysToStartKey = Map.ofEntries(
+            new AbstractMap.SimpleEntry<>(88, "A0"),
+            new AbstractMap.SimpleEntry<>(76, "C1"),
+            new AbstractMap.SimpleEntry<>(61, "C2"),
+            new AbstractMap.SimpleEntry<>(49, "C2")
+    );
 
     /**
      * Array of Button representing the keys on the piano.
@@ -110,8 +121,8 @@ public final class FreePlayWindow extends Application {
 
     private final MenuItem keyboard88 = new MenuItem("88 Keys");
     private final MenuItem keyboard76 = new MenuItem("76 Keys");
-    private final MenuItem keyboard61 = new MenuItem("61 Keys");
-    private final MenuItem keyboard49 = new MenuItem("49 Keys");
+    private final MenuItem keyboard61 = new MenuItem("61 Keys (NEEDS WORK)");
+    private final MenuItem keyboard49 = new MenuItem("49 Keys (NEEDS WORK)");
 
     /**
      * Button to show all Note names on the piano.
@@ -135,10 +146,15 @@ public final class FreePlayWindow extends Application {
      */
     private void initialize() {
 
+        final int firstKeyIndex = Utilities.NOTE_NAMES_FLAT.indexOf(numKeysToStartKey.get(numKeys));
         List<Integer> blackIndex = List.of(1, 4, 6, 9, 11);
 
-        for(int i = 0; i < numKeys; i++){
-            String noteName = Note.notesNamingMode == FLAT_MODE ? Utilities.NOTE_NAMES_FLAT.get(i) : Utilities.NOTE_NAMES_SHARP.get(i);
+        final boolean isFlatMode = Note.notesNamingMode == FLAT_MODE;
+        for (int i = 0; i < numKeys; i++) {
+            String noteName = isFlatMode ?
+                    Utilities.NOTE_NAMES_FLAT.get(i + firstKeyIndex)
+                    :
+                    Utilities.NOTE_NAMES_SHARP.get(i + firstKeyIndex);
             Button button = new Button(noteName);
             if(blackIndex.contains(i % 12)){
                 blackKeys.add(button);
