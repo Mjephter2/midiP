@@ -5,7 +5,7 @@ import sample.models.Note;
 import sample.models.chords.Chord;
 import sample.models.chords.ChordType;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ChordTest {
 
@@ -147,6 +147,18 @@ public class ChordTest {
         assertEquals(new Note("G1").getName(), cDominant9thChord.notes()[2].getName());
         assertEquals(new Note("Bb1").getName(), cDominant9thChord.notes()[3].getName());
         assertEquals(new Note("D2").getName(), cDominant9thChord.notes()[4].getName());
+    }
+
+    @Test
+    public void major13thChordTest() throws Exception {
+        Chord cMajor13thChord = new Chord(ChordType.MAJOR_13TH, new Note());
+        assertEquals(new Note().getName(), cMajor13thChord.notes()[0].getName());
+        assertEquals(new Note("E1").getName(), cMajor13thChord.notes()[1].getName());
+        assertEquals(new Note("G1").getName(), cMajor13thChord.notes()[2].getName());
+        assertEquals(new Note("B1").getName(), cMajor13thChord.notes()[3].getName());
+        assertEquals(new Note("D2").getName(), cMajor13thChord.notes()[4].getName());
+        assertEquals(new Note("F2").getName(), cMajor13thChord.notes()[5].getName());
+        assertEquals(new Note("A2").getName(), cMajor13thChord.notes()[6].getName());
     }
 
     @Test

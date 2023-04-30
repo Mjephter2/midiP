@@ -16,6 +16,7 @@ import sample.models.chords.generators.ninths.Major9th;
 import sample.models.chords.generators.ninths.Minor9th;
 import sample.models.chords.generators.sevenths.Major7th;
 import sample.models.chords.generators.sevenths.Minor7th;
+import sample.models.chords.generators.thirteenths.Major13th;
 import sample.models.chords.generators.triads.MajorTriad;
 import sample.models.chords.generators.triads.MinorTriad;
 import sample.models.exceptions.InvalidNoteException;
@@ -96,6 +97,8 @@ public class Chord extends Transposable implements Invertable {
             return Major11th.generateScale(root);
         } else if (this.type == ChordType.MINOR_11TH) {
             return Minor11th.generateScale(root);
+        } else if (this.type == ChordType.MAJOR_13TH) {
+            return Major13th.generateScale(root);
         }
         throw new Exception("Could not find ChordType specified!!!");
     }

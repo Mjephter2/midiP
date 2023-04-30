@@ -61,5 +61,10 @@ public enum ChordType {
     /**
      * Minor 11th Chord Type.
      */
-    MINOR_11TH
+    MINOR_11TH,
+
+    /**
+     * Major 13th Chord Type.
+     */
+    MAJOR_13TH
 }
