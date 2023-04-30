@@ -49,33 +49,33 @@ public class ChordTest {
         Chord cSuspended2ndChord = new Chord(ChordType.SUSPENDED_2ND, new Note());
         Chord cSuspended4thChord = new Chord(ChordType.SUSPENDED_4TH, new Note());
 
-        assertEquals("C1", cSuspended2ndChord.notes()[0].toString());
-        assertEquals("D1", cSuspended2ndChord.notes()[1].toString());
-        assertEquals("G1", cSuspended2ndChord.notes()[2].toString());
+        assertEquals("C1", cSuspended2ndChord.notes()[0].getName());
+        assertEquals("D1", cSuspended2ndChord.notes()[1].getName());
+        assertEquals("G1", cSuspended2ndChord.notes()[2].getName());
 
-        assertEquals("C1", cSuspended4thChord.notes()[0].toString());
-        assertEquals("F1", cSuspended4thChord.notes()[1].toString());
-        assertEquals("G1", cSuspended4thChord.notes()[2].toString());
+        assertEquals("C1", cSuspended4thChord.notes()[0].getName());
+        assertEquals("F1", cSuspended4thChord.notes()[1].getName());
+        assertEquals("G1", cSuspended4thChord.notes()[2].getName());
     }
 
     @Test
     public void major6thTest() throws Exception {
         Chord cMajor6th = new Chord(ChordType.MAJOR_6TH, new Note());
 
-        assertEquals("C1", cMajor6th.notes()[0].toString());
-        assertEquals("E1", cMajor6th.notes()[1].toString());
-        assertEquals("G1", cMajor6th.notes()[2].toString());
-        assertEquals("A1", cMajor6th.notes()[3].toString());
+        assertEquals("C1", cMajor6th.notes()[0].getName());
+        assertEquals("E1", cMajor6th.notes()[1].getName());
+        assertEquals("G1", cMajor6th.notes()[2].getName());
+        assertEquals("A1", cMajor6th.notes()[3].getName());
     }
 
     @Test
     public void minor6thTest() throws Exception {
         Chord cMinor6th = new Chord(ChordType.MINOR_6TH, new Note());
 
-        assertEquals("C1", cMinor6th.notes()[0].toString());
-        assertEquals("Eb1", cMinor6th.notes()[1].toString());
-        assertEquals("G1", cMinor6th.notes()[2].toString());
-        assertEquals("A1", cMinor6th.notes()[3].toString());
+        assertEquals("C1", cMinor6th.notes()[0].getName());
+        assertEquals("Eb1", cMinor6th.notes()[1].getName());
+        assertEquals("G1", cMinor6th.notes()[2].getName());
+        assertEquals("A1", cMinor6th.notes()[3].getName());
     }
 
     @Test
@@ -162,31 +162,43 @@ public class ChordTest {
     }
 
     @Test
+    public void minor13thChordTest() throws Exception {
+        Chord cMinor13thChord = new Chord(ChordType.MINOR_13TH, new Note());
+        assertEquals(new Note().getName(), cMinor13thChord.notes()[0].getName());
+        assertEquals(new Note("Eb1").getName(), cMinor13thChord.notes()[1].getName());
+        assertEquals(new Note("G1").getName(), cMinor13thChord.notes()[2].getName());
+        assertEquals(new Note("Bb1").getName(), cMinor13thChord.notes()[3].getName());
+        assertEquals(new Note("D2").getName(), cMinor13thChord.notes()[4].getName());
+        assertEquals(new Note("F2").getName(), cMinor13thChord.notes()[5].getName());
+        assertEquals(new Note("A2").getName(), cMinor13thChord.notes()[6].getName());
+    }
+
+    @Test
     public void majorTriaInversionTest() throws Exception {
         Chord cMajorTriadChord = new Chord(ChordType.MAJOR_TRIAD, new Note());
         Note[] firstInversionNotes = cMajorTriadChord.invert(1);
-        assertEquals("E1", firstInversionNotes[0].toString());
-        assertEquals("G1", firstInversionNotes[1].toString());
-        assertEquals("C2", firstInversionNotes[2].toString());
+        assertEquals("E1", firstInversionNotes[0].getName());
+        assertEquals("G1", firstInversionNotes[1].getName());
+        assertEquals("C2", firstInversionNotes[2].getName());
 
         Note[] secondInversionNotes = cMajorTriadChord.invert(2);
-        assertEquals("G1", secondInversionNotes[0].toString());
-        assertEquals("C2", secondInversionNotes[1].toString());
-        assertEquals("E2", secondInversionNotes[2].toString());
+        assertEquals("G1", secondInversionNotes[0].getName());
+        assertEquals("C2", secondInversionNotes[1].getName());
+        assertEquals("E2", secondInversionNotes[2].getName());
     }
 
     @Test
     public void minorTiaInversionTest() throws Exception {
         Chord cMinorTriadChord = new Chord(ChordType.MINOR_TRIAD, new Note());
         Note[] firstInversionNotes = cMinorTriadChord.invert(1);
-        assertEquals("Eb1", firstInversionNotes[0].toString());
-        assertEquals("G1", firstInversionNotes[1].toString());
-        assertEquals("C2", firstInversionNotes[2].toString());
+        assertEquals("Eb1", firstInversionNotes[0].getName());
+        assertEquals("G1", firstInversionNotes[1].getName());
+        assertEquals("C2", firstInversionNotes[2].getName());
 
         Note[] secondInversionNotes = cMinorTriadChord.invert(2);
-        assertEquals("G1", secondInversionNotes[0].toString());
-        assertEquals("C2", secondInversionNotes[1].toString());
-        assertEquals("Eb2", secondInversionNotes[2].toString());
+        assertEquals("G1", secondInversionNotes[0].getName());
+        assertEquals("C2", secondInversionNotes[1].getName());
+        assertEquals("Eb2", secondInversionNotes[2].getName());
     }
 
     @Test
@@ -194,22 +206,22 @@ public class ChordTest {
         Chord cMajor7thChord = new Chord(ChordType.MAJOR_7TH, new Note());
 
         Note[] firstInversion = cMajor7thChord.invert(1);
-        assertEquals("E1", firstInversion[0].toString());
-        assertEquals("G1", firstInversion[1].toString());
-        assertEquals("B1", firstInversion[2].toString());
-        assertEquals("C2", firstInversion[3].toString());
+        assertEquals("E1", firstInversion[0].getName());
+        assertEquals("G1", firstInversion[1].getName());
+        assertEquals("B1", firstInversion[2].getName());
+        assertEquals("C2", firstInversion[3].getName());
 
         Note[] secondInversion = cMajor7thChord.invert(2);
-        assertEquals("G1", secondInversion[0].toString());
-        assertEquals("B1", secondInversion[1].toString());
-        assertEquals("C2", secondInversion[2].toString());
-        assertEquals("E2", secondInversion[3].toString());
+        assertEquals("G1", secondInversion[0].getName());
+        assertEquals("B1", secondInversion[1].getName());
+        assertEquals("C2", secondInversion[2].getName());
+        assertEquals("E2", secondInversion[3].getName());
 
         Note[] thirdInversion = cMajor7thChord.invert(3);
-        assertEquals("B1", thirdInversion[0].toString());
-        assertEquals("C2", thirdInversion[1].toString());
-        assertEquals("E2", thirdInversion[2].toString());
-        assertEquals("G2", thirdInversion[3].toString());
+        assertEquals("B1", thirdInversion[0].getName());
+        assertEquals("C2", thirdInversion[1].getName());
+        assertEquals("E2", thirdInversion[2].getName());
+        assertEquals("G2", thirdInversion[3].getName());
     }
 
     @Test
@@ -217,22 +229,22 @@ public class ChordTest {
         Chord cMinor7thChord = new Chord(ChordType.MINOR_7TH, new Note());
 
         Note[] firstInversion = cMinor7thChord.invert(1);
-        assertEquals("Eb1", firstInversion[0].toString());
-        assertEquals("G1", firstInversion[1].toString());
-        assertEquals("Bb1", firstInversion[2].toString());
-        assertEquals("C2", firstInversion[3].toString());
+        assertEquals("Eb1", firstInversion[0].getName());
+        assertEquals("G1", firstInversion[1].getName());
+        assertEquals("Bb1", firstInversion[2].getName());
+        assertEquals("C2", firstInversion[3].getName());
 
         Note[] secondInversion = cMinor7thChord.invert(2);
-        assertEquals("G1", secondInversion[0].toString());
-        assertEquals("Bb1", secondInversion[1].toString());
-        assertEquals("C2", secondInversion[2].toString());
-        assertEquals("Eb2", secondInversion[3].toString());
+        assertEquals("G1", secondInversion[0].getName());
+        assertEquals("Bb1", secondInversion[1].getName());
+        assertEquals("C2", secondInversion[2].getName());
+        assertEquals("Eb2", secondInversion[3].getName());
 
         Note[] thirdInversion = cMinor7thChord.invert(3);
-        assertEquals("Bb1", thirdInversion[0].toString());
-        assertEquals("C2", thirdInversion[1].toString());
-        assertEquals("Eb2", thirdInversion[2].toString());
-        assertEquals("G2", thirdInversion[3].toString());
+        assertEquals("Bb1", thirdInversion[0].getName());
+        assertEquals("C2", thirdInversion[1].getName());
+        assertEquals("Eb2", thirdInversion[2].getName());
+        assertEquals("G2", thirdInversion[3].getName());
     }
 
     @Test
@@ -240,25 +252,25 @@ public class ChordTest {
         Chord cMajor9thChord = new Chord(ChordType.MAJOR_9TH, new Note());
 
         Note[] firstInversion = cMajor9thChord.invert(1);
-        assertEquals("E1", firstInversion[0].toString());
-        assertEquals("G1", firstInversion[1].toString());
-        assertEquals("B1", firstInversion[2].toString());
-        assertEquals("D2", firstInversion[3].toString());
-        assertEquals("C2", firstInversion[4].toString());
+        assertEquals("E1", firstInversion[0].getName());
+        assertEquals("G1", firstInversion[1].getName());
+        assertEquals("B1", firstInversion[2].getName());
+        assertEquals("D2", firstInversion[3].getName());
+        assertEquals("C2", firstInversion[4].getName());
 
         Note[] secondInversion = cMajor9thChord.invert(2);
-        assertEquals("G1", secondInversion[0].toString());
-        assertEquals("B1", secondInversion[1].toString());
-        assertEquals("D2", secondInversion[2].toString());
-        assertEquals("C2", secondInversion[3].toString());
-        assertEquals("E2", secondInversion[4].toString());
+        assertEquals("G1", secondInversion[0].getName());
+        assertEquals("B1", secondInversion[1].getName());
+        assertEquals("D2", secondInversion[2].getName());
+        assertEquals("C2", secondInversion[3].getName());
+        assertEquals("E2", secondInversion[4].getName());
 
         Note[] thirdInversion = cMajor9thChord.invert(3);
-        assertEquals("B1", thirdInversion[0].toString());
-        assertEquals("D2", thirdInversion[1].toString());
-        assertEquals("C2", thirdInversion[2].toString());
-        assertEquals("E2", thirdInversion[3].toString());
-        assertEquals("G2", thirdInversion[4].toString());
+        assertEquals("B1", thirdInversion[0].getName());
+        assertEquals("D2", thirdInversion[1].getName());
+        assertEquals("C2", thirdInversion[2].getName());
+        assertEquals("E2", thirdInversion[3].getName());
+        assertEquals("G2", thirdInversion[4].getName());
     }
 
     @Test
@@ -266,25 +278,25 @@ public class ChordTest {
         Chord cMinor9thChord = new Chord(ChordType.MINOR_9TH, new Note());
 
         Note[] firstInversion = cMinor9thChord.invert(1);
-        assertEquals("Eb1", firstInversion[0].toString());
-        assertEquals("G1", firstInversion[1].toString());
-        assertEquals("Bb1", firstInversion[2].toString());
-        assertEquals("D2", firstInversion[3].toString());
-        assertEquals("C2", firstInversion[4].toString());
+        assertEquals("Eb1", firstInversion[0].getName());
+        assertEquals("G1", firstInversion[1].getName());
+        assertEquals("Bb1", firstInversion[2].getName());
+        assertEquals("D2", firstInversion[3].getName());
+        assertEquals("C2", firstInversion[4].getName());
 
         Note[] secondInversion = cMinor9thChord.invert(2);
-        assertEquals("G1", secondInversion[0].toString());
-        assertEquals("Bb1", secondInversion[1].toString());
-        assertEquals("D2", secondInversion[2].toString());
-        assertEquals("C2", secondInversion[3].toString());
-        assertEquals("Eb2", secondInversion[4].toString());
+        assertEquals("G1", secondInversion[0].getName());
+        assertEquals("Bb1", secondInversion[1].getName());
+        assertEquals("D2", secondInversion[2].getName());
+        assertEquals("C2", secondInversion[3].getName());
+        assertEquals("Eb2", secondInversion[4].getName());
 
         Note[] thirdInversion = cMinor9thChord.invert(3);
-        assertEquals("Bb1", thirdInversion[0].toString());
-        assertEquals("D2", thirdInversion[1].toString());
-        assertEquals("C2", thirdInversion[2].toString());
-        assertEquals("Eb2", thirdInversion[3].toString());
-        assertEquals("G2", thirdInversion[4].toString());
+        assertEquals("Bb1", thirdInversion[0].getName());
+        assertEquals("D2", thirdInversion[1].getName());
+        assertEquals("C2", thirdInversion[2].getName());
+        assertEquals("Eb2", thirdInversion[3].getName());
+        assertEquals("G2", thirdInversion[4].getName());
     }
 
     @Test
@@ -292,22 +304,22 @@ public class ChordTest {
         Chord cDominant7thChord = new Chord(ChordType.DOMINANT_7TH, new Note());
 
         Note[] firstInversion = cDominant7thChord.invert(1);
-        assertEquals("E1", firstInversion[0].toString());
-        assertEquals("G1", firstInversion[1].toString());
-        assertEquals("Bb1", firstInversion[2].toString());
-        assertEquals("C2", firstInversion[3].toString());
+        assertEquals("E1", firstInversion[0].getName());
+        assertEquals("G1", firstInversion[1].getName());
+        assertEquals("Bb1", firstInversion[2].getName());
+        assertEquals("C2", firstInversion[3].getName());
 
         Note[] secondInversion = cDominant7thChord.invert(2);
-        assertEquals("G1", secondInversion[0].toString());
-        assertEquals("Bb1", secondInversion[1].toString());
-        assertEquals("C2", secondInversion[2].toString());
-        assertEquals("E2", secondInversion[3].toString());
+        assertEquals("G1", secondInversion[0].getName());
+        assertEquals("Bb1", secondInversion[1].getName());
+        assertEquals("C2", secondInversion[2].getName());
+        assertEquals("E2", secondInversion[3].getName());
 
         Note[] thirdInversion = cDominant7thChord.invert(3);
-        assertEquals("Bb1", thirdInversion[0].toString());
-        assertEquals("C2", thirdInversion[1].toString());
-        assertEquals("E2", thirdInversion[2].toString());
-        assertEquals("G2", thirdInversion[3].toString());
+        assertEquals("Bb1", thirdInversion[0].getName());
+        assertEquals("C2", thirdInversion[1].getName());
+        assertEquals("E2", thirdInversion[2].getName());
+        assertEquals("G2", thirdInversion[3].getName());
     }
 
     @Test
@@ -315,25 +327,25 @@ public class ChordTest {
         Chord cDominant9thChord = new Chord(ChordType.DOMINANT_9TH, new Note());
 
         Note[] firstInversion = cDominant9thChord.invert(1);
-        assertEquals("E1", firstInversion[0].toString());
-        assertEquals("G1", firstInversion[1].toString());
-        assertEquals("Bb1", firstInversion[2].toString());
-        assertEquals("D2", firstInversion[3].toString());
-        assertEquals("C2", firstInversion[4].toString());
+        assertEquals("E1", firstInversion[0].getName());
+        assertEquals("G1", firstInversion[1].getName());
+        assertEquals("Bb1", firstInversion[2].getName());
+        assertEquals("D2", firstInversion[3].getName());
+        assertEquals("C2", firstInversion[4].getName());
 
         Note[] secondInversion = cDominant9thChord.invert(2);
-        assertEquals("G1", secondInversion[0].toString());
-        assertEquals("Bb1", secondInversion[1].toString());
-        assertEquals("D2", secondInversion[2].toString());
-        assertEquals("C2", secondInversion[3].toString());
-        assertEquals("E2", secondInversion[4].toString());
+        assertEquals("G1", secondInversion[0].getName());
+        assertEquals("Bb1", secondInversion[1].getName());
+        assertEquals("D2", secondInversion[2].getName());
+        assertEquals("C2", secondInversion[3].getName());
+        assertEquals("E2", secondInversion[4].getName());
 
         Note[] thirdInversion = cDominant9thChord.invert(3);
-        assertEquals("Bb1", thirdInversion[0].toString());
-        assertEquals("D2", thirdInversion[1].toString());
-        assertEquals("C2", thirdInversion[2].toString());
-        assertEquals("E2", thirdInversion[3].toString());
-        assertEquals("G2", thirdInversion[4].toString());
+        assertEquals("Bb1", thirdInversion[0].getName());
+        assertEquals("D2", thirdInversion[1].getName());
+        assertEquals("C2", thirdInversion[2].getName());
+        assertEquals("E2", thirdInversion[3].getName());
+        assertEquals("G2", thirdInversion[4].getName());
     }
 
     @Test
@@ -341,36 +353,36 @@ public class ChordTest {
         Chord cMajor11thChord = new Chord(ChordType.MAJOR_11TH, new Note());
 
         Note[] firstInversion = cMajor11thChord.invert(1);
-        assertEquals("E1", firstInversion[0].toString());
-        assertEquals("G1", firstInversion[1].toString());
-        assertEquals("B1", firstInversion[2].toString());
-        assertEquals("D2", firstInversion[3].toString());
-        assertEquals("F2", firstInversion[4].toString());
-        assertEquals("C2", firstInversion[5].toString());
+        assertEquals("E1", firstInversion[0].getName());
+        assertEquals("G1", firstInversion[1].getName());
+        assertEquals("B1", firstInversion[2].getName());
+        assertEquals("D2", firstInversion[3].getName());
+        assertEquals("F2", firstInversion[4].getName());
+        assertEquals("C2", firstInversion[5].getName());
 
         Note[] secondInversion = cMajor11thChord.invert(2);
-        assertEquals("G1", secondInversion[0].toString());
-        assertEquals("B1", secondInversion[1].toString());
-        assertEquals("D2", secondInversion[2].toString());
-        assertEquals("F2", secondInversion[3].toString());
-        assertEquals("C2", secondInversion[4].toString());
-        assertEquals("E2", secondInversion[5].toString());
+        assertEquals("G1", secondInversion[0].getName());
+        assertEquals("B1", secondInversion[1].getName());
+        assertEquals("D2", secondInversion[2].getName());
+        assertEquals("F2", secondInversion[3].getName());
+        assertEquals("C2", secondInversion[4].getName());
+        assertEquals("E2", secondInversion[5].getName());
 
         Note[] thirdInversion = cMajor11thChord.invert(3);
-        assertEquals("B1", thirdInversion[0].toString());
-        assertEquals("D2", thirdInversion[1].toString());
-        assertEquals("F2", thirdInversion[2].toString());
-        assertEquals("C2", thirdInversion[3].toString());
-        assertEquals("E2", thirdInversion[4].toString());
-        assertEquals("G2", thirdInversion[5].toString());
+        assertEquals("B1", thirdInversion[0].getName());
+        assertEquals("D2", thirdInversion[1].getName());
+        assertEquals("F2", thirdInversion[2].getName());
+        assertEquals("C2", thirdInversion[3].getName());
+        assertEquals("E2", thirdInversion[4].getName());
+        assertEquals("G2", thirdInversion[5].getName());
 
         Note[] fourthInversion = cMajor11thChord.invert(4);
-        assertEquals("D2", fourthInversion[0].toString());
-        assertEquals("F2", fourthInversion[1].toString());
-        assertEquals("C2", fourthInversion[2].toString());
-        assertEquals("E2", fourthInversion[3].toString());
-        assertEquals("G2", fourthInversion[4].toString());
-        assertEquals("B2", fourthInversion[5].toString());
+        assertEquals("D2", fourthInversion[0].getName());
+        assertEquals("F2", fourthInversion[1].getName());
+        assertEquals("C2", fourthInversion[2].getName());
+        assertEquals("E2", fourthInversion[3].getName());
+        assertEquals("G2", fourthInversion[4].getName());
+        assertEquals("B2", fourthInversion[5].getName());
     }
 
     @Test
@@ -378,35 +390,35 @@ public class ChordTest {
         Chord cMinor11thChord = new Chord(ChordType.MINOR_11TH, new Note());
 
         Note[] firstInversion = cMinor11thChord.invert(1);
-        assertEquals("Eb1", firstInversion[0].toString());
-        assertEquals("G1", firstInversion[1].toString());
-        assertEquals("Bb1", firstInversion[2].toString());
-        assertEquals("D2", firstInversion[3].toString());
-        assertEquals("F2", firstInversion[4].toString());
-        assertEquals("C2", firstInversion[5].toString());
+        assertEquals("Eb1", firstInversion[0].getName());
+        assertEquals("G1", firstInversion[1].getName());
+        assertEquals("Bb1", firstInversion[2].getName());
+        assertEquals("D2", firstInversion[3].getName());
+        assertEquals("F2", firstInversion[4].getName());
+        assertEquals("C2", firstInversion[5].getName());
 
         Note[] secondInversion = cMinor11thChord.invert(2);
-        assertEquals("G1", secondInversion[0].toString());
-        assertEquals("Bb1", secondInversion[1].toString());
-        assertEquals("D2", secondInversion[2].toString());
-        assertEquals("F2", secondInversion[3].toString());
-        assertEquals("C2", secondInversion[4].toString());
-        assertEquals("Eb2", secondInversion[5].toString());
+        assertEquals("G1", secondInversion[0].getName());
+        assertEquals("Bb1", secondInversion[1].getName());
+        assertEquals("D2", secondInversion[2].getName());
+        assertEquals("F2", secondInversion[3].getName());
+        assertEquals("C2", secondInversion[4].getName());
+        assertEquals("Eb2", secondInversion[5].getName());
 
         Note[] thirdInversion = cMinor11thChord.invert(3);
-        assertEquals("Bb1", thirdInversion[0].toString());
-        assertEquals("D2", thirdInversion[1].toString());
-        assertEquals("F2", thirdInversion[2].toString());
-        assertEquals("C2", thirdInversion[3].toString());
-        assertEquals("Eb2", thirdInversion[4].toString());
-        assertEquals("G2", thirdInversion[5].toString());
+        assertEquals("Bb1", thirdInversion[0].getName());
+        assertEquals("D2", thirdInversion[1].getName());
+        assertEquals("F2", thirdInversion[2].getName());
+        assertEquals("C2", thirdInversion[3].getName());
+        assertEquals("Eb2", thirdInversion[4].getName());
+        assertEquals("G2", thirdInversion[5].getName());
 
         Note[] fourthInversion = cMinor11thChord.invert(4);
-        assertEquals("D2", fourthInversion[0].toString());
-        assertEquals("F2", fourthInversion[1].toString());
-        assertEquals("C2", fourthInversion[2].toString());
-        assertEquals("Eb2", fourthInversion[3].toString());
-        assertEquals("G2", fourthInversion[4].toString());
-        assertEquals("Bb2", fourthInversion[5].toString());
+        assertEquals("D2", fourthInversion[0].getName());
+        assertEquals("F2", fourthInversion[1].getName());
+        assertEquals("C2", fourthInversion[2].getName());
+        assertEquals("Eb2", fourthInversion[3].getName());
+        assertEquals("G2", fourthInversion[4].getName());
+        assertEquals("Bb2", fourthInversion[5].getName());
     }
 }
