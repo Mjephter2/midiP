@@ -462,4 +462,45 @@ public class ChordTest {
         assertEquals("G2", fourthInversion[5].getName());
         assertEquals("B2", fourthInversion[6].getName());
     }
+
+    @Test
+    public void minor13thInversionTest() throws Exception {
+        Chord cMinor13thChord = new Chord(ChordType.MINOR_13TH, new Note());
+
+        Note[] firstInversion = cMinor13thChord.invert(1);
+        assertEquals("Eb1", firstInversion[0].getName());
+        assertEquals("G1", firstInversion[1].getName());
+        assertEquals("Bb1", firstInversion[2].getName());
+        assertEquals("D2", firstInversion[3].getName());
+        assertEquals("F2", firstInversion[4].getName());
+        assertEquals("A2", firstInversion[5].getName());
+        assertEquals("C2", firstInversion[6].getName());
+
+        Note[] secondInversion = cMinor13thChord.invert(2);
+        assertEquals("G1", secondInversion[0].getName());
+        assertEquals("Bb1", secondInversion[1].getName());
+        assertEquals("D2", secondInversion[2].getName());
+        assertEquals("F2", secondInversion[3].getName());
+        assertEquals("A2", secondInversion[4].getName());
+        assertEquals("C2", secondInversion[5].getName());
+        assertEquals("Eb2", secondInversion[6].getName());
+
+        Note[] thirdInversion = cMinor13thChord.invert(3);
+        assertEquals("Bb1", thirdInversion[0].getName());
+        assertEquals("D2", thirdInversion[1].getName());
+        assertEquals("F2", thirdInversion[2].getName());
+        assertEquals("A2", thirdInversion[3].getName());
+        assertEquals("C2", thirdInversion[4].getName());
+        assertEquals("Eb2", thirdInversion[5].getName());
+        assertEquals("G2", thirdInversion[6].getName());
+
+        Note[] fourthInversion = cMinor13thChord.invert(4);
+        assertEquals("D2", fourthInversion[0].getName());
+        assertEquals("F2", fourthInversion[1].getName());
+        assertEquals("A2", fourthInversion[2].getName());
+        assertEquals("C2", fourthInversion[3].getName());
+        assertEquals("Eb2", fourthInversion[4].getName());
+        assertEquals("G2", fourthInversion[5].getName());
+        assertEquals("Bb2", fourthInversion[6].getName());
+    }
 }
