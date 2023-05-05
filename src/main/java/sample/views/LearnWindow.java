@@ -18,7 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import sample.AudioPlayer;
 import sample.models.Utilities;
 import sample.models.FillerButton;
 import sample.models.Note;
@@ -48,7 +47,7 @@ import static sample.views.Styles.blackKeysPressedCSs;
 public class LearnWindow extends Application {
     private static final Logger logger = Logger.getLogger(LearnWindow.class.getName());
     private final CommonMenu menu = new CommonMenu(false);
-    private static final int NUMBER_OF_KEYS = 29;
+    private static final int NUMBER_OF_KEYS = 36;
     private final LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
     private final LinkedList<Button> whiteKeys = new LinkedList<>();
     private final LinkedList<Button> blackKeys = new LinkedList<>();
@@ -60,6 +59,8 @@ public class LearnWindow extends Application {
     private final ToggleButton minor9thButton = new ToggleButton("Minor 9th");
     private final ToggleButton major11thButton = new ToggleButton("Major 11th");
     private final ToggleButton minor11thButton = new ToggleButton("Minor 11th");
+    private final ToggleButton major13thButton = new ToggleButton("Major 13th");
+    private final ToggleButton minor13thButton = new ToggleButton("Minor 13th");
     private final ToggleButton dominant7thButton = new ToggleButton("Dominant 7th");
     private final ToggleButton dominant9thButton = new ToggleButton("Dominant 9th");
     private final ToggleButton major6thButton = new ToggleButton("Major 6th");
@@ -123,6 +124,8 @@ public class LearnWindow extends Application {
         minor7thButton.setToggleGroup(chordType);
         major9thButton.setToggleGroup(chordType);
         minor9thButton.setToggleGroup(chordType);
+        major13thButton.setToggleGroup(chordType);
+        minor13thButton.setToggleGroup(chordType);
         dominant7thButton.setToggleGroup(chordType);
         dominant9thButton.setToggleGroup(chordType);
         major6thButton.setToggleGroup(chordType);
@@ -145,6 +148,8 @@ public class LearnWindow extends Application {
         bottom.add(dominant9thButton,5,2);
         bottom.add(major11thButton,6,0);
         bottom.add(minor11thButton,6,1);
+        bottom.add(major13thButton,6,2);
+        bottom.add(minor13thButton,6,3);
 
         scaleType.getToggles().forEach(toggle -> {
             Node node = (Node) toggle;
@@ -246,6 +251,7 @@ public class LearnWindow extends Application {
         black_keyPane.getChildren().add(6, new FillerButton(30,80));
         black_keyPane.getChildren().add(9, new FillerButton(30,80));
         black_keyPane.getChildren().add(13, new FillerButton(30,80));
+        black_keyPane.getChildren().add(16, new FillerButton(30,80));
 
         keyPane.setAlignment(Pos.BASELINE_CENTER);
         BorderPane.setAlignment(keyPane,Pos.CENTER);
@@ -276,6 +282,8 @@ public class LearnWindow extends Application {
         buttonChordTypeMap.put(dominant9thButton, ChordType.DOMINANT_9TH);
         buttonChordTypeMap.put(major11thButton, ChordType.MAJOR_11TH);
         buttonChordTypeMap.put(minor11thButton, ChordType.MINOR_11TH);
+        buttonChordTypeMap.put(major13thButton, ChordType.MAJOR_13TH);
+        buttonChordTypeMap.put(minor13thButton, ChordType.MINOR_13TH);
 
         for (ToggleButton button : buttonChordTypeMap.keySet()) {
             button.setOnMouseClicked(mouseEvent -> {
