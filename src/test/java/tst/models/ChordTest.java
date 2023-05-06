@@ -461,6 +461,24 @@ public class ChordTest {
         assertEquals("E2", fourthInversion[4].getName());
         assertEquals("G2", fourthInversion[5].getName());
         assertEquals("B2", fourthInversion[6].getName());
+
+        Note[] fifthInversion = cMajor13thChord.invert(5);
+        assertEquals("F2", fifthInversion[0].getName());
+        assertEquals("A2", fifthInversion[1].getName());
+        assertEquals("C2", fifthInversion[2].getName());
+        assertEquals("E2", fifthInversion[3].getName());
+        assertEquals("G2", fifthInversion[4].getName());
+        assertEquals("B2", fifthInversion[5].getName());
+        assertEquals("D3", fifthInversion[6].getName());
+
+        Note[] sixthInversion = cMajor13thChord.invert(6);
+        assertEquals("A2", sixthInversion[0].getName());
+        assertEquals("C2", sixthInversion[1].getName());
+        assertEquals("E2", sixthInversion[2].getName());
+        assertEquals("G2", sixthInversion[3].getName());
+        assertEquals("B2", sixthInversion[4].getName());
+        assertEquals("D3", sixthInversion[5].getName());
+        assertEquals("F3", sixthInversion[6].getName());
     }
 
     @Test
