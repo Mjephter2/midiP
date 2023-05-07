@@ -77,6 +77,7 @@ public class LearnWindow extends Application {
     private final RadioButton selectScale = new RadioButton("SCALE");
     private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(
             Note.notesNamingMode == FLAT_MODE ? NOTE_QUALITIES_FLAT : NOTE_QUALITIES_SHARP));
+    private static final ChoiceBox<String> inversionBox = new ChoiceBox<>(FXCollections.observableArrayList("1", "2"));
     private final GridPane bottom = new GridPane();
     private final ToggleGroup selectChordOrScale = new ToggleGroup();
     private final ToggleGroup scaleType = new ToggleGroup();
@@ -104,6 +105,9 @@ public class LearnWindow extends Application {
 
         bottom.add(keyBox,0,0,1,2);
         keyBox.setValue(keyBox.getItems().get(0));
+
+        bottom.add(inversionBox, 0, 1, 1, 2);
+        inversionBox.setValue(inversionBox.getItems().get(0));
 
         majorScaleButton.setToggleGroup(scaleType);
         minorScaleButton.setToggleGroup(scaleType);
@@ -307,7 +311,7 @@ public class LearnWindow extends Application {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Note[] chordNotes = Objects.requireNonNull(chord).notes();
+                Note[] chordNotes = Objects.requireNonNull(chord).invert(Integer.parseInt(inversionBox.getValue()));
                 ArrayList<String> chordNotesNames = new ArrayList<>();
                 for (Note chordNote : chordNotes) {
                     chordNotesNames.add(chordNote.getName());
