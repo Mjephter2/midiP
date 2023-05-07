@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
@@ -103,10 +104,12 @@ public class LearnWindow extends Application {
         bottom.add(selectChord, 1,0);
         bottom.add(selectScale,1,1);
 
-        bottom.add(keyBox,0,0,1,2);
+        bottom.add(new Label("Key / Root"),0,0, 1, 2);
+        bottom.add(keyBox,0,1);
         keyBox.setValue(keyBox.getItems().get(0));
 
-        bottom.add(inversionBox, 0, 1, 1, 2);
+        bottom.add(new Label("Inversion"),0,2, 1, 2);
+        bottom.add(inversionBox, 0, 3);
         inversionBox.setValue(inversionBox.getItems().get(0));
 
         majorScaleButton.setToggleGroup(scaleType);
