@@ -2,13 +2,13 @@
 
 A JavaFX MIDI multipurpose application with the following functionalities
 
-- Displaying scales and common chords
-
-https://user-images.githubusercontent.com/51377282/209747365-3dd5a5d3-3611-4660-8d0f-c8d46eb35624.mov
+- Displaying scales and common chords for a given key / root
 
 ![scales_chords_window_pic](pics/scales_chords_window.png)
 ![scales_chords_window_pic](pics/scales_chords_window_2.png)
 ![scales_chords_window_pic](pics/scales_chords_window_3.png)
+![chords demo](pics/chords_demo1.gif)
+![scales demo](pics/scales_demo1.gif)
 
 - An 88 keys open keyboard for free play (no sounds, yet)
 
@@ -16,10 +16,11 @@ https://user-images.githubusercontent.com/51377282/209747365-3dd5a5d3-3611-4660-
 
 ## How to run this application
 
-I've only run this code on macOS using the IntelliJ IDE, but it shouldn't be largely different for windows.
-Maven support was recently added to this project. As long as the IntelliJ Maven plugin is installed, the
-project just need to be build and the application can be started by running the Main.java file.
+Maven support was recently added to this project to facilitate cross-platform compatibility.
+To run the application, compile and run Main.java in the `views` folder. 
 
 ## What's next?
 
-I am currently working on refactoring the code and tightening up the functionalities.
+- Refactoring the code and tightening up the functionalities.
+- Adding sounds to the free play keyboard.
+- Publishing version 0 of the application.
