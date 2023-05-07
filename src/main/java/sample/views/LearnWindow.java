@@ -78,7 +78,7 @@ public class LearnWindow extends Application {
     private final RadioButton selectScale = new RadioButton("SCALE");
     private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(
             Note.notesNamingMode == FLAT_MODE ? NOTE_QUALITIES_FLAT : NOTE_QUALITIES_SHARP));
-    private static final ChoiceBox<String> inversionBox = new ChoiceBox<>(FXCollections.observableArrayList("1", "2"));
+    private static final ChoiceBox<String> inversionBox = new ChoiceBox<>(FXCollections.observableArrayList("0", "1", "2"));
     private final GridPane bottom = new GridPane();
     private final ToggleGroup selectChordOrScale = new ToggleGroup();
     private final ToggleGroup scaleType = new ToggleGroup();
@@ -87,7 +87,6 @@ public class LearnWindow extends Application {
     private final HBox black_keyPane = new HBox();
     private final GridPane keyPane = new GridPane();
     private final Button resetButton = new Button("RESET");
-
     private final Button homeButton = new Button("Home");
 
     private void drawSelectionButtons() {
@@ -171,6 +170,7 @@ public class LearnWindow extends Application {
                 Node node = (Node) toggle;
                 node.setDisable(true);
             });
+            inversionBox.setDisable(false);
         });
         selectScale.setOnAction(actionEvent -> {
             scaleType.getToggles().forEach(toggle -> {
@@ -181,6 +181,7 @@ public class LearnWindow extends Application {
                 Node node = (Node) toggle;
                 node.setDisable(true);
             });
+            inversionBox.setDisable(true);
         });
 
         bottom.add(new FillerButton(60,10), 7 , 0);
@@ -314,6 +315,8 @@ public class LearnWindow extends Application {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                // TODO: This is inefficient
+                // When inversion selection is 0, the chord should not be inverted
                 Note[] chordNotes = Objects.requireNonNull(chord).invert(Integer.parseInt(inversionBox.getValue()));
                 ArrayList<String> chordNotesNames = new ArrayList<>();
                 for (Note chordNote : chordNotes) {
