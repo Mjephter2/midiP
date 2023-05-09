@@ -52,7 +52,10 @@ public enum ChordType {
      * Dominant 9th Chord Type.
      */
     DOMINANT_9TH,
-
+    /**
+     * Dominant 11th Chord Type.
+     */
+    DOMINANT_11TH,
     /**
      * Major 11th Chord Type.
      */

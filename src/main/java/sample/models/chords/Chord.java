@@ -8,6 +8,7 @@ import sample.models.chords.generators.Major6th;
 import sample.models.chords.generators.Minor6th;
 import sample.models.chords.generators.Suspended4th;
 import sample.models.chords.generators.Suspended2nd;
+import sample.models.chords.generators.dominants.Dominant11th;
 import sample.models.chords.generators.dominants.Dominant7th;
 import sample.models.chords.generators.dominants.Dominant9th;
 import sample.models.chords.generators.elevenths.Major11th;
@@ -102,6 +103,8 @@ public class Chord extends Transposable implements Invertable {
             return Major13th.generateScale(root);
         } else if (this.type == ChordType.MINOR_13TH) {
             return Minor13th.generateScale(root);
+        } else if (this.type == ChordType.DOMINANT_11TH) {
+            return Dominant11th.generateScale(root);
         }
         throw new Exception("Could not find ChordType specified!!!");
     }

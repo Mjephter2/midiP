@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import sample.models.Note;
 import sample.models.chords.Chord;
 import sample.models.chords.ChordType;
+import sample.models.exceptions.InvalidNoteException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -147,6 +148,17 @@ public class ChordTest {
         assertEquals(new Note("G1").getName(), cDominant9thChord.notes()[2].getName());
         assertEquals(new Note("Bb1").getName(), cDominant9thChord.notes()[3].getName());
         assertEquals(new Note("D2").getName(), cDominant9thChord.notes()[4].getName());
+    }
+
+    @Test
+    public void dominant11thChordTest() throws Exception {
+        Chord cDominant11thChord = new Chord(ChordType.DOMINANT_11TH, new Note());
+        assertEquals(new Note().getName(), cDominant11thChord.notes()[0].getName());
+        assertEquals(new Note("E1").getName(), cDominant11thChord.notes()[1].getName());
+        assertEquals(new Note("G1").getName(), cDominant11thChord.notes()[2].getName());
+        assertEquals(new Note("Bb1").getName(), cDominant11thChord.notes()[3].getName());
+        assertEquals(new Note("D2").getName(), cDominant11thChord.notes()[4].getName());
+        assertEquals(new Note("F2").getName(), cDominant11thChord.notes()[5].getName());
     }
 
     @Test
