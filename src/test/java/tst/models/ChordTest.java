@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import sample.models.Note;
 import sample.models.chords.Chord;
 import sample.models.chords.ChordType;
-import sample.models.exceptions.InvalidNoteException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -159,6 +158,32 @@ public class ChordTest {
         assertEquals(new Note("Bb1").getName(), cDominant11thChord.notes()[3].getName());
         assertEquals(new Note("D2").getName(), cDominant11thChord.notes()[4].getName());
         assertEquals(new Note("F2").getName(), cDominant11thChord.notes()[5].getName());
+    }
+
+    @Test
+    public void dominant11thChordInversionTest() throws Exception {
+        Chord cDominant11thChord = new Chord(ChordType.DOMINANT_11TH, new Note("A1"));
+        assertEquals("A1", cDominant11thChord.notes()[0].getName());
+        assertEquals("Db2", cDominant11thChord.notes()[1].getName());
+        assertEquals("E2", cDominant11thChord.notes()[2].getName());
+        assertEquals("G2", cDominant11thChord.notes()[3].getName());
+        assertEquals("B2", cDominant11thChord.notes()[4].getName());
+        assertEquals("D3", cDominant11thChord.notes()[5].getName());
+
+        Note[] firstInversion = cDominant11thChord.invert(1);
+        assertEquals("Db2", firstInversion[0].getName());
+        assertEquals("E2", firstInversion[1].getName());
+        assertEquals("G2", firstInversion[2].getName());
+        assertEquals("B2", firstInversion[3].getName());
+        assertEquals("D3", firstInversion[4].getName());
+
+        Note[] secondInversion = cDominant11thChord.invert(2);
+        assertEquals("E2", secondInversion[0].getName());
+        assertEquals("G2", secondInversion[1].getName());
+        assertEquals("B2", secondInversion[2].getName());
+        assertEquals("D3", secondInversion[3].getName());
+        assertEquals("A2", secondInversion[4].getName());
+        assertEquals("Db3", secondInversion[5].getName());
     }
 
     @Test
