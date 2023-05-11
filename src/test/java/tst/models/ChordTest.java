@@ -184,6 +184,30 @@ public class ChordTest {
         assertEquals("D3", secondInversion[3].getName());
         assertEquals("A2", secondInversion[4].getName());
         assertEquals("Db3", secondInversion[5].getName());
+
+        Note[] thirdInversion = cDominant11thChord.invert(3);
+        assertEquals("G2", thirdInversion[0].getName());
+        assertEquals("B2", thirdInversion[1].getName());
+        assertEquals("D3", thirdInversion[2].getName());
+        assertEquals("A2", thirdInversion[3].getName());
+        assertEquals("Db3", thirdInversion[4].getName());
+        assertEquals("E3", thirdInversion[5].getName());
+
+        Note[] fourthInversion = cDominant11thChord.invert(4);
+        assertEquals("B2", fourthInversion[0].getName());
+        assertEquals("D3", fourthInversion[1].getName());
+        assertEquals("A2", fourthInversion[2].getName());
+        assertEquals("Db3", fourthInversion[3].getName());
+        assertEquals("E3", fourthInversion[4].getName());
+        assertEquals("G3", fourthInversion[5].getName());
+
+        Note[] fifthInversion = cDominant11thChord.invert(5);
+        assertEquals("D3", fifthInversion[0].getName());
+        assertEquals("A2", fifthInversion[1].getName());
+        assertEquals("Db3", fifthInversion[2].getName());
+        assertEquals("E3", fifthInversion[3].getName());
+        assertEquals("G3", fifthInversion[4].getName());
+        assertEquals("B3", fifthInversion[5].getName());
     }
 
     @Test
