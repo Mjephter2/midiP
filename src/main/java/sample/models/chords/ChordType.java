@@ -56,6 +56,12 @@ public enum ChordType {
      * Dominant 11th Chord Type.
      */
     DOMINANT_11TH,
+
+    /**
+     * Dominant 13th Chord Type.
+     */
+    DOMINANT_13TH,
+
     /**
      * Major 11th Chord Type.
      */
