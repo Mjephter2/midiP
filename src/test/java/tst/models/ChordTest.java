@@ -161,6 +161,18 @@ public class ChordTest {
     }
 
     @Test
+    public void dominant13thChordTest() throws Exception {
+        Chord cDominant13thChord = new Chord(ChordType.DOMINANT_13TH, new Note());
+        assertEquals(new Note().getName(), cDominant13thChord.notes()[0].getName());
+        assertEquals(new Note("E1").getName(), cDominant13thChord.notes()[1].getName());
+        assertEquals(new Note("G1").getName(), cDominant13thChord.notes()[2].getName());
+        assertEquals(new Note("Bb1").getName(), cDominant13thChord.notes()[3].getName());
+        assertEquals(new Note("D2").getName(), cDominant13thChord.notes()[4].getName());
+        assertEquals(new Note("F2").getName(), cDominant13thChord.notes()[5].getName());
+        assertEquals(new Note("A2").getName(), cDominant13thChord.notes()[6].getName());
+    }
+
+    @Test
     public void dominant11thChordInversionTest() throws Exception {
         Chord cDominant11thChord = new Chord(ChordType.DOMINANT_11TH, new Note("A1"));
         assertEquals("A1", cDominant11thChord.notes()[0].getName());
