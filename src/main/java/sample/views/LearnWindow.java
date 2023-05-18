@@ -80,7 +80,7 @@ public class LearnWindow extends Application {
     private final RadioButton selectScale = new RadioButton("SCALE");
     private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(
             Note.notesNamingMode == FLAT_MODE ? NOTE_QUALITIES_FLAT : NOTE_QUALITIES_SHARP));
-    private static final ChoiceBox<String> inversionBox = new ChoiceBox<>(FXCollections.observableArrayList("0", "1", "2", "3", "4"));
+    private static final ChoiceBox<Integer> inversionBox = new ChoiceBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4));
     private final GridPane bottom = new GridPane();
     private final ToggleGroup selectChordOrScale = new ToggleGroup();
     private final ToggleGroup scaleType = new ToggleGroup();
@@ -325,7 +325,7 @@ public class LearnWindow extends Application {
                 }
                 // TODO: This is inefficient
                 // When inversion selection is 0, the chord should not be inverted
-                Note[] chordNotes = Objects.requireNonNull(chord).invert(Integer.parseInt(inversionBox.getValue()));
+                Note[] chordNotes = Objects.requireNonNull(chord).invert(inversionBox.getValue());
                 ArrayList<String> chordNotesNames = new ArrayList<>();
                 for (Note chordNote : chordNotes) {
                     chordNotesNames.add(chordNote.getName());
