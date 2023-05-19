@@ -317,29 +317,30 @@ public class LearnWindow extends Application {
                         e.printStackTrace();
                     }
                 }
-                Chord chord = null;
+
                 try {
-                    chord = new Chord(buttonChordTypeMap.get(button), root);
+                    Chord chord = new Chord(buttonChordTypeMap.get(button), root);
+                    Note[] chordNotes = inversionBox.getValue() == 0 ?
+                            chord.notes()
+                            :
+                            chord.invert(inversionBox.getValue());
+                    ArrayList<String> chordNotesNames = new ArrayList<>();
+                    for (Note chordNote : chordNotes) {
+                        chordNotesNames.add(chordNote.getName());
+                    }
+                    logger.info(chordNotesNames.toString());
+                    for(Button button1: keyBoard){
+                        button1.setText("");
+                        button1.setAlignment(Pos.BOTTOM_CENTER);
+                        if(blackKeys.contains(button1))
+                            button1.setFont(new Font("aerials", 8));
+                        if(chordNotesNames.contains(button1.getTooltip().getText())){
+                            colorButton(button1);
+                            showButtonNoteName(button1);
+                        }
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
-                // TODO: This is inefficient
-                // When inversion selection is 0, the chord should not be inverted
-                Note[] chordNotes = Objects.requireNonNull(chord).invert(inversionBox.getValue());
-                ArrayList<String> chordNotesNames = new ArrayList<>();
-                for (Note chordNote : chordNotes) {
-                    chordNotesNames.add(chordNote.getName());
-                }
-                logger.info(chordNotesNames.toString());
-                for(Button button1: keyBoard){
-                    button1.setText("");
-                    button1.setAlignment(Pos.BOTTOM_CENTER);
-                    if(blackKeys.contains(button1))
-                        button1.setFont(new Font("aerials", 8));
-                    if(chordNotesNames.contains(button1.getTooltip().getText())){
-                        colorButton(button1);
-                        showButtonNoteName(button1);
-                    }
                 }
             });
         }
