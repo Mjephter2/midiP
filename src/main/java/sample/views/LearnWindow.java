@@ -304,21 +304,12 @@ public class LearnWindow extends Application {
         for (ToggleButton button : buttonChordTypeMap.keySet()) {
             button.setOnMouseClicked(mouseEvent -> {
                 resetButtons();
-                Note root = null;
                 try {
-                    root = new Note("C3");
-                } catch (InvalidNoteException e) {
-                    e.printStackTrace();
-                }
-                while(!Objects.requireNonNull(root).noteQuality().equals(keyBox.getValue())){
-                    try {
+                    // find the first key / button that matches the root note
+                    Note root = new Note("C3");
+                    while(!Objects.requireNonNull(root).noteQuality().equals(keyBox.getValue())){
                         root = root.sharp(1);
-                    } catch (InvalidNoteException e) {
-                        e.printStackTrace();
                     }
-                }
-
-                try {
                     Chord chord = new Chord(buttonChordTypeMap.get(button), root);
                     Note[] chordNotes = inversionBox.getValue() == 0 ?
                             chord.notes()
@@ -356,40 +347,34 @@ public class LearnWindow extends Application {
         for (ToggleButton button : buttonScaleTypeMap.keySet()) {
             button.setOnMouseClicked(mouseEvent -> {
                 resetButtons();
-                Note root = null;
                 try {
-                    root = new Note("C3");
+                    Note root = new Note("C3");
+                    while(!root.noteQuality().equals(keyBox.getValue())){
+                            root = root.sharp(1);
+                    }
+                    Scale scale = new Scale(buttonScaleTypeMap.get(button), root);
+                    Note[] scaleNotes = scale.notes();
+
+                    ArrayList<String> scaleNotesNames = new ArrayList<>();
+                    for (Note scaleNote : scaleNotes) {
+                        scaleNotesNames.add(scaleNote.getName());
+                    }
+                    logger.info(scaleNotesNames.toString());
+
+                    for(Button button1: keyBoard){
+                        button1.setText("");
+                        button1.setAlignment(Pos.BOTTOM_CENTER);
+                        if(blackKeys.contains(button1))
+                            button1.setFont(new Font("aerials", 8));
+                        if(scaleNotesNames.contains(button1.getTooltip().getText())){
+                            colorButton(button1);
+                            showButtonNoteName(button1);
+                        }
+                    }
                 } catch (InvalidNoteException e) {
                     e.printStackTrace();
-                }
-                while(!Objects.requireNonNull(root).noteQuality().equals(keyBox.getValue())){
-                    try {
-                        root = root.sharp(1);
-                    } catch (InvalidNoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Scale scale = null;
-                try {
-                    scale = new Scale(buttonScaleTypeMap.get(button), root);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                Note[] scaleNotes = Objects.requireNonNull(scale).notes();
-                ArrayList<String> scaleNotesNames = new ArrayList<>();
-                for (Note scaleNote : scaleNotes) {
-                    scaleNotesNames.add(scaleNote.getName());
-                }
-                logger.info(scaleNotesNames.toString());
-                for(Button button1: keyBoard){
-                    button1.setText("");
-                    button1.setAlignment(Pos.BOTTOM_CENTER);
-                    if(blackKeys.contains(button1))
-                        button1.setFont(new Font("aerials", 8));
-                    if(scaleNotesNames.contains(button1.getTooltip().getText())){
-                        colorButton(button1);
-                        showButtonNoteName(button1);
-                    }
+                    throw new RuntimeException(e);
                 }
             });
         }
