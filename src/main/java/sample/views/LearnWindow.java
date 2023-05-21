@@ -281,25 +281,22 @@ public class LearnWindow extends Application {
     }
 
     private void addActionsToSelectionButtons() {
-        Map<ToggleButton, ChordType> buttonChordTypeMap = new HashMap<>();
-        buttonChordTypeMap.put(minorTriadButton, ChordType.MINOR_TRIAD);
-        buttonChordTypeMap.put(majorTriadButton, ChordType.MAJOR_TRIAD);
-        buttonChordTypeMap.put(suspended2ndButton, ChordType.SUSPENDED_2ND);
-        buttonChordTypeMap.put(suspended4thButton, ChordType.SUSPENDED_4TH);
-        buttonChordTypeMap.put(major6thButton, ChordType.MAJOR_6TH);
-        buttonChordTypeMap.put(minor6thButton, ChordType.MINOR_6TH);
-        buttonChordTypeMap.put(minor7thButton, ChordType.MINOR_7TH);
-        buttonChordTypeMap.put(major7thButton, ChordType.MAJOR_7TH);
-        buttonChordTypeMap.put(major9thButton, ChordType.MAJOR_9TH);
-        buttonChordTypeMap.put(minor9thButton, ChordType.MINOR_9TH);
-        buttonChordTypeMap.put(dominant7thButton, ChordType.DOMINANT_7TH);
-        buttonChordTypeMap.put(dominant9thButton, ChordType.DOMINANT_9TH);
-        buttonChordTypeMap.put(dominant11thButton, ChordType.DOMINANT_11TH);
-        buttonChordTypeMap.put(dominant13thButton, ChordType.DOMINANT_13TH);
-        buttonChordTypeMap.put(major11thButton, ChordType.MAJOR_11TH);
-        buttonChordTypeMap.put(minor11thButton, ChordType.MINOR_11TH);
-        buttonChordTypeMap.put(major13thButton, ChordType.MAJOR_13TH);
-        buttonChordTypeMap.put(minor13thButton, ChordType.MINOR_13TH);
+        Map<ToggleButton, ChordType> buttonChordTypeMap = new HashMap<>(){{
+            put(minorTriadButton, ChordType.MINOR_TRIAD);
+            put(majorTriadButton, ChordType.MAJOR_TRIAD);
+            put(suspended2ndButton, ChordType.SUSPENDED_2ND);
+            put(suspended4thButton, ChordType.SUSPENDED_4TH);
+            put(major6thButton, ChordType.MAJOR_6TH);
+            put(minor6thButton, ChordType.MINOR_6TH);
+            put(minor7thButton, ChordType.MINOR_7TH);
+            put(major7thButton, ChordType.MAJOR_7TH);
+            put(major9thButton, ChordType.MAJOR_9TH);
+            put(minor9thButton, ChordType.MINOR_9TH);
+            put(major11thButton, ChordType.MAJOR_11TH);
+            put(minor11thButton, ChordType.MINOR_11TH);
+            put(major13thButton, ChordType.MAJOR_13TH);
+            put(minor13thButton, ChordType.MINOR_13TH);
+        }};
 
         for (ToggleButton button : buttonChordTypeMap.keySet()) {
             button.setOnMouseClicked(mouseEvent -> {
@@ -336,13 +333,14 @@ public class LearnWindow extends Application {
             });
         }
 
-        Map<ToggleButton, ScaleType> buttonScaleTypeMap = new HashMap<>();
-        buttonScaleTypeMap.put(majorScaleButton, ScaleType.MAJOR_SCALE);
-        buttonScaleTypeMap.put(minorScaleButton, ScaleType.MINOR_SCALE);
-        buttonScaleTypeMap.put(chineseScaleButton, ScaleType.CHINESE_SCALE);
-        buttonScaleTypeMap.put(majorPentatonicScaleButton, ScaleType.MAJOR_PENTATONIC);
-        buttonScaleTypeMap.put(minorPentatonicScaleButton, ScaleType.MINOR_PENTATONIC);
-        buttonScaleTypeMap.put(wholeToneScaleButton, ScaleType.WHOLE_TONE);
+        Map<ToggleButton, ScaleType> buttonScaleTypeMap = new HashMap<ToggleButton, ScaleType>(){{
+            put(majorScaleButton, ScaleType.MAJOR_SCALE);
+            put(minorScaleButton, ScaleType.MINOR_SCALE);
+            put(chineseScaleButton, ScaleType.CHINESE_SCALE);
+            put(majorPentatonicScaleButton, ScaleType.MAJOR_PENTATONIC);
+            put(minorPentatonicScaleButton, ScaleType.MINOR_PENTATONIC);
+            put(wholeToneScaleButton, ScaleType.WHOLE_TONE);
+        }};
 
         for (ToggleButton button : buttonScaleTypeMap.keySet()) {
             button.setOnMouseClicked(mouseEvent -> {
