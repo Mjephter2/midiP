@@ -296,6 +296,10 @@ public class LearnWindow extends Application {
             put(minor11thButton, ChordType.MINOR_11TH);
             put(major13thButton, ChordType.MAJOR_13TH);
             put(minor13thButton, ChordType.MINOR_13TH);
+            put(dominant7thButton, ChordType.DOMINANT_7TH);
+            put(dominant9thButton, ChordType.DOMINANT_9TH);
+            put(dominant11thButton, ChordType.DOMINANT_11TH);
+            put(dominant13thButton, ChordType.DOMINANT_13TH);
         }};
 
         for (ToggleButton button : buttonChordTypeMap.keySet()) {
@@ -316,14 +320,16 @@ public class LearnWindow extends Application {
                     for (Note chordNote : chordNotes) {
                         chordNotesNames.add(chordNote.getName());
                     }
-                    logger.info(chordNotesNames.toString());
+
                     for(Button button1: keyBoard){
+                        String buttonNoteQuality = button1.getTooltip().getText()
+                                .substring(0, button1.getTooltip().getText().length() -1);
                         button1.setText("");
                         button1.setAlignment(Pos.BOTTOM_CENTER);
                         if(blackKeys.contains(button1))
                             button1.setFont(new Font("aerials", 8));
                         if(chordNotesNames.contains(button1.getTooltip().getText())){
-                            colorButton(button1);
+                            colorButton(button1, root.noteQuality().equals(buttonNoteQuality));
                             showButtonNoteName(button1);
                         }
                     }
@@ -358,14 +364,15 @@ public class LearnWindow extends Application {
                         scaleNotesNames.add(scaleNote.getName());
                     }
                     logger.info(scaleNotesNames.toString());
-
                     for(Button button1: keyBoard){
                         button1.setText("");
+                        String buttonNoteQuality = button1.getTooltip().getText()
+                                .substring(0, button1.getTooltip().getText().length() - 1);
                         button1.setAlignment(Pos.BOTTOM_CENTER);
                         if(blackKeys.contains(button1))
                             button1.setFont(new Font("aerials", 8));
                         if(scaleNotesNames.contains(button1.getTooltip().getText())){
-                            colorButton(button1);
+                            colorButton(button1, root.noteQuality().equals(buttonNoteQuality));
                             showButtonNoteName(button1);
                         }
                     }
@@ -378,8 +385,12 @@ public class LearnWindow extends Application {
         }
     }
 
-    private void colorButton(Button button){
-        button.setStyle(button.getStyle() + "-fx-background-color: #83AAE6");
+    private void colorButton(Button button, boolean isRoot){
+        if (isRoot) {
+            button.setStyle(button.getStyle() + "-fx-background-color: #EEBC1D;");
+        } else {
+            button.setStyle(button.getStyle() + "-fx-background-color: #83AAE6;");
+        }
     }
 
     /**
