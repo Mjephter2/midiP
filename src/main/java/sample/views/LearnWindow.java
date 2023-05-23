@@ -47,11 +47,9 @@ import static sample.views.Styles.blackKeysPressedCSs;
 
 public class LearnWindow extends Application {
     private static final Logger logger = Logger.getLogger(LearnWindow.class.getName());
-    private final CommonMenu menu = new CommonMenu(false);
     private static final int NUMBER_OF_KEYS = 36;
-    private final LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
-    private final LinkedList<Button> whiteKeys = new LinkedList<>();
-    private final LinkedList<Button> blackKeys = new LinkedList<>();
+
+    //Chord Buttons
     private final ToggleButton majorTriadButton = new ToggleButton("Major Triad");
     private final ToggleButton minorTriadButton = new ToggleButton("Minor Triad");
     private final ToggleButton major7thButton = new ToggleButton("Major 7th");
@@ -68,6 +66,8 @@ public class LearnWindow extends Application {
     private final ToggleButton dominant13thButton = new ToggleButton("Dominant 13th");
     private final ToggleButton major6thButton = new ToggleButton("Major 6th");
     private final ToggleButton minor6thButton = new ToggleButton("Minor 6th");
+
+    //Scale Buttons
     private final ToggleButton majorScaleButton = new ToggleButton("Major Scale");
     private final ToggleButton minorScaleButton = new ToggleButton("Minor Scale");
     private final ToggleButton chineseScaleButton = new ToggleButton("Chinese Scale");
@@ -76,18 +76,30 @@ public class LearnWindow extends Application {
     private final ToggleButton wholeToneScaleButton = new ToggleButton("Whole Tone Scale");
     private final ToggleButton suspended2ndButton = new ToggleButton("Suspended 2nd");
     private final ToggleButton suspended4thButton = new ToggleButton("Suspended 4th");
+
+    // Selection Buttons / Choice Boxes
     private final RadioButton selectChord = new RadioButton("CHORD");
     private final RadioButton selectScale = new RadioButton("SCALE");
     private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(
             Note.notesNamingMode == FLAT_MODE ? NOTE_QUALITIES_FLAT : NOTE_QUALITIES_SHARP));
     private static final ChoiceBox<Integer> inversionBox = new ChoiceBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4));
-    private final GridPane bottom = new GridPane();
     private final ToggleGroup selectChordOrScale = new ToggleGroup();
     private final ToggleGroup scaleType = new ToggleGroup();
     private final ToggleGroup chordType = new ToggleGroup();
+
+    //Musical Keys Representation
+    private final LinkedList<Button> keyBoard = new LinkedList<>();   //LinkedList containing the piano keys
+    private final LinkedList<Button> whiteKeys = new LinkedList<>();
+    private final LinkedList<Button> blackKeys = new LinkedList<>();
+
+    // Layouts
+    private final GridPane bottom = new GridPane();
     private final HBox white_keyPane = new HBox();
     private final HBox black_keyPane = new HBox();
     private final GridPane keyPane = new GridPane();
+
+    //Navigation Buttons
+    private final CommonMenu menu = new CommonMenu(false);
     private final Button resetButton = new Button("RESET");
     private final Button homeButton = new Button("Home");
 
@@ -339,7 +351,7 @@ public class LearnWindow extends Application {
             });
         }
 
-        Map<ToggleButton, ScaleType> buttonScaleTypeMap = new HashMap<ToggleButton, ScaleType>(){{
+        Map<ToggleButton, ScaleType> buttonScaleTypeMap = new HashMap<>(){{
             put(majorScaleButton, ScaleType.MAJOR_SCALE);
             put(minorScaleButton, ScaleType.MINOR_SCALE);
             put(chineseScaleButton, ScaleType.CHINESE_SCALE);
@@ -500,5 +512,4 @@ public class LearnWindow extends Application {
             button.setStyle(blackKeysReleasedCss);
         }
     }
-
 }
