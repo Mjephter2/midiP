@@ -99,8 +99,9 @@ public final class Main extends Application {
         mainWelcomeLabel.setWrapText(true);
         mainWelcomeLabel.setFont(new Font("aerial", 25));
         GridPane.setHalignment(mainWelcomeLabel, HPos.CENTER);
-        GridPane.setHalignment(mainWindowFreePlayButton, HPos.CENTER); // mainWindowFreePlayButton button centered
-        GridPane.setHalignment(mainWindowLearnButton, HPos.CENTER); // mainWindowLearnButton button centered
+        GridPane.setHalignment(mainWindowFreePlayButton, HPos.CENTER);
+        GridPane.setHalignment(mainWindowLearnButton, HPos.CENTER);
+
         // style learn button
         mainWindowLearnButton.setTextAlignment(TextAlignment.CENTER);
         mainWindowLearnButton.setWrapText(true);
@@ -108,6 +109,8 @@ public final class Main extends Application {
         mainWindowLearnButton.setStyle("-fx-background-radius: 30px;"
                 + "-fx-background-color: darkgray;");
         mainWindowLearnButton.setPrefSize(210, 300);
+
+        // Style main button when mouse enters
         mainWindowLearnButton.setOnMouseEntered(e -> {
             mainWindowLearnButton.setStyle(
                     "-fx-text-fill: white;"
@@ -115,11 +118,13 @@ public final class Main extends Application {
                             + "-fx-background-color: #010B02;");
             info.setText("Learn");
         });
+        // Style main button when mouse exits
         mainWindowLearnButton.setOnMouseExited(e -> {
             mainWindowLearnButton.setStyle("-fx-background-radius: 30px;"
                     + "-fx-background-color: darkgray;");
             info.setText("");
         });
+        // Navigate to Main window when clicked
         mainWindowLearnButton.setOnMouseClicked(e -> {
             LearnWindow learnWindow = new LearnWindow();
             Stage chordStage = new Stage();
@@ -139,6 +144,8 @@ public final class Main extends Application {
                         + "-fx-background-color: darkgray;");
         mainWindowFreePlayButton.setPrefSize(200, 200);
         mainWindowFreePlayButton.setFont(mainWindowFont);
+
+        // Style free play button when mouse enters
         mainWindowFreePlayButton.setOnMouseEntered(e -> {
             mainWindowFreePlayButton.setStyle(
                     "-fx-text-fill: white;"
@@ -146,12 +153,14 @@ public final class Main extends Application {
                             + "-fx-background-color: #010B02;");
             info.setText("Play freely");
         });
+        // Style free play button when mouse exits
         mainWindowFreePlayButton.setOnMouseExited(e -> {
             mainWindowFreePlayButton.setStyle(
                     "-fx-background-radius: 30px;"
                             + "-fx-background-color: darkgray;");
             info.setText("");
         });
+        // Navigate to Free Play window when clicked
         mainWindowFreePlayButton.setOnMouseClicked(e -> {
             FreePlayWindow chordWindowRoot = new FreePlayWindow();
             Stage chordStage = new Stage();

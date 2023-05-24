@@ -441,6 +441,8 @@ public class LearnWindow extends Application {
         launch(args);
     }
 
+
+
     @Override
     public void start(final Stage learn) {
         draw();
