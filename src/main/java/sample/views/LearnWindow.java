@@ -29,16 +29,13 @@ import sample.models.scales.Scale;
 import sample.models.scales.ScaleType;
 import static sample.models.NotesNamingMode.FLAT_MODE;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Random;
 import java.util.logging.Logger;
 
 import static sample.models.NotesNamingMode.SHARP_MODE;
@@ -52,7 +49,7 @@ import static sample.views.Styles.blackKeysPressedCSs;
 public class LearnWindow extends Application {
     private static final Logger logger = Logger.getLogger(LearnWindow.class.getName());
     private static final int NUMBER_OF_KEYS = 36;
-    private static List<String> keyColors = List.of("red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "gray", "black", "white");
+    private static final List<String> keyColors = List.of("red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "gray", "black", "white");
 
     //Chord Buttons
     private final ToggleButton majorTriadButton = new ToggleButton("Major Triad");
@@ -345,8 +342,9 @@ public class LearnWindow extends Application {
                         button1.setAlignment(Pos.BOTTOM_CENTER);
                         if(blackKeys.contains(button1))
                             button1.setFont(new Font("aerials", 8));
-                        if(chordNotesNames.contains(button1.getTooltip().getText())){
-                            colorButton(button1, root.noteQuality().equals(buttonNoteQuality), chordNotesNames.indexOf(button1.getTooltip().getText()));
+                        if(chordNotesNames.contains(button1.getTooltip().getText())) {
+                            final int nodeIndex = chordNotesNames.indexOf(button1.getTooltip().getText());
+                            colorButton(button1, root.noteQuality().equals(buttonNoteQuality), nodeIndex);
                             showButtonNoteName(button1);
                         }
                     }
@@ -445,8 +443,6 @@ public class LearnWindow extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
-
 
     @Override
     public void start(final Stage learn) {
