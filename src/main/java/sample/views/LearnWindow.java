@@ -49,7 +49,7 @@ import static sample.views.Styles.blackKeysPressedCSs;
 public class LearnWindow extends Application {
     private static final Logger logger = Logger.getLogger(LearnWindow.class.getName());
     private static final int NUMBER_OF_KEYS = 36;
-    private static final List<String> keyColors = List.of("red", "blue", "green", "yellow", "orange", "purple", "pink", "brown", "gray", "black", "white");
+    private static final List<String> keyColors = List.of("green", "blue", "red", "yellow", "orange", "purple", "pink", "brown", "gray", "black");
 
     //Chord Buttons
     private final ToggleButton majorTriadButton = new ToggleButton("Major Triad");
@@ -404,7 +404,7 @@ public class LearnWindow extends Application {
         if (isRoot) {
             button.setStyle(button.getStyle() + "-fx-background-color: #EEBC1D;");
         } else {
-            button.setStyle(button.getStyle() + "-fx-background-color: " + keyColors.get(noteIndex) + ";");
+            button.setStyle(button.getStyle() + "-fx-background-color: " + keyColors.get(noteIndex - 1) + ";");
         }
     }
 
