@@ -14,6 +14,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
@@ -481,6 +482,9 @@ public class LearnWindow extends Application {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
         root.setPadding(new Insets(10,10,10,10));
+        final ContextMenu contextMenu = new ContextMenu();
+        contextMenu.getItems().addAll(menu.getMenus());
+        root.setOnContextMenuRequested(event -> contextMenu.show(bottom, event.getScreenX(), event.getScreenY()));
 
         menu.flatModeItem.setOnAction(e -> {
             Note.notesNamingMode = FLAT_MODE;
