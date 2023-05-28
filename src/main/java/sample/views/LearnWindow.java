@@ -17,6 +17,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.models.Utilities;
@@ -30,6 +31,7 @@ import sample.models.scales.ScaleType;
 import static sample.models.NotesNamingMode.FLAT_MODE;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -37,6 +39,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static sample.models.NotesNamingMode.SHARP_MODE;
 import static sample.models.Utilities.NOTE_QUALITIES_FLAT;
@@ -49,7 +53,7 @@ import static sample.views.Styles.blackKeysPressedCSs;
 public class LearnWindow extends Application {
     private static final Logger logger = Logger.getLogger(LearnWindow.class.getName());
     private static final int NUMBER_OF_KEYS = 36;
-    private static final List<String> keyColors = List.of("green", "blue", "red", "yellow", "orange", "purple", "pink", "brown", "gray", "black");
+    private static final List<String> keyColors = List.of("green", "blue", "red", "orange", "purple", "pink", "brown", "gray", "black");
 
     //Chord Buttons
     private final ToggleButton majorTriadButton = new ToggleButton("Major Triad");
@@ -84,7 +88,20 @@ public class LearnWindow extends Application {
     private final RadioButton selectScale = new RadioButton("SCALE");
     private static final ChoiceBox<String> keyBox = new ChoiceBox<>(FXCollections.observableArrayList(
             Note.notesNamingMode == FLAT_MODE ? NOTE_QUALITIES_FLAT : NOTE_QUALITIES_SHARP));
-    private static final ChoiceBox<Integer> inversionBox = new ChoiceBox<>(FXCollections.observableArrayList(0, 1, 2, 3, 4));
+
+    private static final Map<String, Integer> inversionNameToNumber = Stream.of(new Object[][] {
+            {"Root", 0},
+            {"First", 1},
+            {"Second", 2},
+            {"Third", 3},
+            {"Fourth", 4}
+    }).collect(Collectors.toMap(data -> (String) data[0], data -> (Integer) data[1]));
+    private static final ChoiceBox<String> inversionBox = new ChoiceBox<>(
+            FXCollections.observableArrayList(
+                    inversionNameToNumber.keySet().stream()
+                            .sorted(Comparator.comparingInt(inversionNameToNumber::get)).collect(Collectors.toList()))
+    );
+
     private final ToggleGroup selectChordOrScale = new ToggleGroup();
     private final ToggleGroup scaleType = new ToggleGroup();
     private final ToggleGroup chordType = new ToggleGroup();
@@ -291,6 +308,7 @@ public class LearnWindow extends Application {
 
     void showButtonNoteName(Button button) {
         String text = button.getTooltip().getText().substring(0, button.getTooltip().getText().length() -1);
+        button.setTextFill(Color.WHITE);
         button.setText(text);
     }
 
@@ -326,10 +344,10 @@ public class LearnWindow extends Application {
                         root = root.sharp(1);
                     }
                     Chord chord = new Chord(buttonChordTypeMap.get(button), root);
-                    Note[] chordNotes = inversionBox.getValue() == 0 ?
+                    Note[] chordNotes = inversionNameToNumber.get(inversionBox.getValue()) == 0 ?
                             chord.notes()
                             :
-                            chord.invert(inversionBox.getValue());
+                            chord.invert(inversionNameToNumber.get(inversionBox.getValue()));
                     ArrayList<String> chordNotesNames = new ArrayList<>();
                     for (Note chordNote : chordNotes) {
                         chordNotesNames.add(chordNote.getName());
@@ -402,9 +420,9 @@ public class LearnWindow extends Application {
 
     private void colorButton(final Button button, final boolean isRoot, final int noteIndex){
         if (isRoot) {
-            button.setStyle(button.getStyle() + "-fx-background-color: #EEBC1D;");
+            button.setStyle(button.getStyle() + "-fx-background-color: " + keyColors.get(0) + ";");
         } else {
-            button.setStyle(button.getStyle() + "-fx-background-color: " + keyColors.get(noteIndex - 1) + ";");
+            button.setStyle(button.getStyle() + "-fx-background-color: " + keyColors.get(noteIndex + 1) + ";");
         }
     }
 
