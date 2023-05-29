@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
@@ -459,6 +461,28 @@ public class LearnWindow extends Application {
         resetButtons();
     }
 
+    private ContextMenu generateContextMenu() {
+        final ContextMenu contextMenu = new ContextMenu();
+
+        final Menu preferenceMenu = new Menu("Change Naming Mode");
+        final MenuItem flatItem = new MenuItem(menu.flatModeItem.getText());
+        flatItem.setOnAction(event -> {
+            Note.notesNamingMode = FLAT_MODE;
+            switchNoteNamingMode();
+        });
+        MenuItem sharpItem = new MenuItem(menu.sharpModeItem.getText());
+        sharpItem.setOnAction(event -> {
+            Note.notesNamingMode = SHARP_MODE;
+            switchNoteNamingMode();
+        });
+        preferenceMenu.getItems().add(flatItem);
+        preferenceMenu.getItems().add(sharpItem);
+
+        contextMenu.getItems().add(0, preferenceMenu);
+
+        return contextMenu;
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -482,9 +506,14 @@ public class LearnWindow extends Application {
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
         root.setPadding(new Insets(10,10,10,10));
-        final ContextMenu contextMenu = new ContextMenu();
-        contextMenu.getItems().addAll(menu.getMenus());
+        final ContextMenu contextMenu = generateContextMenu();
+//        contextMenu.getItems().addAll(List.copyOf(menu.getMenus()));
         root.setOnContextMenuRequested(event -> contextMenu.show(bottom, event.getScreenX(), event.getScreenY()));
+        root.setOnMousePressed(event -> {
+            if (contextMenu.isShowing()) {
+                contextMenu.hide();
+            }
+        });
 
         menu.flatModeItem.setOnAction(e -> {
             Note.notesNamingMode = FLAT_MODE;
@@ -500,7 +529,7 @@ public class LearnWindow extends Application {
         GridPane.setHalignment(bottom, HPos.CENTER);
         root.setCenter(keyPane);
 
-        Scene scene = new Scene(root,1000,420);
+        Scene scene = new Scene(root,1050,420);
         learn.setFullScreen(false);
         learn.setResizable(false);
         learn.setTitle("Learn Chords and Scales");

@@ -10,8 +10,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class CommonMenu extends MenuBar {
-    public MenuItem flatModeItem = new MenuItem("Flat Mode: b");
-    public MenuItem sharpModeItem = new MenuItem("Sharp Mode: #");
+    public Menu flatModeItem = new Menu("Flat Mode: b");
+    public Menu sharpModeItem = new Menu("Sharp Mode: #");
     public Menu selectMidiInput = new Menu("Select Midi Input");
 
     public CommonMenu(final boolean showMidiList) {
@@ -34,15 +34,15 @@ public class CommonMenu extends MenuBar {
 
         Menu preferenceSub = new Menu("Preferences");
         Menu setNoteNamingModeItem = new Menu("Set Note Naming Mode");
-        preferenceSub.getItems().add(setNoteNamingModeItem);
+        preferenceSub.getItems().add(0, setNoteNamingModeItem);
 
-        setNoteNamingModeItem.getItems().add(flatModeItem);
-        setNoteNamingModeItem.getItems().add(sharpModeItem);
+        setNoteNamingModeItem.getItems().add(0, flatModeItem);
+        setNoteNamingModeItem.getItems().add(1, sharpModeItem);
 
         // add menu items to menu
-        m.getItems().add(aboutMidiP);
-        m.getItems().add(preferenceSub);
-        m.getItems().add(quitMidiP);
+        m.getItems().add(0, aboutMidiP);
+        m.getItems().add(1, preferenceSub);
+        m.getItems().add(2, quitMidiP);
 
         // add menus to menu bar
         this.getMenus().add(m);
