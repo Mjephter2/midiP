@@ -122,11 +122,10 @@ public class LearnWindow extends Application {
 
     //Navigation Buttons
     private final CommonMenu menu = new CommonMenu(false);
-    private final Button resetButton = new Button("RESET");
+    private final Button resetButton = new Button("Reset");
     private final Button homeButton = new Button("Home");
 
     private void drawSelectionButtons() {
-        //bottom.setGridLinesVisible(true);
         bottom.setStyle("-fx-background-color: darkgray;");
         bottom.setPadding(new Insets(10,0,10,0));
         bottom.setHgap(10);
@@ -429,11 +428,6 @@ public class LearnWindow extends Application {
         }
     }
 
-    /**
-     * draws selection buttons
-     * draws on-display keyboard
-     * add actions to selection buttons
-     */
     private void draw() {
         drawSelectionButtons();
         drawKeyboard();
@@ -488,26 +482,26 @@ public class LearnWindow extends Application {
     }
 
     @Override
-    public void start(final Stage learn) {
+    public void start(final Stage learnStage) {
         draw();
-        learn.setOnCloseRequest(windowEvent -> {
+        learnStage.setOnCloseRequest(windowEvent -> {
             Main mainWindow = new Main();
             Stage mainStage = new Stage();
             try {
                 mainWindow.start(mainStage);
-                learn.close();
+                learnStage.close();
                 mainStage.show();
-            } catch (Exception ex) {
+            } catch (Exception e) {
                 logger.info("Error opening Main Window!!!");
-                ex.printStackTrace();
+                e.printStackTrace();
             }
-        });
+        }
+        );
 
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
         root.setPadding(new Insets(10,10,10,10));
         final ContextMenu contextMenu = generateContextMenu();
-//        contextMenu.getItems().addAll(List.copyOf(menu.getMenus()));
         root.setOnContextMenuRequested(event -> contextMenu.show(bottom, event.getScreenX(), event.getScreenY()));
         root.setOnMousePressed(event -> {
             if (contextMenu.isShowing()) {
@@ -530,18 +524,17 @@ public class LearnWindow extends Application {
         root.setCenter(keyPane);
 
         Scene scene = new Scene(root,1050,420);
-        learn.setFullScreen(false);
-        learn.setResizable(false);
-        learn.setTitle("Learn Chords and Scales");
-        learn.setScene(scene);
-        learn.show();
+        learnStage.setFullScreen(false);
+        learnStage.setResizable(false);
+        learnStage.setTitle("Learn Chords and Scales");
+        learnStage.setScene(scene);
+        learnStage.show();
 
-        // Home button action listener: Closes LearnWindow Stage and opens Main window Stage
         homeButton.setOnAction( e ->{
             Main mainWindow = new Main();
             try {
                 mainWindow.start(new Stage());
-                learn.close();
+                learnStage.close();
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
