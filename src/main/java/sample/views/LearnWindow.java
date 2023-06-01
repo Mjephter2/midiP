@@ -458,6 +458,9 @@ public class LearnWindow extends Application {
     private ContextMenu generateContextMenu() {
         final ContextMenu contextMenu = new ContextMenu();
 
+        final MenuItem exitItem = new MenuItem("Exit");
+        exitItem.setOnAction(event -> System.exit(0));
+
         final Menu preferenceMenu = new Menu("Change Naming Mode");
         final MenuItem flatItem = new MenuItem(menu.flatModeItem.getText());
         flatItem.setOnAction(event -> {
@@ -473,6 +476,7 @@ public class LearnWindow extends Application {
         preferenceMenu.getItems().add(sharpItem);
 
         contextMenu.getItems().add(0, preferenceMenu);
+        contextMenu.getItems().add(1, exitItem);
 
         return contextMenu;
     }
