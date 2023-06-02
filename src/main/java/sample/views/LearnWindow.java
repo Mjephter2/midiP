@@ -17,11 +17,11 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.text.Font;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.models.Utilities;
 import sample.models.FillerButton;
@@ -31,6 +31,8 @@ import sample.models.chords.ChordType;
 import sample.models.exceptions.InvalidNoteException;
 import sample.models.scales.Scale;
 import sample.models.scales.ScaleType;
+
+import static com.sun.org.apache.xml.internal.utils.LocaleUtility.EMPTY_STRING;
 import static sample.models.NotesNamingMode.FLAT_MODE;
 
 import java.util.ArrayList;
@@ -123,7 +125,7 @@ public class LearnWindow extends Application {
     //Navigation Buttons
     private final CommonMenu menu = new CommonMenu(false);
     private final Button resetButton = new Button("Reset");
-    private final Button homeButton = new Button("Home");
+
 
     private void drawSelectionButtons() {
         bottom.setStyle("-fx-background-color: darkgray;");
@@ -227,7 +229,6 @@ public class LearnWindow extends Application {
         bottom.add(new FillerButton(60,10), 8 , 0);
         bottom.add(new FillerButton(60,10), 9 , 0);
         bottom.add(resetButton,10,0);
-        bottom.add(homeButton, 10, 1);
     }
 
     private void drawKeyboard() {
@@ -455,7 +456,7 @@ public class LearnWindow extends Application {
         resetButtons();
     }
 
-    private ContextMenu generateContextMenu() {
+    private ContextMenu generateContextMenu(final Stage stage) {
         final ContextMenu contextMenu = new ContextMenu();
 
         final MenuItem exitItem = new MenuItem("Exit");
@@ -468,6 +469,19 @@ public class LearnWindow extends Application {
             switchNoteNamingMode();
         });
         MenuItem sharpItem = new MenuItem(menu.sharpModeItem.getText());
+        MenuItem homeButton = new MenuItem("Home");
+        homeButton.setOnAction(event -> {
+            Main mainWindow = new Main();
+            Stage mainStage = new Stage();
+            try {
+                mainWindow.start(mainStage);
+                stage.close();
+                mainStage.show();
+            } catch (Exception e) {
+                logger.info("Error opening Main Window!!!");
+                e.printStackTrace();
+            }
+        });
         sharpItem.setOnAction(event -> {
             Note.notesNamingMode = SHARP_MODE;
             switchNoteNamingMode();
@@ -477,6 +491,7 @@ public class LearnWindow extends Application {
 
         contextMenu.getItems().add(0, preferenceMenu);
         contextMenu.getItems().add(1, exitItem);
+        contextMenu.getItems().add(2, homeButton);
 
         return contextMenu;
     }
@@ -489,23 +504,24 @@ public class LearnWindow extends Application {
     public void start(final Stage learnStage) {
         draw();
         learnStage.setOnCloseRequest(windowEvent -> {
-            Main mainWindow = new Main();
-            Stage mainStage = new Stage();
-            try {
-                mainWindow.start(mainStage);
+            Stage newStage = new Stage();
+            Main newWindow = new Main();
+
+            try  {
+                newWindow.start(newStage);
                 learnStage.close();
-                mainStage.show();
+                newStage.show();
             } catch (Exception e) {
                 logger.info("Error opening Main Window!!!");
                 e.printStackTrace();
-            }
+             }
         }
         );
 
         BorderPane root = new BorderPane();
         root.setStyle("-fx-background-color: #E6BF83");
         root.setPadding(new Insets(10,10,10,10));
-        final ContextMenu contextMenu = generateContextMenu();
+        final ContextMenu contextMenu = generateContextMenu(learnStage);
         root.setOnContextMenuRequested(event -> contextMenu.show(bottom, event.getScreenX(), event.getScreenY()));
         root.setOnMousePressed(event -> {
             if (contextMenu.isShowing()) {
@@ -533,16 +549,6 @@ public class LearnWindow extends Application {
         learnStage.setTitle("Learn Chords and Scales");
         learnStage.setScene(scene);
         learnStage.show();
-
-        homeButton.setOnAction( e ->{
-            Main mainWindow = new Main();
-            try {
-                mainWindow.start(new Stage());
-                learnStage.close();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
     }
 
     private void resetButtons(){
@@ -552,14 +558,14 @@ public class LearnWindow extends Application {
 
     private void resetWhiteKeys() {
         for(Button button: whiteKeys){
-            button.setText("");
+            button.setText(EMPTY_STRING);
             button.setStyle(whiteKeysReleasedCss);
         }
     }
 
     private void resetBlackKeys() {
         for(Button button: blackKeys) {
-            button.setText("");
+            button.setText(EMPTY_STRING);
             button.setStyle(blackKeysReleasedCss);
         }
     }
