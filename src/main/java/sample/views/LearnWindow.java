@@ -126,7 +126,6 @@ public class LearnWindow extends Application {
     private final CommonMenu menu = new CommonMenu(false);
     private final Button resetButton = new Button("Reset");
 
-
     private void drawSelectionButtons() {
         bottom.setStyle("-fx-background-color: darkgray;");
         bottom.setPadding(new Insets(10,0,10,0));
@@ -137,15 +136,41 @@ public class LearnWindow extends Application {
         selectScale.setToggleGroup(selectChordOrScale);
         selectChordOrScale.selectToggle(selectChord);
 
+        scaleType.getToggles().forEach(toggle -> {
+            Node node = (Node) toggle;
+            node.setDisable(true);
+        });
+        selectChord.setOnAction(actionEvent -> {
+            chordType.getToggles().forEach(toggle -> {
+                Node node = (Node) toggle;
+                node.setDisable(false);
+            });
+            scaleType.getToggles().forEach(toggle -> {
+                Node node = (Node) toggle;
+                node.setDisable(true);
+            });
+            inversionBox.setDisable(false);
+        });
+        selectScale.setOnAction(actionEvent -> {
+            scaleType.getToggles().forEach(toggle -> {
+                Node node = (Node) toggle;
+                node.setDisable(false);
+            });
+            chordType.getToggles().forEach(toggle -> {
+                Node node = (Node) toggle;
+                node.setDisable(true);
+            });
+            inversionBox.setDisable(true);
+        });
+
         bottom.add(selectChord, 1,0);
         bottom.add(selectScale,1,1);
-
         bottom.add(new Label("Key / Root"),0,0, 1, 2);
         bottom.add(keyBox,0,1);
-        keyBox.setValue(keyBox.getItems().get(0));
-
         bottom.add(new Label("Inversion"),0,2, 1, 2);
         bottom.add(inversionBox, 0, 3);
+
+        keyBox.setValue(keyBox.getItems().get(0));
         inversionBox.setValue(inversionBox.getItems().get(0));
 
         majorScaleButton.setToggleGroup(scaleType);
@@ -197,33 +222,6 @@ public class LearnWindow extends Application {
         bottom.add(minor11thButton,6,1);
         bottom.add(major13thButton,6,2);
         bottom.add(minor13thButton,6,3);
-
-        scaleType.getToggles().forEach(toggle -> {
-            Node node = (Node) toggle;
-            node.setDisable(true);
-        });
-        selectChord.setOnAction(actionEvent -> {
-            chordType.getToggles().forEach(toggle -> {
-                Node node = (Node) toggle;
-                node.setDisable(false);
-            });
-            scaleType.getToggles().forEach(toggle -> {
-                Node node = (Node) toggle;
-                node.setDisable(true);
-            });
-            inversionBox.setDisable(false);
-        });
-        selectScale.setOnAction(actionEvent -> {
-            scaleType.getToggles().forEach(toggle -> {
-                Node node = (Node) toggle;
-                node.setDisable(false);
-            });
-            chordType.getToggles().forEach(toggle -> {
-                Node node = (Node) toggle;
-                node.setDisable(true);
-            });
-            inversionBox.setDisable(true);
-        });
 
         bottom.add(new FillerButton(60,10), 7 , 0);
         bottom.add(new FillerButton(60,10), 8 , 0);
@@ -514,7 +512,7 @@ public class LearnWindow extends Application {
             } catch (Exception e) {
                 logger.info("Error opening Main Window!!!");
                 e.printStackTrace();
-             }
+            }
         }
         );
 
