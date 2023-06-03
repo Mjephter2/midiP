@@ -9,6 +9,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -120,6 +121,8 @@ public final class FreePlayWindow extends Application {
      * Home button to return to the Main View.
      */
     private final Button homButton = new Button("Home");
+
+    private boolean showNotesNames = false;
 
     private final MenuItem keyboard88 = new MenuItem("88 Keys");
     private final MenuItem keyboard76 = new MenuItem("76 Keys");
@@ -252,31 +255,23 @@ public final class FreePlayWindow extends Application {
         initialize();
     }
 
-    /**
-     * This function assigns the text-note name on the button that is pressed.
-     * On white keys it's simple because they are big. On the black keys the text displays
-     * vertically so that the user can view the whole note name. It is called via show_notes action
-     * listener
-     */
     private void displayNotesNames() {
-        for (Button button : whiteKeys) {
-            String text = button.getTooltip().getText();
-            text = text.substring(0, text.length() - 1);
-            button.setText(text);
-            button.setAlignment(Pos.BOTTOM_CENTER);
-        }
-
-        for (Button button : blackKeys) {
-            String text = button.getTooltip().getText();
-            text = text.substring(0, text.length() - 1);
-            button.setFont(new Font("aerials", 8));
-            button.setText(text);
-            button.setTextFill(Color.WHITE);
-            button.setAlignment(Pos.BOTTOM_CENTER);
-        }
-    }
-
-
+        for (Button blackButton : whiteKeys) {
+            String buttonText = blackButton.getTooltip().getText();
+            buttonText = buttonText.substring(0, buttonText.length() - 1);
+            blackButton.setFont(new Font("cambria", 8));
+            blackButton.setText(buttonText);
+            blackButton.setAlignment(Pos.BOTTOM_CENTER);
+         }
+        for (Button whiteButton : blackKeys) {
+            String buttonText = whiteButton.getTooltip().getText();
+            buttonText = buttonText.substring(0, buttonText.length() - 1);
+            whiteButton.setText(buttonText);
+            whiteButton.setTextFill(Color.WHITE);
+            whiteButton.setFont(new Font("cambria", 8));
+            whiteButton.setAlignment(Pos.BOTTOM_CENTER);
+         }
+     }
     /**
      * Opens all the midi transmitters available in
      * the system.
@@ -327,6 +322,48 @@ public final class FreePlayWindow extends Application {
         launch(args);
     }
 
+    private ContextMenu generateContextMenu(final Stage stage) {
+        final ContextMenu contextMenu = new ContextMenu();
+
+        final MenuItem homeItem = new MenuItem("Home");
+        homeItem.setOnAction(event -> {
+            Main mainWindow = new Main();
+            Stage mainStage = new Stage();
+            try {
+                mainWindow.start(mainStage);
+                stage.close();
+                mainStage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        final MenuItem exitItem = new MenuItem("Exit");
+        exitItem.setOnAction(event -> System.exit(0));
+
+        final MenuItem showNotesNamesItem = new MenuItem("Show Notes Names");
+        showNotesNamesItem.setOnAction(e -> {
+            showNotesNames = !showNotesNames;
+            if (showNotesNames) {
+                displayNotesNames();
+            } else {
+                for (Button button : whiteKeys) {
+                    button.setText("");
+                }
+
+                for (Button button : blackKeys) {
+                    button.setText("");
+                }
+            }
+        });
+
+        contextMenu.getItems().add(0, showNotesNamesItem);
+        contextMenu.getItems().add(1, homeItem);
+        contextMenu.getItems().add(2, exitItem);
+
+        return contextMenu;
+    }
+
     @Override
     public void start(final Stage freePlay) {
         initialize();
@@ -364,19 +401,24 @@ public final class FreePlayWindow extends Application {
         // Hbox inside which we put show_notes and home button
         HBox buttons = new HBox();
         buttons.setSpacing(10);
-        buttons.getChildren().add(showNotesButton);
-        buttons.getChildren().add(homButton);
         // Assign buttons Hbox on the right side of bottomPane
         buttons.setAlignment(Pos.CENTER);
         bottomPane.setCenter(buttons);
         bottomPane.setBackground(Background.fill(Color.TRANSPARENT));
         bottomPane.setPadding(new Insets(0, 0, 20, 0));
-        homButton.setVisible(true);
-        showNotesButton.setVisible(true);
 
         // add menu bar
         bottomPane.setTop(menu);
         root.setBottom(bottomPane);
+
+        // add context menu
+        final ContextMenu contextMenu = generateContextMenu(freePlay);
+        root.setOnContextMenuRequested(event -> contextMenu.show(bottomPane, event.getScreenX(), event.getScreenY()));
+        root.setOnMousePressed(event -> {
+            if (contextMenu.isShowing()) {
+                contextMenu.hide();
+            }
+        });
 
         GridPane keyPane = new GridPane();
         keyPane.setAlignment(Pos.CENTER);
@@ -391,16 +433,6 @@ public final class FreePlayWindow extends Application {
         freePlay.setScene(scene);
         freePlay.show();
 
-        homButton.setOnAction(e -> {
-            Main mainWindow = new Main();
-            try {
-                mainWindow.start(new Stage());
-                freePlay.close();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-
         freePlay.setOnCloseRequest(windowEvent -> {
             Main mainWindow = new Main();
             try {
@@ -411,20 +443,6 @@ public final class FreePlayWindow extends Application {
             }
             closeAllTransmitters();
             midiInputReceiver.close();
-        });
-
-        showNotesButton.setOnMouseClicked(e -> {
-            if (showNotesButton.isSelected()) {
-                displayNotesNames();
-            } else {
-                for (Button button : whiteKeys) {
-                    button.setText("");
-                }
-
-                for (Button button : blackKeys) {
-                    button.setText("");
-                }
-            }
         });
     }
 
