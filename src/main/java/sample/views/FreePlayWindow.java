@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.layout.Background;
@@ -22,24 +21,10 @@ import sample.models.Note;
 import sample.models.Utilities;
 import sample.models.exceptions.InvalidNoteException;
 
-import javax.sound.midi.MidiChannel;
-import javax.sound.midi.MidiDevice;
-import javax.sound.midi.MidiSystem;
-
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Receiver;
-import javax.sound.midi.MidiMessage;
-import javax.sound.midi.Synthesizer;
-import java.time.LocalDateTime;
 import java.util.AbstractMap;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static sample.models.NotesNamingMode.FLAT_MODE;
 import static sample.models.NotesNamingMode.SHARP_MODE;
@@ -53,10 +38,6 @@ import static sample.views.Styles.blackKeysPressedCSs;
  * allowing for free play without audio feedback.
  */
 public final class FreePlayWindow extends Application {
-    /**
-     * Logger for this class.
-     */
-    public static final Logger LOGGER = Logger.getLogger(FreePlayWindow.class.getName());
     /**
      * Window configuration.
      */
@@ -104,23 +85,9 @@ public final class FreePlayWindow extends Application {
     private static final String BUTTON_ORIGINAL_STYLE = new Button().getStyle();
 
     /**
-     * Midi Receiver to capture keyboard / midi events.
-     */
-    private final MidiInputReceiver midiInputReceiver =
-            new MidiInputReceiver("Receiver");
-
-    /**
      * Index of the last key pressed
      * as captured from a physical midi device.
      */
-    private int lastKeyPressedIndex = 0;
-
-    private MidiChannel midiChannel;
-
-    /**
-     * Home button to return to the Main View.
-     */
-    private final Button homButton = new Button("Home");
 
     private boolean showNotesNames = false;
 
@@ -128,11 +95,6 @@ public final class FreePlayWindow extends Application {
     private final MenuItem keyboard76 = new MenuItem("76 Keys");
     private final MenuItem keyboard61 = new MenuItem("61 Keys (NEEDS WORK)");
     private final MenuItem keyboard49 = new MenuItem("49 Keys (NEEDS WORK)");
-
-    /**
-     * Button to show all Note names on the piano.
-     */
-    private final ToggleButton showNotesButton = new ToggleButton("Show Notes Names");
 
     private void switchNotesNamingMode() {
 
@@ -272,47 +234,6 @@ public final class FreePlayWindow extends Application {
             whiteButton.setAlignment(Pos.BOTTOM_CENTER);
          }
      }
-    /**
-     * Opens all the midi transmitters available in
-     * the system.
-     */
-    private void openAllTransmitters() {
-        Vector<MidiDevice.Info> synthInfos = new Vector<>();
-        MidiDevice device = null;
-        MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
-        for (MidiDevice.Info info : infos) {
-            try {
-                device = MidiSystem.getMidiDevice(info);
-            } catch (MidiUnavailableException e) {
-                e.printStackTrace();
-            }
-            if (device instanceof Synthesizer) {
-                synthInfos.add(info);
-            }
-        }
-        for (MidiDevice.Info info : synthInfos) {
-            menu.selectMidiInput.getItems().add(new MenuItem(info.getName() + " --- " +info.getDescription()));
-        }
-    }
-
-    /**
-     * Closes all the open midi transmitters available in the system.
-     */
-    private void closeAllTransmitters() {
-        MidiDevice device;
-        MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
-        for (MidiDevice.Info info : infos) {
-            try {
-                device = MidiSystem.getMidiDevice(info);
-                if (device.isOpen()) {
-                    device.close();
-                    LOGGER.info(device.getDeviceInfo() + " Was closed");
-                }
-            } catch (MidiUnavailableException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     /**
      * Main entry point.
@@ -367,7 +288,6 @@ public final class FreePlayWindow extends Application {
     @Override
     public void start(final Stage freePlay) {
         initialize();
-        openAllTransmitters();
 
         menu.flatModeItem.setOnAction(e -> {
             Note.notesNamingMode = FLAT_MODE;
@@ -441,74 +361,6 @@ public final class FreePlayWindow extends Application {
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
-            closeAllTransmitters();
-            midiInputReceiver.close();
         });
-    }
-
-    /**
-     * Event handler for midi keyboard events.
-     * Assigns the appropriate style to the keyboard keys involved
-     * @param key
-     */
-    private void keyPressedReleased(final int key) {
-        Button button = keyBoard[key];
-        if (button.getStyle().contains("blue")
-                || button.getStyle().contains("red")) {
-            if (whiteKeys.contains(button)) {
-                button.setStyle(BUTTON_ORIGINAL_STYLE);
-            } else if (blackKeys.contains(button)) {
-                button.setStyle("-fx-background-color: black");
-            }
-        } else {
-            if (whiteKeys.contains(button)) {
-                button.setStyle("-fx-background-color: blue");
-            } else if (blackKeys.contains(button)) {
-                button.setStyle("-fx-background-color: red");
-            }
-        }
-    }
-
-    /**
-     * Class to handle midi events.
-     */
-    public final class MidiInputReceiver implements Receiver {
-
-        /**
-         * name of the receiver.
-         */
-        private final String name;
-
-        /**
-         * Construct a receiver with the String argument as name.
-         * @param receiverName name of receiver
-         */
-        public MidiInputReceiver(final String receiverName) {
-            this.name = receiverName;
-        }
-
-        /**
-         * @param msg the MIDI message to send
-         * @param timeStamp the time-stamp for the message, in microseconds
-         */
-        public void send(final MidiMessage msg, final long timeStamp) {
-            byte[] aMsg = msg.getMessage();
-            if ((lastKeyPressedIndex == 127 && aMsg[2] == 0)
-                    || aMsg[2] == 127) {
-                lastKeyPressedIndex = aMsg[2];
-                return;
-            }
-            LOGGER.info("Message: " + aMsg[0] + ", " + aMsg[1] + ", " + aMsg[2]);
-            if (aMsg[1] - 21 < 0) {
-                return;
-            }
-            keyPressedReleased(aMsg[1] - 21);
-            lastKeyPressedIndex = aMsg[2];
-        }
-
-        @Override
-        public void close() {
-            closeAllTransmitters();
-        }
     }
 }
