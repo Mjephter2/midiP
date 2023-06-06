@@ -38,11 +38,7 @@ import static sample.views.Styles.blackKeysPressedCSs;
  * allowing for free play without audio feedback.
  */
 public final class FreePlayWindow extends Application {
-    /**
-     * Window configuration.
-     */
     private final FreePlayWindowConfig freePlayWindowConfig = FreePlayWindowConfig.fullWidthConfig();
-
     private static int numKeys = 88;
 
     Map<Integer, String> numKeysToStartKey = Map.ofEntries(
@@ -68,29 +64,10 @@ public final class FreePlayWindow extends Application {
     private final LinkedList<Button> blackKeys = new LinkedList<>();
 
     HBox blackKeyPane = new HBox();
-
     HBox whiteKeyPane = new HBox();
-
     BorderPane root = new BorderPane();
-
-    /**
-     * Top Level Menu Bar.
-     */
     private final CommonMenu menu = new CommonMenu(true);
-
-    /**
-     * Default Button style to help
-     * reset buttons to original look.
-     */
-    private static final String BUTTON_ORIGINAL_STYLE = new Button().getStyle();
-
-    /**
-     * Index of the last key pressed
-     * as captured from a physical midi device.
-     */
-
     private boolean showNotesNames = false;
-
     private final MenuItem keyboard88 = new MenuItem("88 Keys");
     private final MenuItem keyboard76 = new MenuItem("76 Keys");
     private final MenuItem keyboard61 = new MenuItem("61 Keys (NEEDS WORK)");
@@ -123,9 +100,9 @@ public final class FreePlayWindow extends Application {
                     :
                     Utilities.NOTE_NAMES_SHARP.get(i + firstKeyIndex);
             Button button = new Button(noteName);
-            if(blackIndex.contains(i % 12)){
+            if(blackIndex.contains(i % 12)) {
                 blackKeys.add(button);
-            }else{
+            } else {
                 whiteKeys.add(button);
             }
             keyBoard[i] = button;
@@ -139,7 +116,7 @@ public final class FreePlayWindow extends Application {
                 if (blackKeys.contains(button)) {
                     button.setStyle("-fx-background-color: black");
                 } else if (whiteKeys.contains(button)) {
-                    button.setStyle(BUTTON_ORIGINAL_STYLE);
+                    button.setStyle(new Button().getStyle());
                 }
             });
         }
