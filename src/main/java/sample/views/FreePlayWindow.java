@@ -224,17 +224,7 @@ public final class FreePlayWindow extends Application {
         final ContextMenu contextMenu = new ContextMenu();
 
         final MenuItem homeItem = new MenuItem("Home");
-        homeItem.setOnAction(event -> {
-            Main mainWindow = new Main();
-            Stage mainStage = new Stage();
-            try {
-                mainWindow.start(mainStage);
-                stage.close();
-                mainStage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        homeItem.setOnAction(event -> switchToMainWindow(stage));
 
         final MenuItem exitItem = new MenuItem("Exit");
         exitItem.setOnAction(event -> System.exit(0));
@@ -260,6 +250,16 @@ public final class FreePlayWindow extends Application {
         contextMenu.getItems().add(2, exitItem);
 
         return contextMenu;
+    }
+
+    private void switchToMainWindow(final Stage stage) {
+        Main mainWindow = new Main();
+        try {
+            mainWindow.start(new Stage());
+            stage.close();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
@@ -292,21 +292,13 @@ public final class FreePlayWindow extends Application {
         blackKeyPane.setPadding(new Insets(0, 0, 0, freePlayWindowConfig.getBlackKeyPaneLeftPadding()));
         blackKeyPane.setSpacing(freePlayWindowConfig.getBlackKeyPaneSpacing());
 
-        // Pane that will contain show_notes ToggleButton and home button
         BorderPane bottomPane = new BorderPane();
 
-        // Hbox inside which we put show_notes and home button
-        HBox buttons = new HBox();
-        buttons.setSpacing(10);
-        // Assign buttons Hbox on the right side of bottomPane
-        buttons.setAlignment(Pos.CENTER);
-        bottomPane.setCenter(buttons);
         bottomPane.setBackground(Background.fill(Color.TRANSPARENT));
-        bottomPane.setPadding(new Insets(0, 0, 20, 0));
 
         // add menu bar
         bottomPane.setTop(menu);
-        root.setBottom(bottomPane);
+        root.setTop(bottomPane);
 
         // add context menu
         final ContextMenu contextMenu = generateContextMenu(freePlay);
@@ -330,14 +322,6 @@ public final class FreePlayWindow extends Application {
         freePlay.setScene(scene);
         freePlay.show();
 
-        freePlay.setOnCloseRequest(windowEvent -> {
-            Main mainWindow = new Main();
-            try {
-                mainWindow.start(new Stage());
-                freePlay.close();
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        freePlay.setOnCloseRequest(windowEvent -> switchToMainWindow(freePlay));
     }
 }
