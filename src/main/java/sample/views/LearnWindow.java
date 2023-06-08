@@ -124,7 +124,6 @@ public class LearnWindow extends Application {
 
     //Navigation Buttons
     private final CommonMenu menu = new CommonMenu(false);
-    private final Button resetButton = new Button("Reset");
 
     private void drawSelectionButtons() {
         bottom.setStyle("-fx-background-color: darkgray;");
@@ -226,7 +225,6 @@ public class LearnWindow extends Application {
         bottom.add(new FillerButton(60,10), 7 , 0);
         bottom.add(new FillerButton(60,10), 8 , 0);
         bottom.add(new FillerButton(60,10), 9 , 0);
-        bottom.add(resetButton,10,0);
     }
 
     private void drawKeyboard() {
@@ -304,7 +302,6 @@ public class LearnWindow extends Application {
         keyPane.setPadding(new Insets(0,0,10,0));
         keyPane.add(white_keyPane,0,0,2,1);
         keyPane.add(black_keyPane,0,0,2,1);
-        resetButton.setOnMouseClicked(mouseEvent -> resetButtons());
     }
 
     void showButtonNoteName(Button button) {
@@ -487,9 +484,13 @@ public class LearnWindow extends Application {
         preferenceMenu.getItems().add(flatItem);
         preferenceMenu.getItems().add(sharpItem);
 
+        final MenuItem resetItem = new MenuItem("Reset");
+        resetItem.setOnAction(event -> resetButtons());
+
         contextMenu.getItems().add(0, preferenceMenu);
         contextMenu.getItems().add(1, exitItem);
         contextMenu.getItems().add(2, homeButton);
+        contextMenu.getItems().add(3, resetItem);
 
         return contextMenu;
     }
