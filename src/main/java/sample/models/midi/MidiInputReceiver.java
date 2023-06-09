@@ -23,7 +23,6 @@ public final class MidiInputReceiver implements Receiver {
     private final String name;
 
     private final LinkedList<Button> whiteKeys;
-    private final LinkedList<Button> blackKeys;
     private final LinkedList<Button> keyBoard;
 
     /**
@@ -33,7 +32,6 @@ public final class MidiInputReceiver implements Receiver {
     public MidiInputReceiver(final String receiverName, LinkedList<Button> keyBoard, final LinkedList<Button> whiteKeys, LinkedList<Button> blackKeys) {
         this.name = receiverName;
         this.whiteKeys = whiteKeys;
-        this.blackKeys = blackKeys;
         this.keyBoard = keyBoard;
     }
 
