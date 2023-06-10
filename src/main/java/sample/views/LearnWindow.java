@@ -122,14 +122,13 @@ public class LearnWindow extends Application {
     private final HBox black_keyPane = new HBox();
     private final GridPane keyPane = new GridPane();
 
-    //Navigation Buttons
     private final CommonMenu menu = new CommonMenu(false);
 
     private void drawSelectionButtons() {
         bottom.setStyle("-fx-background-color: darkgray;");
         bottom.setPadding(new Insets(10,0,10,0));
-        bottom.setHgap(10);
-        bottom.setVgap(10);
+        bottom.setHgap(15);
+        bottom.setVgap(15);
 
         selectChord.setToggleGroup(selectChordOrScale);
         selectScale.setToggleGroup(selectChordOrScale);
@@ -542,7 +541,7 @@ public class LearnWindow extends Application {
         GridPane.setHalignment(bottom, HPos.CENTER);
         root.setCenter(keyPane);
 
-        Scene scene = new Scene(root,1050,420);
+        Scene scene = new Scene(root,1000,450);
         learnStage.setFullScreen(false);
         learnStage.setResizable(false);
         learnStage.setTitle("Learn Chords and Scales");
