@@ -7,12 +7,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import sample.models.Utilities;
 
@@ -49,52 +47,40 @@ public class GrandStaffSample extends Application {
             lines[i].setStroke(Color.TRANSPARENT);
 
             circles[i] = new Circle(lines[i].getStartX(), lines[i].getStartY(), 5);
-            circles[i].setFill(Paint.valueOf("gray"));
             circles[i].setVisible(true);
             circles[i].setTranslateX(100);
-            circles[i].setFill(Color.TRANSPARENT);
+
             texts[i] = new Text();
-            if (i == 0 || i == 13 || i == 20) {
-                texts[i].setText("" + i);
-            }
-            texts[i].setX(lines[i].getStartX() + 50);
+            texts[i].setManaged(true);
+            texts[i].setX(10);
             texts[i].setY(lines[i].getStartY());
             texts[i].setFont(new Font(10));
-            texts[i].setBoundsType(TextBoundsType.VISUAL);
-            texts[i].setVisible(true);
         }
+        circles[20].setFill(Color.TRANSPARENT);
 
         double fClefStartY = initialY + 2 * 10;
         for (int i = 21; i < lines.length; i++) {
             lines[i] = new Line(initialStartX, fClefStartY + 10 * i, initialEndX, fClefStartY + 10 * i);
+            circles[i] = new Circle(initialStartX, lines[i].getStartY(), 5);
+
             lines[i].setStrokeWidth(1.5);
             lines[i].setStroke(Color.TRANSPARENT);
 
             circles[i] = new Circle(lines[i].getStartX(), lines[i].getStartY(), 5);
-            circles[i].setFill(Paint.valueOf("gray"));
             circles[i].setVisible(true);
-            circles[i].setFill(Color.TRANSPARENT);
             circles[i].setTranslateX(100);
+
             texts[i] = new Text();
             if (i == lines.length - 1 || i == 24 || i == 27) {
-                texts[i].setText("" + i);
+                texts[i].setText(String.valueOf(i));
             }
-            texts[i].setX(lines[i].getStartX() + 50);
+            texts[i].setX(10);
             texts[i].setY(lines[i].getStartY());
             texts[i].setFont(new Font(10));
-            texts[i].setBoundsType(TextBoundsType.VISUAL);
-            texts[i].setVisible(true);
         }
 
         for (int i : new int[]{11, 13, 15, 17, 19, 23, 25, 27, 29, 31}) {
             lines[i].setStroke(Color.RED);
-            circles[i].setTranslateX(50);
-//            circles[i].setFill(Color.TRANSPARENT);
-        }
-
-        for (int i = 32; i <= 51; i++) {
-            lines[i].setStroke(Color.TRANSPARENT);
-            circles[i].setFill(Color.TRANSPARENT);
         }
 
         // center middle C
@@ -104,8 +90,6 @@ public class GrandStaffSample extends Application {
         lines[21].setEndX(lines[21].getEndX() - 225);
         lines[21].setVisible(false);
         lines[21].setStroke(Color.BLACK);
-        texts[21].setY(texts[21].getY() - 10);
-
 
         // order notes on staff from bottom to top
         int i = 51;
@@ -115,19 +99,13 @@ public class GrandStaffSample extends Application {
             noteLines.put(noteName, lines[i-j]);
             noteCircles[j] = circles[i-j];
             noteTexts[j] = texts[i-j];
-            texts[i-j].setVisible(false);
-            texts[i-j].setText(whiteNotesNames.get(j));
-        }
-
-        for(String noteName: whiteNotesNames) {
-            System.out.println(noteName + " " + noteLines.get(noteName));
+            noteTexts[j].setText(whiteNotesNames.get(j));
         }
 
         Line verticalLine = new Line(initialStartX, initialY + 10, initialStartX, initialY + 10 * 23);
         verticalLine.setStrokeWidth(2);
         verticalLine.setTranslateX((initialStartX - initialEndX) / 2.0);
         verticalLine.setTranslateY(-45);
-
 
         InputStream stream = null;
         try {
@@ -181,10 +159,10 @@ public class GrandStaffSample extends Application {
         Group lineGroup = new Group(lines);
         //Create a Group object for circle
         Group circleGroup = new Group(circles);
-        circleGroup.setTranslateX(-90);
+        circleGroup.setTranslateX(100);
         //Create a Group for texts objects
         Group textsGroup = new Group(texts);
-        textsGroup.setTranslateX(100);
+        textsGroup.setTranslateX(-90);
 
         StackPane root = new StackPane();
         root.getChildren().add(0, lineGroup);
