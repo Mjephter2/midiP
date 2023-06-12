@@ -111,6 +111,16 @@ public class GrandStaffSample extends Application {
             noteTexts[j].setFill(Color.TRANSPARENT);
         }
 
+        for (int j = 20; j < 28; j++) {
+            noteTexts[j].setText(j % 2 == 0 ? "b" : "#");
+            noteTexts[j].setFont(Font.font(20));
+        }
+
+        for (int j = 34; j < 42; j++) {
+            noteTexts[j].setText(j % 2 == 0 ? "b" : "#");
+            noteTexts[j].setFont(Font.font(20));
+        }
+
         Line verticalLine = new Line(initialStartX, initialY + 10, initialStartX, initialY + 10 * 23);
         verticalLine.setStrokeWidth(2);
         verticalLine.setTranslateX((initialStartX - initialEndX) / 2.0);
