@@ -56,7 +56,6 @@ public class GrandStaffSample extends Application {
             texts[i].setY(lines[i].getStartY());
             texts[i].setFont(new Font(10));
         }
-        circles[20].setFill(Color.TRANSPARENT);
 
         double fClefStartY = initialY + 2 * 10;
         for (int i = 21; i < lines.length; i++) {
@@ -100,6 +99,16 @@ public class GrandStaffSample extends Application {
             noteCircles[j] = circles[i-j];
             noteTexts[j] = texts[i-j];
             noteTexts[j].setText(whiteNotesNames.get(j));
+        }
+
+        for (int j = 0; j < 20; j++) {
+            noteTexts[j].setFill(Color.TRANSPARENT);
+        }
+        for (int j = 28; j < 34; j++) {
+            noteTexts[j].setFill(Color.TRANSPARENT);
+        }
+        for (int j = 42; j < 52; j++) {
+            noteTexts[j].setFill(Color.TRANSPARENT);
         }
 
         Line verticalLine = new Line(initialStartX, initialY + 10, initialStartX, initialY + 10 * 23);
