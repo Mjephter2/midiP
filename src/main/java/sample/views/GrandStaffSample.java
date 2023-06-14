@@ -111,6 +111,10 @@ public class GrandStaffSample extends Application {
             noteTexts[j].setFill(Color.TRANSPARENT);
         }
 
+        for (int j = 0; j < 52; j++) {
+            noteCircles[j].setFill(Color.TRANSPARENT);
+        }
+
         for (int j = 20; j < 28; j++) {
             noteTexts[j].setText(j % 2 == 0 ? "b" : "#");
             noteTexts[j].setFont(Font.font(20));
