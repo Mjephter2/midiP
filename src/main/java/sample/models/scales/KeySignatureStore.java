@@ -9,7 +9,6 @@ import sample.models.exceptions.InvalidNoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * A class representing the Key Signature of a scale.
@@ -41,7 +40,7 @@ public final class KeySignatureStore {
             } catch (InvalidNoteException e) {
                 throw new RuntimeException(e);
             }
-        }).collect(Collectors.toList());
+        }).toList();
 
         List<Scale> scales = scaleRoots.stream().map(note -> {
             try {
@@ -49,13 +48,13 @@ public final class KeySignatureStore {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }).collect(Collectors.toList());
+        }).toList();
 
         for(Scale scale : scales) {
             Note[] uniqueNotes = Arrays.copyOfRange(scale.notes(), 0, scale.notes().length - 1);
             String[] scaleAccidentals = Arrays.stream(uniqueNotes)
                     .filter(note -> note.getName().length() > 2)
-                    .map(note -> note.noteQuality()).toArray(String[]::new);
+                    .map(Note::noteQuality).toArray(String[]::new);
             accidentals.add(new Pair<>(scale.notes()[0].noteQuality(), scaleAccidentals));
         }
 
