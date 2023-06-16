@@ -17,6 +17,8 @@ import sample.models.Utilities;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.security.InvalidParameterException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,9 +26,29 @@ import java.util.List;
  * Sample GUI of a full Grand Staff
  */
 public class GrandStaffSample extends Application {
+    Line[] lines = new Line[52];
+    Circle[] circles = new Circle[52];
+    Text[] texts = new Text[52];
+    public String currentKey;
     public static HashMap<String, Line> noteLines = new HashMap<>();
     public static Circle[] noteCircles = new Circle[52];
     public static Text[] noteTexts = new Text[52];
+
+    public void showNote(final String noteName) {
+        Line line = noteLines.get(noteName);
+        System.out.println(line);
+
+        int placement = -1;
+        for (int i = 0; i < lines.length; i++) {
+            placement++;
+            if (line == lines[i]) {
+                System.out.println("line found");
+                System.out.println("placement " + placement);
+                break;
+            }
+        }
+        noteCircles[52 - placement].setFill(Color.BLUE);
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -37,10 +59,7 @@ public class GrandStaffSample extends Application {
         double initialStartX = 100.0;
         double initialEndX = 800.0;
         double initialY = 10.0;
-        //Creating line objects, circle objects and Text objects
-        Line[] lines = new Line[52];
-        Circle[] circles = new Circle[52];
-        Text[] texts = new Text[52];
+
         for (int i = 0; i < 21; i++) {
             lines[i] = new Line(initialStartX, initialY + 10 * i, initialEndX, initialY + 10 * i);
             lines[i].setStrokeWidth(2);
@@ -195,6 +214,9 @@ public class GrandStaffSample extends Application {
         root.getChildren().add(4, trebleClef);
         root.getChildren().add(5, leftBrace);
         root.getChildren().add(6, bassClef);
+
+        showNote("C4");
+        showNote("B1");
 
         Scene scene = new Scene(root, 1000, 700);
         primaryStage.setTitle("Grand Staff Sample");
