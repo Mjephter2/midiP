@@ -32,7 +32,6 @@ import sample.models.exceptions.InvalidNoteException;
 import sample.models.scales.Scale;
 import sample.models.scales.ScaleType;
 
-import static com.sun.org.apache.xml.internal.utils.LocaleUtility.EMPTY_STRING;
 import static sample.models.NotesNamingMode.FLAT_MODE;
 
 import java.util.ArrayList;
@@ -556,14 +555,14 @@ public class LearnWindow extends Application {
 
     private void resetWhiteKeys() {
         for(Button button: whiteKeys){
-            button.setText(EMPTY_STRING);
+            button.setText("");
             button.setStyle(whiteKeysReleasedCss);
         }
     }
 
     private void resetBlackKeys() {
         for(Button button: blackKeys) {
-            button.setText(EMPTY_STRING);
+            button.setText("");
             button.setStyle(blackKeysReleasedCss);
         }
     }
